@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-	<info organisation="forces.html5" module="forces.html5.constraintValidationApi"/>
+	<info organisation="forces.forces" module="validation"/>
 	<dependencies>
 		<dependency org="com.googlecode.jslint4java" name="jslint4java-ant" rev="2.0.0"/>
 	</dependencies>
