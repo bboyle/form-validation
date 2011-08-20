@@ -86,12 +86,22 @@
 
 	module( "form submission UI" );
 
-	test( "required fields are reported on submit", function() {
+	test( "status message shown on submit", function() {
 
 		var form = $( "#test" );
 
 		form.submit();
 		equal( $( ".status" ).length, 1, ".status element is shown" );
+		
+	});
+
+	test( "only one status message shown on multiple submit", function() {
+
+		var form = $( "#test" );
+
+		form.submit();
+		form.submit();
+		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
 		
 	});
 

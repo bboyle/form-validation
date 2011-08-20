@@ -22,7 +22,9 @@ if ( jQuery !== "undefined" ) {
 		if ( invalid.length > 0 ) {
 			
 			// display alert
-			$( "<div class='status'>No submit for you!</div>" ).prependTo( form );
+			var alert = form.data( "forces.submit" ) || form.data( "forces.submit", $( "<div class='status'>No submit for you!</div>" )).data( "forces.submit" );
+
+			alert.prependTo( form );
 
 			// stop submit
 			return false;
