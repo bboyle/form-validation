@@ -1,0 +1,1 @@
+* display a status message box when form submission is attempted with required fields blank
