@@ -61,6 +61,37 @@
 			<textarea name="textareaFoo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
 		</li>
 
+		<li>
+			<fieldset>
+				<legend>
+					<span class="label">Radio foo</span>
+					<abbr title="(required)">*</abbr>
+				</legend>
+				<ul class="choices">
+					<li>
+						<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+						<label for="radio-foo-foo">Foo</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+						<label for="radio-foo-bar">Bar</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="" id="radio-foo-BLANK" />
+						<label for="radio-foo-BLANK">BLANK</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="undefined" id="radio-foo-undefined" />
+						<label for="radio-foo-undefined">undefined</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="null" id="radio-foo-null" />
+						<label for="radio-foo-null">null</label>
+					</li>
+				</ul>
+			</fieldset>
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -88,6 +119,7 @@
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script src="../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="jquery.forces.forms.js"></script>
 <script src="forces.forms.validation.js"></script>
 
 <script><!-- //
@@ -100,6 +132,7 @@
 		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
 		equal( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
 		equal( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
+		equal( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
 
 	});
 
@@ -108,6 +141,7 @@
 		equal( $( "[required]" )[0], $( "input#foo" )[0], "input#foo is the first required field" );
 		equal( $( "[required]" )[1], $( "select#select-foo" )[0], "select#select-foo is the second required field" );
 		equal( $( "[required]" )[2], $( "textarea#textarea-foo" )[0], "textarea#textarea-foo is the second required field" );
+		equal( $( "[required]" )[3], $( "input#radio-foo-foo" )[0], "input#radio-foo-foo is the second required field" );
 
 	});
 
@@ -115,6 +149,22 @@
 
 		equal( $( ".status" ).length, 0, ".status elements should not exist" );
 
+	});
+
+
+	module( "form traversal" );
+
+	test( "can get labels for form fields", function() {
+
+		equal( $( "#foo" ).forcesForms( "label" )[0], $( "label[for=foo] > .label" )[0], "found :text label" );
+		equal( $( "#foo" ).forcesForms( "label" ).text(), "Foo", "found expected label text" );
+
+		equal( $( "#radio-foo-foo" ).forcesForms( "label" )[0], $( "legend > .label" )[0], "found radio button group label" );
+		equal( $( "#radio-foo-foo" ).forcesForms( "label" ).text(), "Radio foo", "found expected label text" );
+
+		// test jquery object
+		// equal( $( "#foo,#radio-foo-foo" ).forcesForms( "label" ) … should return both labels
+		
 	});
 
 
@@ -132,8 +182,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 3, ".status element contains 3 li elements" );
-		equal( status.find( "a" ).length, 3, ".status element contains 3 a elements" );
+		equal( status.find( "li" ).length, 4, ".status element contains 4 li elements" );
+		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
 		
 	});
 
@@ -144,7 +194,7 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 3, ".status element contains 3 li elements" );
+		equal( $( ".status" ).find( "li" ).length, 4, ".status element contains 4 li elements" );
 		
 	});
 
@@ -159,10 +209,12 @@
 		equal( status.find( "li" ).eq(0).text(), "Foo: Must be completed", "required field message is displayed for input" );
 		equal( status.find( "li" ).eq(1).text(), "Select foo: Must be completed", "required field message is displayed for select" );
 		equal( status.find( "li" ).eq(2).text(), "Textarea foo: Must be completed", "required field message is displayed for textarea" );
+		equal( status.find( "li" ).eq(3).text(), "Radio foo: Must be completed", "required field message is displayed for radio buttons" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
 		equal( $( status.find( "a" ).eq(2).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=textarea-foo] > .label" )[0], "error message links to textarea label" );
+		equal( $( status.find( "a" ).eq(3).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( ".label" )[0], "error message links to radio button group label" );
 
 	});
 

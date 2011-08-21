@@ -17,7 +17,18 @@ if ( jQuery !== "undefined" ) {
 		var form = $( this ),
 
 			// invalid fields
-			invalid = form.find( "input,select,textarea" ).filter(function() {
+			invalid = form.find( "input,select,textarea" ).filter(function invalidFields() {
+
+				if ( ! invalidFields.cache ) {
+					invalidFields.cache = {};
+
+				} else if ( invalidFields[ this.name ] === true ) {
+					return false;					
+
+				}
+
+				invalidFields[ this.name ] = true;
+
 				return this.validity && ! this.validity.valid;
 			}),
 
@@ -38,13 +49,20 @@ if ( jQuery !== "undefined" ) {
 			// add new messages
 			invalid.each(function() {
 
+				// for unique @id
 				i = i + 1;
 
 				// find label
-				var label = $( "label[for=" + this.id + "] > .label" ),
+				var label = (function() {
+						var $this = $( this );
+						if ( $this.is( ":radio" ) ) {
+							return $this.closest( "fieldset" ).find( ".label" );
+						}
+						return $( "label[for=" + this.id + "] > .label" );
+					}()),
 
 					// get the label id
-					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + i )[0].id
+					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + Number.toString( i ) )[0].id
 				;
 
 				// create error message with link to label
