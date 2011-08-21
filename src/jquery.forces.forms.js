@@ -4,6 +4,7 @@
 	Forms helper
 
 	jquery.forcesForms( "label" ) -- get label element
+	requires jquery
 
 */
 
@@ -14,13 +15,19 @@ if ( jQuery !== "undefined" ) {
 	var methods = {
 
 		// $( x ).forcesForms( "label" )
-		// return .label element
+		// return .label associated with element
 		label : function() {
-			if ( this.is( ":radio" )) {
-				return this.closest( "fieldset" ).find( ".label" );
-			} else {
-				return this.closest( "form" ).find( "label[for=" + this[0].id + "] > .label" );
-			}
+			return this.map(function( index, domElement ) {
+
+				var $element = $( domElement );
+
+				if ( $element.is( ":radio" )) {
+					return $element.closest( "fieldset" ).find( ".label" )[0];
+				} else {
+					return $element.closest( "form" ).find( "label[for=" + domElement.id + "] > .label" )[0];
+				}
+
+			});
 		}
 
 	};
