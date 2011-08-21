@@ -57,7 +57,7 @@ if ( jQuery !== "undefined" ) {
 				var label = $( this ).forcesForms( "label" ),
 
 					// get the label id
-					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString() )[0].id
+					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
 				;
 
 				// create error message with link to label

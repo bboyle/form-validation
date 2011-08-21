@@ -163,7 +163,7 @@
 		equal( $( "#radio-foo-foo" ).forcesForms( "label" ).text(), "Radio foo", "found expected label text" );
 	});
 
-	test( "verify .forcesForm( \"label\" ) works on multiple item jquery objects", function() {
+	test( "verify .forcesForm( \"label\" ) supports jquery chaining", function() {
 		// test jquery object
 		equal( $( "#foo,#radio-foo-foo" ).forcesForms( "label" )[0], $( "label[for=foo] > .label" )[0], "verified 1st label in jquery object" );
 		equal( $( "#foo,#radio-foo-foo" ).forcesForms( "label" )[1], $( "legend > .label" )[0], "verified 2nd label in jquery object" );
