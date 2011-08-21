@@ -11,6 +11,14 @@
 			background: #faf7f3;
 			color: #111;
 		}
+
+
+		.status {
+			border: 2px solid #fc3;
+			background: #ffe;
+			padding: 1em;
+		}
+
 	</style>
 	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
 	<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
@@ -91,7 +99,12 @@
 		var form = $( "#test" );
 
 		form.submit();
-		equal( $( ".status" ).length, 1, ".status element is shown" );
+
+		var status = $( ".status" );
+
+		equal( status.length, 1, ".status element is shown" );
+		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
+		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		
 	});
 
