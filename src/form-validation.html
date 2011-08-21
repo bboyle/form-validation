@@ -39,6 +39,20 @@
 			<input type="text" name="foo" id="foo" value="" required="required" />
 		</li>
 
+		<li>
+			<label for="select-foo">
+				<span class="label">Select foo</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<select id="select-foo" name="selectFoo" required="required">
+				<option value=""></option>
+				<option value="foo">foo</option>
+				<option value="0">0</option>
+				<option value="null">null</option>
+				<option value="undefined">undefined</option>
+			</select>
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -76,12 +90,14 @@
 
 		equal( $( "form#test" ).length, 1, "form#test is present" );
 		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
+		equal( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
 
 	});
 
 	test( "required fields are present", function() {
 
 		equal( $( "[required]" )[0], $( "input#foo" )[0], "input#foo is the first required field" );
+		equal( $( "[required]" )[1], $( "select#select-foo" )[0], "select#select-foo is the second required field" );
 
 	});
 
@@ -106,8 +122,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 1, ".status element contains 1 li element" );
-		equal( status.find( "a" ).length, 1, ".status element contains 1 a element" );
+		equal( status.find( "li" ).length, 2, ".status element contains 2 li elements" );
+		equal( status.find( "a" ).length, 2, ".status element contains 2 a elements" );
 		
 	});
 
@@ -118,7 +134,7 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 1, ".status element contains 1 li element" );
+		equal( $( ".status" ).find( "li" ).length, 2, ".status element contains 2 li elements" );
 		
 	});
 
@@ -130,9 +146,11 @@
 
 		var status = $( ".status" );
 
-		equal( status.find( "li" ).text(), "Foo: Must be completed", "required field message is displayed" );
+		equal( status.find( "li" ).eq(0).text(), "Foo: Must be completed", "required field message is displayed for input" );
+		equal( status.find( "li" ).eq(1).text(), "Select foo: Must be completed", "required field message is displayed for select" );
 
-		equal( $( status.find( "a" ).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to label" );
+		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
+		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
 
 	});
 

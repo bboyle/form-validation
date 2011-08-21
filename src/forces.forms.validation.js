@@ -10,7 +10,6 @@ if ( jQuery !== "undefined" ) {
 (function( $ ){
 	"use strict";
 
-
 	// display warnings for any invalid fields onsubmit
 	$( "form" ).live( "submit", function() {
 		
@@ -26,7 +25,10 @@ if ( jQuery !== "undefined" ) {
 			alert = form.data( "forces.submit" ) || form.data( "forces.submit", $( "<div class='status'><h1>Unable to process this form</h1><ol></ol></div>" )).data( "forces.submit" ),
 
 			// messages within alert
-			messages = alert.find( "ol" )
+			messages = alert.find( "ol" ),
+
+			// counter
+			i = 0
 		;
 
 		if ( invalid.length > 0 ) {
@@ -36,11 +38,13 @@ if ( jQuery !== "undefined" ) {
 			// add new messages
 			invalid.each(function() {
 
+				i = i + 1;
+
 				// find label
 				var label = $( "label[for=" + this.id + "] > .label" ),
 
 					// get the label id
-					id = label[0].id || label.attr( "id", "UNIQUE_ID_HERE" )[0].id
+					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + i )[0].id
 				;
 
 				// create error message with link to label
