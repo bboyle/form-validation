@@ -37,7 +37,7 @@ if ( jQuery !== "undefined" ) {
 			invalid.each(function() {
 
 				// find label
-				var label = $( "label[for=" + this.id + "]" ),
+				var label = $( "label[for=" + this.id + "] > .label" ),
 
 					// get the label id
 					id = label[0].id || label.attr( "id", "UNIQUE_ID_HERE" )[0].id

@@ -132,7 +132,7 @@
 
 		equal( status.find( "li" ).text(), "Foo: Must be completed", "required field message is displayed" );
 
-		equal( $( status.find( "a" ).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo]" )[0], "error message links to label" );
+		equal( $( status.find( "a" ).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to label" );
 
 	});
 
