@@ -44,7 +44,7 @@ if ( jQuery !== "undefined" ) {
 				;
 
 				// create error message with link to label
-				$( "<li><a href='#" + id + "'>Foo: Must be completed</a></li>" ).appendTo( messages );
+				$( "<li><a href='#" + id + "'>" + label.text() + ": Must be completed</a></li>" ).appendTo( messages );
 
 			});
 			
