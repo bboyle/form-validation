@@ -3,6 +3,7 @@
 
 	UI for form validation
 	requires HTML5 constraint validaton API (recommended forces.html5.constraintValidationAPI.js)
+	requires jquery.forces.forms.js
 
 */
 
@@ -53,16 +54,10 @@ if ( jQuery !== "undefined" ) {
 				i = i + 1;
 
 				// find label
-				var label = (function() {
-						var $this = $( this );
-						if ( $this.is( ":radio" ) ) {
-							return $this.closest( "fieldset" ).find( ".label" );
-						}
-						return $( "label[for=" + this.id + "] > .label" );
-					}()),
+				var label = $( this ).forcesForms( "label" ),
 
 					// get the label id
-					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + Number.toString( i ) )[0].id
+					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString() )[0].id
 				;
 
 				// create error message with link to label
