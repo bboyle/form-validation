@@ -53,6 +53,14 @@
 			</select>
 		</li>
 
+		<li>
+			<label for="textarea-foo">
+				<span class="label">Textarea foo</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<textarea name="textareaFoo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -91,6 +99,7 @@
 		equal( $( "form#test" ).length, 1, "form#test is present" );
 		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
 		equal( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
+		equal( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
 
 	});
 
@@ -98,6 +107,7 @@
 
 		equal( $( "[required]" )[0], $( "input#foo" )[0], "input#foo is the first required field" );
 		equal( $( "[required]" )[1], $( "select#select-foo" )[0], "select#select-foo is the second required field" );
+		equal( $( "[required]" )[2], $( "textarea#textarea-foo" )[0], "textarea#textarea-foo is the second required field" );
 
 	});
 
@@ -122,8 +132,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 2, ".status element contains 2 li elements" );
-		equal( status.find( "a" ).length, 2, ".status element contains 2 a elements" );
+		equal( status.find( "li" ).length, 3, ".status element contains 3 li elements" );
+		equal( status.find( "a" ).length, 3, ".status element contains 3 a elements" );
 		
 	});
 
@@ -134,7 +144,7 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 2, ".status element contains 2 li elements" );
+		equal( $( ".status" ).find( "li" ).length, 3, ".status element contains 3 li elements" );
 		
 	});
 
@@ -148,9 +158,11 @@
 
 		equal( status.find( "li" ).eq(0).text(), "Foo: Must be completed", "required field message is displayed for input" );
 		equal( status.find( "li" ).eq(1).text(), "Select foo: Must be completed", "required field message is displayed for select" );
+		equal( status.find( "li" ).eq(2).text(), "Textarea foo: Must be completed", "required field message is displayed for textarea" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
+		equal( $( status.find( "a" ).eq(2).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=textarea-foo] > .label" )[0], "error message links to textarea label" );
 
 	});
 
