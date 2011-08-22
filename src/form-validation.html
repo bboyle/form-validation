@@ -221,6 +221,22 @@
 
 	});
 
+	test( "errors are cleared when fields are valid", function() {
+		
+		var form = $( "#test" );
+		$( "#foo" ).val( "foo" );
+
+		form.submit();
+
+		var status = $( ".status" );
+
+		equal( status.find( "li" ).length, 3, "only 3 errors appear" );
+		equal( status.find( "li" ).filter(function() {
+			return $( this ).text() === "Foo: Must be completed";
+		}).length, 0, "Foo: Must be completed message is not present" );
+
+	});
+
 
 // --></script>
 
