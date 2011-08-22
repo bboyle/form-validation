@@ -189,7 +189,26 @@
 		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
 		
 	});
+/*
+	test( "status message shown when button clicked", function() {
+		
+		var form = $( "#test" );
+		form.trigger( "reset" );
+		$( ".status" ).remove();
 
+		form.find( "[type=submit]" ).click();
+
+		var status = $( ".status" );
+
+		equal( status.length, 1, ".status element is shown" );
+		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
+		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
+		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
+		equal( status.find( "li" ).length, 4, ".status element contains 4 li elements" );
+		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
+
+	});
+*/
 	test( "only one status message shown on multiple submit", function() {
 
 		var form = $( "#test" );
