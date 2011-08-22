@@ -189,14 +189,14 @@
 		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
 		
 	});
-/*
+
 	test( "status message shown when button clicked", function() {
 		
 		var form = $( "#test" );
 		form.trigger( "reset" );
 		$( ".status" ).remove();
 
-		form.find( "[type=submit]" ).click();
+		form.find( "[type=submit]" )[0].click();
 
 		var status = $( ".status" );
 
@@ -208,7 +208,7 @@
 		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
 
 	});
-*/
+
 	test( "only one status message shown on multiple submit", function() {
 
 		var form = $( "#test" );

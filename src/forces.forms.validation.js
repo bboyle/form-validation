@@ -11,6 +11,14 @@ if ( jQuery !== "undefined" ) {
 (function( $ ){
 	"use strict";
 
+
+	// suppress validation to allow submit
+	$( ":submit" ).bind( "click", function() {
+		$( this ).closest( "form" ).attr( "novalidate", "novalidate" );
+		this.click();
+	});
+
+
 	// display warnings for any invalid fields onsubmit
 	$( "form" ).live( "submit", function() {
 		
@@ -66,7 +74,7 @@ if ( jQuery !== "undefined" ) {
 			});
 			
 			// display alert
-			alert.prependTo( form );
+			form.before( alert );
 
 			// stop submit
 			return false;
