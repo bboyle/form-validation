@@ -100,6 +100,14 @@
 			<input type="email" name="email" id="email" value="" required="required" />
 		</li>
 
+		<li>
+			<label for="question">
+				<span class="label">What is your answer?</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<input type="text" name="question" id="question" value="" required="required" />
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -142,6 +150,7 @@
 		equal( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
 		equal( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
 		equal( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
+		equal( $( "form#test input#question" ).length, 1, "form#test contains input#question" );
 
 	});
 
@@ -157,6 +166,12 @@
 		equal( $( "[required]" )[7], $( "input#radio-foo-null" )[0], "input#radio-foo-null is a required field" );
 		equal( $( "[required]" )[8], $( "input#email" )[0], "input#email is a required field" );
 		equal( $( "[type=email]" )[0], $( "input#email" )[0], "input#email is an email field" );
+
+	});
+
+	test( "specific text is present", function() {
+
+		equal( $( "label[for=question] .label" ).text().slice( -1 ), "?", "input#question label ends with ?" );
 
 	});
 
@@ -181,8 +196,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 5, ".status element contains 5 li elements" );
-		equal( status.find( "a" ).length, 5, ".status element contains 5 a elements" );
+		equal( status.find( "li" ).length, 6, ".status element contains 6 li elements" );
+		equal( status.find( "a" ).length, 6, ".status element contains 6 a elements" );
 		
 	});
 
@@ -200,8 +215,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 5, ".status element contains 5 li elements" );
-		equal( status.find( "a" ).length, 5, ".status element contains 5 a elements" );
+		equal( status.find( "li" ).length, 6, ".status element contains 6 li elements" );
+		equal( status.find( "a" ).length, 6, ".status element contains 6 a elements" );
 
 	});
 
@@ -212,7 +227,7 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 5, ".status element contains 4 li elements" );
+		equal( $( ".status" ).find( "li" ).length, 6, ".status element contains 6 li elements" );
 		
 	});
 
@@ -229,6 +244,7 @@
 		equal( status.find( "li" ).eq(2).text(), "Textarea foo: Must be completed", "required field message is displayed for textarea" );
 		equal( status.find( "li" ).eq(3).text(), "Radio foo: Must be completed", "required field message is displayed for radio buttons" );
 		equal( status.find( "li" ).eq(4).text(), "Email: Must be an email address", "type mismatch message is displayed for email field" );
+		equal( status.find( "li" ).eq(5).text(), "What is your answer: Must be completed", "question mark is removed from label in status message" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
@@ -247,10 +263,15 @@
 
 		var status = $( ".status" );
 
-		equal( status.find( "li" ).length, 3, "only 3 errors appear" );
+		equal( status.find( "li" ).length, 4, "only 4 errors appear" );
+
 		equal( status.find( "li" ).filter(function() {
 			return $( this ).text() === "Foo: Must be completed";
 		}).length, 0, "Foo: Must be completed message is not present" );
+
+		equal( status.find( "li" ).filter(function() {
+			return $( this ).text() === "Email:";
+		}).length, 0, "Email: message is not present" );
 
 	});
 

@@ -70,7 +70,7 @@ if ( jQuery !== "undefined" ) {
 				;
 
 				// create error message with link to label
-				$( "<li><a href='#" + id + "'>" + label.text() + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
+				$( "<li><a href='#" + id + "'>" + label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
 
 			});
 			
