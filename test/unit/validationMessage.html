@@ -98,7 +98,7 @@
 		equal( $( "#bar" ).forcesForms( "validationMessage" ), "Must be completed", "found message for #foo" );
 	});
 
-	test( "verify .forcesForm( \"label\" ) returns first value only", function() {
+	test( "verify .forcesForm( \"validationMessage\" ) returns first value only", function() {
 		$( "#test" ).submit();
 		equal( $( "#foo,#bar" ).forcesForms( "validationMessage" ), "Must be completed", "found expected message" );
 		

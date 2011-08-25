@@ -30,6 +30,8 @@ if ( jQuery !== "undefined" ) {
 			});
 		},
 
+		// $( x ).forcesForms( "validationMessage" )
+		// return text (validation message, e.g. "Must be completed")
 		validationMessage : function() {
 
 			var validityState = this[0].validity;
