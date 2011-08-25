@@ -155,12 +155,12 @@
 
 	test( "can get group label for grouped form fields", function() {
 
-		equal( $( "#name-title" ).forcesForms( "label", { group : true })[0], $( ".group .label" )[0], "found :text label for group" );
-		equal( $( "#name-title" ).forcesForms( "label", { group : true }).text(), "Your name", "found expected group label text" );
-		equal( $( "#name-given" ).forcesForms( "label", { group : true })[0], $( ".group .label" )[0], "found :text label for group" );
-		equal( $( "#name-given" ).forcesForms( "label", { group : true }).text(), "Your name", "found expected group label text" );
-		equal( $( "#name-family" ).forcesForms( "label", { group : true })[0], $( ".group .label" )[0], "found :text label for group" );
-		equal( $( "#name-family" ).forcesForms( "label", { group : true }).text(), "Your name", "found expected group label text" );
+		equal( $( "#name-title" ).forcesForms( "label", { level : "group" })[0], $( ".group .label" )[0], "found :text label for group" );
+		equal( $( "#name-title" ).forcesForms( "label", { level : "group" }).text(), "Your name", "found expected group label text" );
+		equal( $( "#name-given" ).forcesForms( "label", { level : "group" })[0], $( ".group .label" )[0], "found :text label for group" );
+		equal( $( "#name-given" ).forcesForms( "label", { level : "group" }).text(), "Your name", "found expected group label text" );
+		equal( $( "#name-family" ).forcesForms( "label", { level : "group" })[0], $( ".group .label" )[0], "found :text label for group" );
+		equal( $( "#name-family" ).forcesForms( "label", { level : "group" }).text(), "Your name", "found expected group label text" );
 
 	});
 
@@ -171,11 +171,11 @@
 
 	});
 
-	test( "verify .forcesForm( \"label\", { group : true }) supports jquery chaining", function() {
+	test( "verify .forcesForm( \"label\", { level : \"group\" }) supports jquery chaining", function() {
 
-		equal( $( ".group input" ).forcesForms( "label", { group : true })[0], $( ".group .label" )[0], "verified 1st group label in jquery object" );
-		equal( $( ".group input" ).forcesForms( "label", { group : true })[1], $( ".group .label" )[0], "verified 2nd group label in jquery object" );
-		equal( $( ".group input" ).forcesForms( "label", { group : true })[2], $( ".group .label" )[0], "verified 3rd group label in jquery object" );
+		equal( $( ".group input" ).forcesForms( "label", { level : "group" })[0], $( ".group .label" )[0], "verified 1st group label in jquery object" );
+		equal( $( ".group input" ).forcesForms( "label", { level : "group" })[1], $( ".group .label" )[0], "verified 2nd group label in jquery object" );
+		equal( $( ".group input" ).forcesForms( "label", { level : "group" })[2], $( ".group .label" )[0], "verified 3rd group label in jquery object" );
 
 	});
 

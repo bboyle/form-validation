@@ -15,14 +15,14 @@ if ( jQuery !== "undefined" ) {
 	var methods = {
 
 		// $( x ).forcesForms( "label" )
-		// $( x ).forcesForms( "label", { group : true })
+		// $( x ).forcesForms( "label", { groupLabel : true })
 		// return .label associated with element or containing group
 		label : function( options ) {
 			return this.map(function( index, domElement ) {
 
 				var $element = $( domElement );
 
-				if ( typeof options === "object" && options.group === true ) {
+				if ( typeof options === "object" && options.level === "group" ) {
 					return $element.closest( ".group" ).find( ".label" )[0];
 
 				} else if ( $element.is( ":radio" )) {
@@ -35,8 +35,16 @@ if ( jQuery !== "undefined" ) {
 			});
 		},
 
+		// $( x ).forcesForms( "group" )
+		// return group element for item
+		group : function() {
+			return this.map(function( index, domElement ) {
+				return $( domElement ).parentsUntil( "form", ".group" )[0];
+			});
+		},
+
 		// $( x ).forcesForms( "validationMessage" )
-		// return text (validation message, e.g. "Must be completed")
+		// return String validation message, e.g. "Must be completed"
 		validationMessage : function() {
 
 			var validityState = this[0].validity;

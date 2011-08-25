@@ -48,31 +48,48 @@ if ( jQuery !== "undefined" ) {
 			messages = alert.find( "ol" ),
 
 			// counter
-			i = 0
+			i = 0,
+
+			// track groups
+			lastGroupSeen = true
+
 		;
 
 		if ( invalid.length > 0 ) {
 
 			// remove old messages
 			messages.find( "li" ).remove();
+
 			// add new messages
 			invalid.each(function() {
 
 				// for unique @id
 				i = i + 1;
 
-				// find label
+				// get field
 				var $this = $( this ),
+					
+					// get group (if exists)
+					group = $this.parentsUntil( "form", ".group" ),
+
+					// get label or group label
 					label = $this.forcesForms( "label", {
-						group : true
+						level : group.length > 0 ? "group" : null
 					}),
 
 					// get the label id
-					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
+					labelId = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
 				;
 
-				// create error message with link to label
-				$( "<li><a href='#" + id + "'>" + label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
+				if ( group.length === 0 || group[0] !== lastGroupSeen ) {
+					
+					// update last group seen
+					lastGroupSeen = group[0];
+
+					// create error message with link to label
+					$( "<li><a href='#" + labelId + "'>" + label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
+
+				}
 
 			});
 			

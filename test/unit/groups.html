@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-AU" lang="en-AU">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>group tests · forces validation UI tests</title>
+
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+
+		.status {
+			border: 2px solid #fc3;
+			background: #ffe;
+			padding: 1em;
+		}
+
+	</style>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
+	<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+</head>
+
+<body>
+
+<form id="test" action="javascript:">
+
+	<ol class="questions">
+
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Your name</span>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="name-title">
+							<span class="label">Title</span>
+						</label>
+						<input type="text" id="name-title" name="nameTitle" size="3" />
+					</li>
+					<li>
+						<label for="name-given">
+							<span class="label">Given names</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+					</li>
+					<li>
+						<label for="name-family">
+							<span class="label">Family name</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Fubar</span>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="foo">
+							<span class="label">Foo</span>
+						</label>
+						<input type="text" id="foo" name="foo" />
+					</li>
+					<li>
+						<label for="bar">
+							<span class="label">Bar</span>
+						</label>
+						<input type="text" id="bar" name="bar" />
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
+		<li>
+			<label for="nogroup">
+				<span class="label">No group</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<input type="text" name="nogroup" id="nogroup" />
+		</li>
+
+		<li class="footer">
+			<ol class="submit">
+				<li>
+					<strong>
+						<input type="submit" value="Submit" />
+					</strong>
+				</li>
+			</ol>
+		</li>
+
+	</ol>
+
+</form>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="../../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="../../src/jquery.forces.forms.js"></script>
+
+<script><!-- //
+
+	module( "environment" );
+
+	test( "test fields are in test form", function() {
+
+		equal( $( "form#test" ).length, 1, "form#test is present" );
+		equal( $( "form#test .group input#name-title" ).length, 1, "form#test contains .group input#name-title" );
+		equal( $( "form#test .group input#name-given" ).length, 1, "form#test contains .group input#name-given" );
+		equal( $( "form#test .group input#name-family" ).length, 1, "form#test contains .group input#name-family" );
+		equal( $( "form#test .group input#foo" ).length, 1, "form#test contains .group input#foo" );
+		equal( $( "form#test .group input#bar" ).length, 1, "form#test contains .group input#bar" );
+		equal( $( "form#test input#nogroup" ).length, 1, "form#test contains input#nogroup" );
+		equal( $( "form#test .group input#nogroup" ).length, 0, "form#test does not contain .group input#nogroup" );
+
+	});
+
+
+	module( "form traversal" );
+
+	test( "can get groups for form fields", function() {
+
+		equal( $( "#name-title" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for title" );
+		equal( $( "#name-given" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for given name" );
+		equal( $( "#name-family" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for family name" );
+
+	});
+
+	test( "non-grouped fields return undefined", function() {
+
+		equal( $( "#nogroup" ).forcesForms( "group" )[0], undefined, "nogroup has no group" );
+
+	});
+
+	test( "verify .forcesForm( \"group\" ) supports jquery chaining", function() {
+		// test jquery object
+		equal( $( "input" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for first item" );
+		equal( $( "input" ).forcesForms( "group" )[1], $( ".group" )[0], "found group for second item" );
+		equal( $( "input" ).forcesForms( "group" )[2], $( ".group" )[0], "found group for third item" );
+		equal( $( "input" ).forcesForms( "group" )[3], $( ".group" )[1], "found second group for fourth item" );
+		equal( $( "input" ).forcesForms( "group" )[4], $( ".group" )[1], "found second group for fifth item" );
+		equal( $( "input" ).forcesForms( "group" )[5], undefined, "found undefined for sixth item" );
+
+	});
+
+
+// --></script>
+
+
+</body>
+</html>

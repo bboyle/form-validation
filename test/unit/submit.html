@@ -111,7 +111,7 @@
 		<li class="group">
 			<fieldset>
 				<legend>
-					<span class="label">Your name</span>
+					<span class="label">Your name?</span>
 				</legend>
 				<ol class="questions compact">
 					<li>
@@ -230,8 +230,6 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 7, ".status element contains 7 li elements" );
-		equal( status.find( "a" ).length, 7, ".status element contains 7 a elements" );
 		
 	});
 
@@ -249,8 +247,6 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 7, ".status element contains 7 li elements" );
-		equal( status.find( "a" ).length, 7, ".status element contains 7 a elements" );
 
 	});
 
@@ -261,11 +257,10 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 7, ".status element contains 7 li elements" );
 		
 	});
 
-	test( "errors shown in status", function() {
+	test( "correct errors shown in status", function() {
 		
 		$( "#email" ).val( "foo" );
 
