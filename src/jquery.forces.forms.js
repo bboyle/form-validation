@@ -28,6 +28,21 @@ if ( jQuery !== "undefined" ) {
 				}
 
 			});
+		},
+
+		validationMessage : function() {
+
+			var validityState = this[0].validity;
+
+			if ( typeof validityState === "undefined" || validityState.valid === true ) {
+				return "";
+
+			} else if ( validityState.valueMissing ) {
+				return "Must be completed";
+
+			} else if ( validityState.typeMismatch ) {
+				return "Must be an email address";
+			}
 		}
 
 	};

@@ -92,6 +92,14 @@
 			</fieldset>
 		</li>
 
+		<li>
+			<label for="email">
+				<span class="label">Email</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<input type="email" name="email" id="email" value="" required="required" />
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -133,15 +141,22 @@
 		equal( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
 		equal( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
 		equal( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
+		equal( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
 
 	});
 
-	test( "required fields are present", function() {
+	test( "specific fields are present", function() {
 
 		equal( $( "[required]" )[0], $( "input#foo" )[0], "input#foo is the first required field" );
 		equal( $( "[required]" )[1], $( "select#select-foo" )[0], "select#select-foo is the second required field" );
-		equal( $( "[required]" )[2], $( "textarea#textarea-foo" )[0], "textarea#textarea-foo is the second required field" );
-		equal( $( "[required]" )[3], $( "input#radio-foo-foo" )[0], "input#radio-foo-foo is the second required field" );
+		equal( $( "[required]" )[2], $( "textarea#textarea-foo" )[0], "textarea#textarea-foo is a required field" );
+		equal( $( "[required]" )[3], $( "input#radio-foo-foo" )[0], "input#radio-foo-foo is a required field" );
+		equal( $( "[required]" )[4], $( "input#radio-foo-bar" )[0], "input#radio-foo-bar is a required field" );
+		equal( $( "[required]" )[5], $( "input#radio-foo-BLANK" )[0], "input#radio-foo-BLANK is a required field" );
+		equal( $( "[required]" )[6], $( "input#radio-foo-undefined" )[0], "input#radio-foo-undefined is a required field" );
+		equal( $( "[required]" )[7], $( "input#radio-foo-null" )[0], "input#radio-foo-null is a required field" );
+		equal( $( "[required]" )[8], $( "input#email" )[0], "input#email is a required field" );
+		equal( $( "[type=email]" )[0], $( "input#email" )[0], "input#email is an email field" );
 
 	});
 
@@ -166,8 +181,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 4, ".status element contains 4 li elements" );
-		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
+		equal( status.find( "li" ).length, 5, ".status element contains 5 li elements" );
+		equal( status.find( "a" ).length, 5, ".status element contains 5 a elements" );
 		
 	});
 
@@ -185,8 +200,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 4, ".status element contains 4 li elements" );
-		equal( status.find( "a" ).length, 4, ".status element contains 4 a elements" );
+		equal( status.find( "li" ).length, 5, ".status element contains 5 li elements" );
+		equal( status.find( "a" ).length, 5, ".status element contains 5 a elements" );
 
 	});
 
@@ -197,15 +212,15 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 4, ".status element contains 4 li elements" );
+		equal( $( ".status" ).find( "li" ).length, 5, ".status element contains 4 li elements" );
 		
 	});
 
-	test( "required field message shown in status", function() {
+	test( "errors shown in status", function() {
 		
-		var form = $( "#test" );
+		$( "#email" ).val( "foo" );
 
-		form.submit();
+		$( "#test" ).submit();
 
 		var status = $( ".status" );
 
@@ -213,20 +228,22 @@
 		equal( status.find( "li" ).eq(1).text(), "Select foo: Must be completed", "required field message is displayed for select" );
 		equal( status.find( "li" ).eq(2).text(), "Textarea foo: Must be completed", "required field message is displayed for textarea" );
 		equal( status.find( "li" ).eq(3).text(), "Radio foo: Must be completed", "required field message is displayed for radio buttons" );
+		equal( status.find( "li" ).eq(4).text(), "Email: Must be an email address", "type mismatch message is displayed for email field" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
 		equal( $( status.find( "a" ).eq(2).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=textarea-foo] > .label" )[0], "error message links to textarea label" );
 		equal( $( status.find( "a" ).eq(3).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( ".label" )[0], "error message links to radio button group label" );
+		equal( $( status.find( "a" ).eq(4).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=email] .label" )[0], "error message links to email label" );
 
 	});
 
 	test( "errors are cleared when fields are valid", function() {
 		
-		var form = $( "#test" );
 		$( "#foo" ).val( "foo" );
+		$( "#email" ).val( "foo@example.com" );
 
-		form.submit();
+		$( "#test" ).submit();
 
 		var status = $( ".status" );
 

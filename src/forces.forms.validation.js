@@ -62,14 +62,15 @@ if ( jQuery !== "undefined" ) {
 				i = i + 1;
 
 				// find label
-				var label = $( this ).forcesForms( "label" ),
+				var $this = $( this ),
+					label = $this.forcesForms( "label" ),
 
 					// get the label id
 					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
 				;
 
 				// create error message with link to label
-				$( "<li><a href='#" + id + "'>" + label.text() + ": Must be completed</a></li>" ).appendTo( messages );
+				$( "<li><a href='#" + id + "'>" + label.text() + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
 
 			});
 			
