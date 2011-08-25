@@ -15,14 +15,19 @@ if ( jQuery !== "undefined" ) {
 	var methods = {
 
 		// $( x ).forcesForms( "label" )
-		// return .label associated with element
-		label : function() {
+		// $( x ).forcesForms( "label", { group : true })
+		// return .label associated with element or containing group
+		label : function( options ) {
 			return this.map(function( index, domElement ) {
 
 				var $element = $( domElement );
 
-				if ( $element.is( ":radio" )) {
+				if ( typeof options === "object" && options.group === true ) {
+					return $element.closest( ".group" ).find( ".label" )[0];
+
+				} else if ( $element.is( ":radio" )) {
 					return $element.closest( "fieldset" ).find( ".label" )[0];
+
 				} else {
 					return $element.closest( "form" ).find( "label[for=" + domElement.id + "] > .label" )[0];
 				}

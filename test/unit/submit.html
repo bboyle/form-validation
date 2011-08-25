@@ -108,6 +108,37 @@
 			<input type="text" name="question" id="question" value="" required="required" />
 		</li>
 
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Your name</span>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="name-title">
+							<span class="label">Title</span>
+						</label>
+						<input type="text" id="name-title" name="nameTitle" size="3" />
+					</li>
+					<li>
+						<label for="name-given">
+							<span class="label">Given names</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+					</li>
+					<li>
+						<label for="name-family">
+							<span class="label">Family name</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
 		<li class="footer">
 			<ol class="submit">
 				<li>
@@ -151,6 +182,9 @@
 		equal( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
 		equal( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
 		equal( $( "form#test input#question" ).length, 1, "form#test contains input#question" );
+		equal( $( "form#test .group input#name-title" ).length, 1, "form#test contains .group input#name-title" );
+		equal( $( "form#test .group input#name-given" ).length, 1, "form#test contains .group input#name-given" );
+		equal( $( "form#test .group input#name-family" ).length, 1, "form#test contains .group input#name-family" );
 
 	});
 
@@ -196,8 +230,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 6, ".status element contains 6 li elements" );
-		equal( status.find( "a" ).length, 6, ".status element contains 6 a elements" );
+		equal( status.find( "li" ).length, 7, ".status element contains 7 li elements" );
+		equal( status.find( "a" ).length, 7, ".status element contains 7 a elements" );
 		
 	});
 
@@ -215,8 +249,8 @@
 		equal( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
 		equal( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
 		equal( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
-		equal( status.find( "li" ).length, 6, ".status element contains 6 li elements" );
-		equal( status.find( "a" ).length, 6, ".status element contains 6 a elements" );
+		equal( status.find( "li" ).length, 7, ".status element contains 7 li elements" );
+		equal( status.find( "a" ).length, 7, ".status element contains 7 a elements" );
 
 	});
 
@@ -227,7 +261,7 @@
 		form.submit();
 		form.submit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
-		equal( $( ".status" ).find( "li" ).length, 6, ".status element contains 6 li elements" );
+		equal( $( ".status" ).find( "li" ).length, 7, ".status element contains 7 li elements" );
 		
 	});
 
@@ -245,12 +279,14 @@
 		equal( status.find( "li" ).eq(3).text(), "Radio foo: Must be completed", "required field message is displayed for radio buttons" );
 		equal( status.find( "li" ).eq(4).text(), "Email: Must be an email address", "type mismatch message is displayed for email field" );
 		equal( status.find( "li" ).eq(5).text(), "What is your answer: Must be completed", "question mark is removed from label in status message" );
+		equal( status.find( "li" ).eq(6).text(), "Your name: Must be completed", "group message is displayed for 3 group controls" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
 		equal( $( status.find( "a" ).eq(2).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=textarea-foo] > .label" )[0], "error message links to textarea label" );
 		equal( $( status.find( "a" ).eq(3).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( ".label" )[0], "error message links to radio button group label" );
 		equal( $( status.find( "a" ).eq(4).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=email] .label" )[0], "error message links to email label" );
+		equal( $( status.find( "a" ).eq(6).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "#name-title" ).closest( "fieldset" ).find( ".label" )[0], "error message links to group label" );
 
 	});
 
@@ -258,6 +294,8 @@
 		
 		$( "#foo" ).val( "foo" );
 		$( "#email" ).val( "foo@example.com" );
+		$( "#name-given" ).val( "John" );
+		$( "#name-family" ).val( "Smith" );
 
 		$( "#test" ).submit();
 

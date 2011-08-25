@@ -63,7 +63,9 @@ if ( jQuery !== "undefined" ) {
 
 				// find label
 				var $this = $( this ),
-					label = $this.forcesForms( "label" ),
+					label = $this.forcesForms( "label", {
+						group : true
+					}),
 
 					// get the label id
 					id = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
