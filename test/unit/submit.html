@@ -199,7 +199,7 @@
 		equal( $( "[required]" )[6], $( "input#radio-foo-undefined" )[0], "input#radio-foo-undefined is a required field" );
 		equal( $( "[required]" )[7], $( "input#radio-foo-null" )[0], "input#radio-foo-null is a required field" );
 		equal( $( "[required]" )[8], $( "input#email" )[0], "input#email is a required field" );
-		equal( $( "[type=email]" )[0], $( "input#email" )[0], "input#email is an email field" );
+		equal( $( "input#email" )[0].getAttribute( "type" ), "email", "input#email is an email field" );
 
 	});
 
@@ -275,6 +275,16 @@
 		equal( status.find( "li" ).eq(4).text(), "Email: Must be an email address", "type mismatch message is displayed for email field" );
 		equal( status.find( "li" ).eq(5).text(), "What is your answer: Must be completed", "question mark is removed from label in status message" );
 		equal( status.find( "li" ).eq(6).text(), "Your name: Must be completed", "group message is displayed for 3 group controls" );
+
+	});
+
+	test( "errors link to the correct label from status", function() {
+		
+		$( "#email" ).val( "foo" );
+
+		$( "#test" ).submit();
+
+		var status = $( ".status" );
 
 		equal( $( status.find( "a" ).eq(0).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=foo] > .label" )[0], "error message links to input label" );
 		equal( $( status.find( "a" ).eq(1).attr( "href" ).replace( /^.*#/, "#" ) )[0], $( "label[for=select-foo] > .label" )[0], "error message links to select label" );
