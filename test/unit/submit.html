@@ -118,9 +118,9 @@
 
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="jquery.forces.forms.js"></script>
-<script src="forces.forms.validation.js"></script>
+<script src="../../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="../../src/jquery.forces.forms.js"></script>
+<script src="../../src/forces.forms.validation.js"></script>
 
 <script><!-- //
 
@@ -149,25 +149,6 @@
 
 		equal( $( ".status" ).length, 0, ".status elements should not exist" );
 
-	});
-
-
-	module( "form traversal" );
-
-	test( "can get labels for form fields", function() {
-
-		equal( $( "#foo" ).forcesForms( "label" )[0], $( "label[for=foo] > .label" )[0], "found :text label" );
-		equal( $( "#foo" ).forcesForms( "label" ).text(), "Foo", "found expected label text" );
-
-		equal( $( "#radio-foo-foo" ).forcesForms( "label" )[0], $( "legend > .label" )[0], "found radio button group label" );
-		equal( $( "#radio-foo-foo" ).forcesForms( "label" ).text(), "Radio foo", "found expected label text" );
-	});
-
-	test( "verify .forcesForm( \"label\" ) supports jquery chaining", function() {
-		// test jquery object
-		equal( $( "#foo,#radio-foo-foo" ).forcesForms( "label" )[0], $( "label[for=foo] > .label" )[0], "verified 1st label in jquery object" );
-		equal( $( "#foo,#radio-foo-foo" ).forcesForms( "label" )[1], $( "legend > .label" )[0], "verified 2nd label in jquery object" );
-		
 	});
 
 
