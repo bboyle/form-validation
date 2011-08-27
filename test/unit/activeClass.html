@@ -1,0 +1,191 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-AU" lang="en-AU">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>active class tests · forces forms tests</title>
+
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+		.active {
+			border: 2px solid blue;
+			background: #ff9;
+
+		}
+
+	</style>
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
+	<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
+
+</head>
+
+<body>
+
+<form id="test" action="javascript:">
+
+	<ol class="questions">
+
+		<li>
+			<label for="foo">
+				<span class="label">Foo</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<input type="text" name="foo" id="foo" value="" required="required" />
+		</li>
+
+		<li>
+			<label for="select-foo">
+				<span class="label">Select foo</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<select id="select-foo" name="selectFoo" required="required">
+				<option value=""></option>
+				<option value="foo">foo</option>
+				<option value="0">0</option>
+				<option value="null">null</option>
+				<option value="undefined">undefined</option>
+			</select>
+		</li>
+
+		<li>
+			<fieldset>
+				<legend>
+					<span class="label">Radio foo</span>
+					<abbr title="(required)">*</abbr>
+				</legend>
+				<ul class="choices">
+					<li>
+						<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+						<label for="radio-foo-foo">Foo</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+						<label for="radio-foo-bar">Bar</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="" id="radio-foo-BLANK" />
+						<label for="radio-foo-BLANK">BLANK</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="undefined" id="radio-foo-undefined" />
+						<label for="radio-foo-undefined">undefined</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="null" id="radio-foo-null" />
+						<label for="radio-foo-null">null</label>
+					</li>
+				</ul>
+			</fieldset>
+		</li>
+
+		<li>
+			<label for="textarea-foo">
+				<span class="label">Textarea foo</span>
+				<abbr title="(required)">*</abbr>
+			</label>
+			<textarea name="textareaFoo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
+		</li>
+
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Your name</span>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="name-title">
+							<span class="label">Title</span>
+						</label>
+						<input type="text" id="name-title" name="nameTitle" size="3" />
+					</li>
+					<li>
+						<label for="name-given">
+							<span class="label">Given names</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+					</li>
+					<li>
+						<label for="name-family">
+							<span class="label">Family name</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
+		<li class="footer">
+			<ol class="submit">
+				<li>
+					<strong>
+						<input type="submit" value="Submit" />
+					</strong>
+				</li>
+			</ol>
+		</li>
+
+	</ol>
+
+</form>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+</div>
+
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script src="../../src/jquery.forces.forms.js"></script>
+
+<script><!-- //
+
+	module( "environment" );
+
+	test( "fields are in test form", function() {
+
+		equal( $( "form#test" ).length, 1, "form#test is present" );
+		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
+		equal( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
+		equal( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
+		equal( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
+		equal( $( "form#test .group input#name-title" ).length, 1, "form#test contains .group input#name-title" );
+		equal( $( "form#test .group input#name-given" ).length, 1, "form#test contains .group input#name-given" );
+		equal( $( "form#test .group input#name-family" ).length, 1, "form#test contains .group input#name-family" );
+
+	});
+
+	test( "nothing is active", function() {
+
+		equal( $( ".acive" ).length, 0, "no elements with match .active" );
+		
+	});
+
+
+	module( "active class set by events" );
+
+	test( ".active on focus", function() {
+
+		$( "#foo" ).trigger( "focus" );
+		equal( $( "#foo" ).parent().is( ".active" ), true, "#foo is .active" );
+
+	});
+
+
+// --></script>
+
+
+</body>
+</html>

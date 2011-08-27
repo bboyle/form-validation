@@ -60,7 +60,27 @@ if ( jQuery !== "undefined" ) {
 			}
 		}
 
+	},
+	
+	highlightActiveAncestors = function( event ) {
+
+		var target = $( event.target ),
+
+			ancestorQuestions = target.parentsUntil( "form" , ".group, .questions > *" )
+		;
+
+		// deactive current previously active questions
+		target.closest( "form" ).find( ".questions > *, .group" ).not( ancestorQuestions ).removeClass( "active" );
+
+		// activate current questions
+		ancestorQuestions.addClass( "active" );
+
 	};
+
+
+	// highlight active ancestors when focus received
+	$( "form a, input, select, textarea" ).live( "focus", highlightActiveAncestors );
+
 
 	$.fn.forcesForms = function( method ) {
 
@@ -75,6 +95,7 @@ if ( jQuery !== "undefined" ) {
 		}
 
 	};
+
 
 }( jQuery ));
 }
