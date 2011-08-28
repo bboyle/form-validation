@@ -8,6 +8,7 @@
 	<property name="source.dir" location="src"/>
 	<property name="build.dir" location="build"/>
 	<property name="log.dir" location="logs"/>
+	<property name="lib.dir" location="lib"/>
 
 	<tstamp/>
 
@@ -27,7 +28,12 @@
 
 
 	<target name="resolve" description="--> retrieve dependencies with ivy">
-		<ivy:retrieve />
+		<ivy:retrieve/>
+	</target>
+
+
+	<target name="dependencies" depends="resolve" description="--> GET http dependences">
+		<get src="https://raw.github.com/bboyle/usetheforces-html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
 	</target>
 
 
@@ -40,6 +46,7 @@
 	<target name="init" description="initialise">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${log.dir}"/>
+		<mkdir dir="${lib.dir}"/>
 	</target>
 
 
@@ -52,7 +59,7 @@
 	</target>
 
 
-	<target name="all" description="build" depends="init,resolve,jslint"/>
+	<target name="all" description="build" depends="init,dependencies,jslint"/>
 
 
 </project>
