@@ -34,6 +34,11 @@
 
 	<target name="dependencies" depends="resolve" description="--> GET http dependences">
 		<get src="https://raw.github.com/bboyle/usetheforces-html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
+
+		<get src="http://code.jquery.com/qunit/qunit-git.css" dest="${lib.dir}/qunit-git.css"/>
+		<get src="http://code.jquery.com/qunit/qunit-git.js" dest="${lib.dir}/qunit-git.js"/>
+
+		<get src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" dest="${lib.dir}/jquery-1.4.4-min.js"/>
 	</target>
 
 
