@@ -77,7 +77,6 @@ if ( jQuery !== "undefined" ) {
 
 	};
 
-
 	// highlight active ancestors when focus received
 	$( "form a, input, select, textarea" ).live( "focus", highlightActiveAncestors );
 
