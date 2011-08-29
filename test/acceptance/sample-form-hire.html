@@ -1,11 +1,10 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-AU" lang="en-AU">
+<!DOCTYPE html>
+<html lang="en-AU">
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta charset="UTF-8" />
 	<title>Hire form</title>
 
-	<style type="text/css">
+	<style>
 		body {
 			padding: 2em;
 			font-family: sans-serif;
@@ -21,7 +20,7 @@
 		}
 
 	</style>
-	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css">
+	<link rel="stylesheet" href="http://code.jquery.com/qunit/qunit-git.css" />
 	<script src="http://code.jquery.com/qunit/qunit-git.js"></script>
 
 </head>
@@ -81,15 +80,14 @@
 				</small>
 			</label>
 			<select id="duration" name="duration" required="required">
+				<option value="" selected="selected"></option>
 				<option value="w1">1 week ($27.90)</option>
 				<option value="w2">2 weeks ($34.65)</option>
 				<option value="w3">3 weeks ($41.40)</option>
-
 				<option value="w4">4 weeks ($48.16)</option>
 				<option value="w5">5 weeks ($54.91)</option>
 				<option value="w6">6 weeks ($61.67)</option>
 				<option value="w7">7 weeks ($68.42)</option>
-				<option value="" selected="selected"></option>
 				<option value="m6">6 months ($74.90)</option>
 
 			</select>
@@ -134,7 +132,7 @@
 							<samp class="hint">Holden, Toyota</samp>
 
 						</label>
-						<input type="text" id="make" name="carMake" size="15" list="list-makes" value="" required="required" />
+						<input type="text" id="make" name="carMake" size="15" value="" required="required" />
 					</li>
 					<li class="required text">
 						<label for="model">
@@ -143,7 +141,7 @@
 							<samp class="hint">Commodore, Camry</samp>
 
 						</label>
-						<input type="text" id="model" name="carModel" size="15" list="list-models" value="" required="required" />
+						<input type="text" id="model" name="carModel" size="15" value="" required="required" />
 						
 					</li>
 				</ol>
@@ -172,7 +170,7 @@
 
 							<samp class="hint">Holden, Toyota</samp>
 						</label>
-						<input type="text" id="make2" name="carMake2" size="15" list="list-makes" value="" required="required" />
+						<input type="text" id="make2" name="carMake2" size="15" value="" required="required" />
 					</li>
 					<li class="required text">
 						<label for="model2">
@@ -181,7 +179,7 @@
 
 							<samp class="hint">Commodore, Camry</samp>
 						</label>
-						<input type="text" id="model2" name="carModel2" size="15" list="list-models" value="" required="required" />
+						<input type="text" id="model2" name="carModel2" size="15" value="" required="required" />
 						
 					</li>
 				</ol>

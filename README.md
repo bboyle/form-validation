@@ -16,3 +16,13 @@
 ## Validation
 * validate html5 `@required`
 * validate html5 `@type=email`
+
+## TODO
+
+### Build
+* html5 validation for test pages
+* automated execution of unit tests
+* acceptance tests (currently only a placeholder)
+* dependency management (local jquery copies)
+* test against different versions of jquery
+* package js files (combine and minify)
