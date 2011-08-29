@@ -9,7 +9,6 @@
 
 ## UI
 
-* `label.checked` indicates associated checkbox or radio button is `:checked`
 * `.active` indicates user last interacted with this question or group
 * display list of validation alerts in a box `.status`
 
