@@ -31,14 +31,16 @@
 		<ivy:retrieve/>
 	</target>
 
-
-	<target name="dependencies" depends="resolve" description="--> GET http dependences">
-		<get src="https://raw.github.com/bboyle/usetheforces-html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
-
+	<target name="get-qunit" description="--> get qunit files">
 		<get src="http://code.jquery.com/qunit/qunit-git.css" dest="${lib.dir}/qunit-git.css"/>
 		<get src="http://code.jquery.com/qunit/qunit-git.js" dest="${lib.dir}/qunit-git.js"/>
-
+	</target>
+	<target name="get-jquery" description="--> get jquery from googleapis">
 		<get src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js" dest="${lib.dir}/jquery-1.4.4-min.js"/>
+	</target>
+
+	<target name="dependencies" depends="resolve,get-qunit,get-jquery" description="--> get all dependences">
+		<get src="https://raw.github.com/bboyle/usetheforces-html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
 	</target>
 
 
