@@ -26,7 +26,7 @@ if ( jQuery !== "undefined" ) {
 		var form = $( this ),
 
 			// invalid fields
-			invalid = form.find( "input,select,textarea" ).filter(function invalidFields() {
+			invalid = form.find( "input, select, textarea" ).filter(function invalidFields() {
 
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
