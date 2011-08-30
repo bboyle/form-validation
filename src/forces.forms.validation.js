@@ -12,18 +12,11 @@ if ( jQuery !== "undefined" ) {
 	"use strict";
 
 
-	// suppress validation to allow submit
-	$( ":submit" ).bind( "click", function() {
-		$( this ).closest( "form" ).attr( "novalidate", "novalidate" );
-		this.click();
-	});
-
-
 	// display warnings for any invalid fields onsubmit
-	$( "form" ).live( "submit", function() {
+	$( "form :submit" ).live( "click", function() {
 		
 		// form object
-		var form = $( this ),
+		var form = $( this ).closest( "form" ),
 
 			// invalid fields
 			invalid = form.find( "input, select, textarea" ).filter(function invalidFields() {

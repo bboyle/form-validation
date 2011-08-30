@@ -171,6 +171,17 @@
 
 <script><!-- //
 
+	var clearStatus = function() {
+			$( "#test" ).trigger( "reset" );
+			$( ".status" ).remove();
+		},
+
+		userInitiatedSubmit = function() {
+			$( "#test :submit" )[0].click();
+		}
+	;
+
+
 	module( "environment" );
 
 	test( "test fields are in test form", function() {
@@ -220,9 +231,8 @@
 
 	test( "status message shown on submit", function() {
 
-		var form = $( "#test" );
-
-		form.submit();
+		clearStatus();
+		userInitiatedSubmit();
 
 		var status = $( ".status" );
 
@@ -235,11 +245,8 @@
 
 	test( "status message shown when button clicked", function() {
 		
-		var form = $( "#test" );
-		form.trigger( "reset" );
-		$( ".status" ).remove();
-
-		form.find( "[type=submit]" )[0].click();
+		clearStatus();
+		userInitiatedSubmit();
 
 		var status = $( ".status" );
 
@@ -252,19 +259,20 @@
 
 	test( "only one status message shown on multiple submit", function() {
 
-		var form = $( "#test" );
-
-		form.submit();
-		form.submit();
+		clearStatus();
+		userInitiatedSubmit();
+		userInitiatedSubmit();
 		equal( $( ".status" ).length, 1, "only 1 .status element is shown" );
 		
 	});
 
 	test( "correct errors shown in status", function() {
 		
+		clearStatus();
+
 		$( "#email" ).val( "foo" );
 
-		$( "#test" ).submit();
+		userInitiatedSubmit();
 
 		var status = $( ".status" );
 
@@ -280,9 +288,10 @@
 
 	test( "errors link to the correct label from status", function() {
 		
+		clearStatus();
 		$( "#email" ).val( "foo" );
 
-		$( "#test" ).submit();
+		userInitiatedSubmit();
 
 		var status = $( ".status" );
 
@@ -297,12 +306,14 @@
 
 	test( "errors are cleared when fields are valid", function() {
 		
+		clearStatus();
+
 		$( "#foo" ).val( "foo" );
 		$( "#email" ).val( "foo@example.com" );
 		$( "#name-given" ).val( "John" );
 		$( "#name-family" ).val( "Smith" );
 
-		$( "#test" ).submit();
+		userInitiatedSubmit();
 
 		var status = $( ".status" );
 
