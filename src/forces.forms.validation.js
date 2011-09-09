@@ -13,8 +13,9 @@ if ( jQuery !== "undefined" ) {
 
 
 	// display warnings for any invalid fields onsubmit
+	// track 'click' events because submit is suppressed
 	$( "form :submit" ).live( "click", function() {
-		
+
 		// form object
 		var form = $( this ).closest( "form" ),
 
