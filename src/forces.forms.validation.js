@@ -49,7 +49,12 @@ if ( jQuery !== "undefined" ) {
 
 		;
 
-		if ( invalid.length > 0 ) {
+		if ( invalid.length === 0 ) {
+
+			// hide the alert (if present)
+			alert.remove();
+
+		} else {
 
 			// remove old messages
 			messages.find( "li" ).remove();
