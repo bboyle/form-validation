@@ -12,7 +12,100 @@ if ( jQuery !== "undefined" ) {
 (function( $ ){
 	"use strict";
 
-	var methods = {
+	var i = 0,
+
+	highlightActiveAncestors = function( event ) {
+
+		var target = $( event.target ),
+
+			ancestorQuestions = target.parentsUntil( "form" , ".group, .questions > *" )
+		;
+
+		// deactive current previously active questions
+		target.closest( "form" ).find( ".questions > *, .group" ).not( ancestorQuestions ).removeClass( "active" );
+
+		// activate current questions
+		ancestorQuestions.addClass( "active" );
+
+	},
+
+	validateForm = function() {
+
+		// form object
+		var form = $( this ).closest( "form" ),
+
+			// invalid fields
+			invalid = form.find( "input, select, textarea" ).filter(function invalidFields() {
+
+				if ( ! invalidFields.cache ) {
+					invalidFields.cache = {};
+
+				} else if ( invalidFields[ this.name ] === true ) {
+					return false;					
+
+				}
+
+				invalidFields[ this.name ] = true;
+
+				return this.validity && ! this.validity.valid;
+			}),
+
+			// alert container
+			alert = form.data( "forces.submit" ) || form.data( "forces.submit", $( "<div class='status'><h1>Unable to process this form</h1><ol></ol></div>" )).data( "forces.submit" ),
+
+			// messages within alert
+			messages = alert.find( "ol" ),
+
+			// track groups
+			lastGroupSeen = true
+
+		;
+
+		if ( invalid.length > 0 ) {
+
+			// remove old messages
+			messages.find( "li" ).remove();
+
+			// add new messages
+			invalid.each(function() {
+
+				// for unique @id
+				i = i + 1;
+
+				// get field
+				var $this = $( this ),
+					
+					// get group (if exists)
+					group = $this.parentsUntil( "form", ".group" ),
+
+					// get label or group label
+					label = $this.forcesForms( "label", {
+						level : group.length > 0 ? "group" : null
+					}),
+
+					// get the label id
+					labelId = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
+				;
+
+				if ( group.length === 0 || group[0] !== lastGroupSeen ) {
+					
+					// update last group seen
+					lastGroupSeen = group[0];
+
+					// create error message with link to label
+					$( "<li><a href='#" + labelId + "'>" + label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
+
+				}
+
+			});
+			
+			// display alert
+			form.before( alert );
+
+		}
+	},
+
+	methods = {
 
 		// $( x ).forcesForms( "label" )
 		// $( x ).forcesForms( "label", { groupLabel : true })
@@ -43,6 +136,24 @@ if ( jQuery !== "undefined" ) {
 			});
 		},
 
+		// $( x ).forcesForms( "validate" )
+		// binds validation handler function to all input, select and textarea elements within the closest form
+		validate : function() {
+			return this.each(function() {
+				$( this ).closest( "form" )
+					// remove summary from DOM on submit
+					.bind( "submit", function() {
+						var alert = $( this ).data( "forces.submit" );
+						if ( alert ) {
+							alert.remove();
+						}
+					})
+					// bind invalid handler to form elements
+					.find( "input, select, textarea" ).bind( "invalid", validateForm )
+				;
+			});
+		},
+
 		// $( x ).forcesForms( "validationMessage" )
 		// return String validation message, e.g. "Must be completed"
 		validationMessage : function() {
@@ -60,22 +171,8 @@ if ( jQuery !== "undefined" ) {
 			}
 		}
 
-	},
-	
-	highlightActiveAncestors = function( event ) {
-
-		var target = $( event.target ),
-
-			ancestorQuestions = target.parentsUntil( "form" , ".group, .questions > *" )
-		;
-
-		// deactive current previously active questions
-		target.closest( "form" ).find( ".questions > *, .group" ).not( ancestorQuestions ).removeClass( "active" );
-
-		// activate current questions
-		ancestorQuestions.addClass( "active" );
-
 	};
+
 
 	// highlight active ancestors when focus received
 	$( "form a, input, select, textarea" ).live( "focus", highlightActiveAncestors );
