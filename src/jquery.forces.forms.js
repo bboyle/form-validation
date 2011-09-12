@@ -14,6 +14,8 @@ if ( jQuery !== "undefined" ) {
 
 	var i = 0,
 
+	dataFormErrorSummaryElement = "forces:formErrorSummary",
+
 	highlightActiveAncestors = function( event ) {
 
 		var target = $( event.target ),
@@ -51,7 +53,7 @@ if ( jQuery !== "undefined" ) {
 			}),
 
 			// alert container
-			alert = form.data( "forces.submit" ) || form.data( "forces.submit", $( "<div class='status'><h1>Unable to process this form</h1><ol></ol></div>" )).data( "forces.submit" ),
+			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( "<div class='status'><h1>Unable to process this form</h1><ol></ol></div>" )).data( dataFormErrorSummaryElement ),
 
 			// messages within alert
 			messages = alert.find( "ol" ),
@@ -141,13 +143,6 @@ if ( jQuery !== "undefined" ) {
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( "form" )
-					// remove summary from DOM on submit
-					.bind( "submit", function() {
-						var alert = $( this ).data( "forces.submit" );
-						if ( alert ) {
-							alert.remove();
-						}
-					})
 					// bind invalid handler to form elements
 					.find( "input, select, textarea" ).bind( "invalid", validateForm )
 				;
@@ -176,6 +171,17 @@ if ( jQuery !== "undefined" ) {
 
 	// highlight active ancestors when focus received
 	$( "form a, input, select, textarea" ).live( "focus", highlightActiveAncestors );
+
+
+	// manage form submission
+	$( "form" ).live( "submit", function() {
+		// remove summary element from DOM on submit
+		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
+
+		if ( summaryElement ) {
+			summaryElement.remove();
+		}
+	});
 
 
 	$.fn.forcesForms = function( method ) {
