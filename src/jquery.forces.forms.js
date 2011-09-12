@@ -86,7 +86,10 @@ if ( jQuery !== "undefined" ) {
 					}),
 
 					// get the label id
-					labelId = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id
+					labelId = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id,
+
+					// get alert item
+					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( "<li><a href='#" + labelId + "'></a></li>" )).data( dataFormErrorSummaryElement )
 				;
 
 				if ( group.length === 0 || group[0] !== lastGroupSeen ) {
@@ -95,8 +98,15 @@ if ( jQuery !== "undefined" ) {
 					lastGroupSeen = group[0];
 
 					// create error message with link to label
-					$( "<li><a href='#" + labelId + "'>" + label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) + "</a></li>" ).appendTo( messages );
+					item
+					.find( "a" )
+						.text( label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) )
+						.end()
+					.appendTo( messages );
 
+				} else {
+					// remove from DOM
+					item.remove();
 				}
 
 			});
