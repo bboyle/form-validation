@@ -215,7 +215,7 @@
 
 	module( "invalid events UI" );
 
-	test( "inline message shown on invalid event", 5, function() {
+	test( "inline message shown on invalid event", 9, function() {
 
 		$( "input#foo" )[0].checkValidity();
 
@@ -230,6 +230,16 @@
 
 		strictEqual( $( "label[for=email] .alert" ).length, 1, ".alert found for invalid email" );
 		strictEqual( $( "label[for=email] .alert" ).text(), "Must be an email address", "correct .alert text for invalid email" );
+
+		$( "#select-foo" )[0].checkValidity();
+
+		strictEqual( $( "label[for=select-foo] .alert" ).length, 1, ".alert for found invalid select" );
+		strictEqual( $( "label[for=select-foo] .alert" ).text(), "Must be completed", "blank warning displayed for invalid select" );
+
+		$( "#textarea-foo" )[0].checkValidity();
+
+		strictEqual( $( "label[for=textarea-foo] .alert" ).length, 1, ".alert for found invalid textarea" );
+		strictEqual( $( "label[for=textarea-foo] .alert" ).text(), "Must be completed", "blank warning displayed for invalid textarea" );
 
 	});
 
