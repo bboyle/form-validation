@@ -39,17 +39,28 @@ if ( jQuery !== "undefined" ) {
 			alertElement = $this.forcesForms( "alert" )
 		;
 
-		// does alert exist?
-		if ( alertElement.length === 0 ) {
-			alertElement = $( "<em class='alert'/>" );
+		// is there an alert?
+		if ( alertMessage === "" ) {
+
+			// remove old alert
+			alertElement.remove();
+
+		} else {
+
+			// does alert exist?
+			if ( alertElement.length === 0 ) {
+				alertElement = $( "<em class='alert'/>" );
+			}
+
+			alertElement.text( alertMessage );
+			alertElement.appendTo( $this.forcesForms( "label" ).parent() );
+
+			// suppress native validation
+			if ( event.type === "invalid" ) {
+				event.preventDefault();
+				return false;
+			}
 		}
-
-		alertElement.text( alertMessage );
-		alertElement.appendTo( $this.forcesForms( "label" ).parent() );
-
-		// suppress native validation
-		event.preventDefault();
-		return false;
 	},
 
 	
@@ -201,7 +212,7 @@ if ( jQuery !== "undefined" ) {
 					// bind invalid handlers to form elements
 					.find( "input, select, textarea" )
 						.bind( "invalid", validateForm )
-						.bind( "invalid", validateQuestion )
+						.bind( "invalid change", validateQuestion )
 				;
 			});
 		},

@@ -243,6 +243,42 @@
 
 	});
 
+	test( "inline messages are hidden when invalid input is corrected", 4, function() {
+		
+		$( "input#foo" )[0].checkValidity();
+
+		strictEqual( $( "label[for=foo] .alert" ).length, 1, ".alert found in label" );
+		strictEqual( $( "label[for=foo] .alert" ).text(), "Must be completed", "alert message is \"Must be completed\"" );
+
+		$( "input#foo" ).val( "foo" );
+		$( "input#foo" )[0].checkValidity();
+		$( "input#foo" ).trigger( "change" );
+
+		strictEqual( $( "input#foo" )[0].checkValidity(), true, "foo is valid" );
+		strictEqual( $( "label[for=foo] .alert" ).length, 0, "no .alert found in label" );
+
+	});
+
+	test( "inline validation messages update when error changes", 3, function() {
+		
+		$( "#email" ).val( "foo" );
+		$( "#email" )[0].checkValidity();
+
+		strictEqual( $( "label[for=email] .alert" ).text(), "Must be an email address", "showing invalid email message" );
+
+		$( "#email" ).val( "" );
+		$( "#email" )[0].checkValidity();
+
+		strictEqual( $( "label[for=email] .alert" ).text(), "Must be completed", "showing value missing message" );
+
+		$( "#email" ).val( "foo@example.com" );
+		$( "#email" )[0].checkValidity();
+		$( "#email" ).trigger( "change" );
+
+		strictEqual( $( "label[for=email] .alert" ).length, 0, "no error message when valid" );
+
+	});
+
 
 // --></script>
 
