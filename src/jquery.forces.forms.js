@@ -9,7 +9,7 @@
 */
 
 if ( jQuery !== "undefined" ) {
-(function( $ ){
+(function( $ ) {
 	"use strict";
 
 	var i = 0,
@@ -119,6 +119,27 @@ if ( jQuery !== "undefined" ) {
 
 	methods = {
 
+		// $( x ).forcesForms( "alert" ) -- get
+		// get or set alert text (html not supported)
+		alert : function( alertMessage ) {
+			return this.map(function( index, domElement ) {
+
+				var $element = $( domElement );
+
+				if ( $element.is( ":radio,:checkbox" ) === true ) {
+				
+					// TODO	
+				
+				} else {
+
+					return $( "label[for='" + domElement.id + "'] > .alert" )[0];
+					
+				}
+
+			});
+		},
+
+
 		// $( x ).forcesForms( "label" )
 		// $( x ).forcesForms( "label", { groupLabel : true })
 		// return .label associated with element or containing group
@@ -140,6 +161,7 @@ if ( jQuery !== "undefined" ) {
 			});
 		},
 
+
 		// $( x ).forcesForms( "group" )
 		// return group element for item
 		group : function() {
@@ -147,6 +169,7 @@ if ( jQuery !== "undefined" ) {
 				return $( domElement ).parentsUntil( "form", ".group" )[0];
 			});
 		},
+
 
 		// $( x ).forcesForms( "validate" )
 		// binds validation handler function to all input, select and textarea elements within the closest form
@@ -158,6 +181,7 @@ if ( jQuery !== "undefined" ) {
 				;
 			});
 		},
+
 
 		// $( x ).forcesForms( "validationMessage" )
 		// return String validation message, e.g. "Must be completed"
@@ -191,6 +215,15 @@ if ( jQuery !== "undefined" ) {
 		if ( summaryElement ) {
 			summaryElement.remove();
 		}
+	});
+
+
+	// manage invalid events
+	$( "input, select, textarea" ).bind( "invalid.forces", function() {
+		var $this = $( this ),
+			alertMessage = "Must be completed";
+
+		$this.forcesForms( "alert" ).text( alertMessage );
 	});
 
 
