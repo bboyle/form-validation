@@ -148,10 +148,9 @@ if ( jQuery !== "undefined" ) {
 
 				var $element = $( domElement );
 
-				if ( $element.is( ":radio,:checkbox" ) === true ) {
+				if ( $element.is( ":radio, :checkbox" ) === true ) {
 				
-					// TODO
-					return null;
+					return $element.closest( "fieldset" ).find( "legend > .alert" )[0];
 				
 				} else {
 
