@@ -140,10 +140,12 @@
 		equal( $( "#foo" ).forcesForms( "alert" )[0], $( "label[for=foo] > .alert" )[0], "found alert" );
 		equal( $( "#foo" ).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text" );
 
-	});
+		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for radio group" );
+		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text for radio group" );
+		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for 2nd radio button" );
+		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], "Must be completed", "same alert used for both radio buttons" );
 
-	// set alert values
-		// cannot set html, text only
+	});
 
 
 // --></script>
