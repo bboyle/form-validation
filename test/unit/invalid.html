@@ -215,7 +215,7 @@
 
 	module( "invalid events UI" );
 
-	test( "inline message shown on invalid event", 3, function() {
+	test( "inline message shown on invalid event", 5, function() {
 
 		$( "input#foo" )[0].checkValidity();
 
@@ -225,6 +225,11 @@
 		$( ":radio[name=radioFoo]" )[0].checkValidity();
 
 		strictEqual( $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( "legend .alert" ).length, 1, "1 .alert found for radioFoo group" );
+
+		$( "input#email" ).val( "foo" )[0].checkValidity();
+
+		strictEqual( $( "label[for=email] .alert" ).length, 1, ".alert found for invalid email" );
+		strictEqual( $( "label[for=email] .alert" ).text(), "Must be an email address", "correct .alert text for invalid email" );
 
 	});
 
