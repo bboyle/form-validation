@@ -215,13 +215,17 @@
 
 	module( "invalid events UI" );
 
-	test( "inline message shown on invalid event", 2, function() {
+	test( "inline message shown on invalid event", 3, function() {
 
 		$( "input#foo" )[0].checkValidity();
 
 		strictEqual( $( "label[for=foo] .alert" ).length, 1, ".alert found in label" );
 		strictEqual( $( "label[for=foo] .alert" ).text(), "Must be completed", "alert message is \"Must be completed\"" );
 		
+		$( ":radio[name=radioFoo]" )[0].checkValidity();
+
+		strictEqual( $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( "legend .alert" ).length, 1, "1 .alert found for radioFoo group" );
+
 	});
 
 
