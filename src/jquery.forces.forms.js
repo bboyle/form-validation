@@ -31,6 +31,28 @@ if ( jQuery !== "undefined" ) {
 
 	},
 
+	
+	validateQuestion = function( event ) {
+
+		var $this = $( this ),
+			alertMessage = $this.forcesForms( "validationMessage" ),
+			alertElement = $this.forcesForms( "alert" )
+		;
+
+		// does alert exist?
+		if ( alertElement.length === 0 ) {
+			alertElement = $( "<em class='alert'/>" );
+		}
+
+		alertElement.text( alertMessage );
+		alertElement.appendTo( $this.forcesForms( "label" ).parent() );
+
+		// suppress native validation
+		event.preventDefault();
+		return false;
+	},
+
+	
 	validateForm = function() {
 
 		// form object
@@ -128,7 +150,8 @@ if ( jQuery !== "undefined" ) {
 
 				if ( $element.is( ":radio,:checkbox" ) === true ) {
 				
-					// TODO	
+					// TODO
+					return null;
 				
 				} else {
 
@@ -176,8 +199,10 @@ if ( jQuery !== "undefined" ) {
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( "form" )
-					// bind invalid handler to form elements
-					.find( "input, select, textarea" ).bind( "invalid", validateForm )
+					// bind invalid handlers to form elements
+					.find( "input, select, textarea" )
+						.bind( "invalid", validateForm )
+						.bind( "invalid", validateQuestion )
 				;
 			});
 		},
@@ -215,15 +240,6 @@ if ( jQuery !== "undefined" ) {
 		if ( summaryElement ) {
 			summaryElement.remove();
 		}
-	});
-
-
-	// manage invalid events
-	$( "input, select, textarea" ).bind( "invalid.forces", function() {
-		var $this = $( this ),
-			alertMessage = "Must be completed";
-
-		$this.forcesForms( "alert" ).text( alertMessage );
 	});
 
 
