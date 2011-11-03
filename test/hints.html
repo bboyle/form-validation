@@ -149,6 +149,16 @@
 
 	});
 
+	test( 'empty hints created on demand', function() {
+
+		strictEqual( $( 'label[for=name-title] > .hint' ).length, 0, 'no hint for #name-title' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' ).length, 1, 'found .hint on demand' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' )[0], $( 'label[for=name-title] > .hint' )[0], '.hint was added to DOM for #name-title' );
+
+	$( '#name-title' ).forcesForms( 'hint' ).text( 'New hint' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' ).text(), 'New hint', 'populated new .hint with text' );
+	});
+
 	test( 'can get group hint for grouped form fields', function() {
 
 		strictEqual( $( '#name-title' ).forcesForms( 'hint', { level : 'group' })[0], $( '.group .hint' )[0], 'found :text hint for group' );

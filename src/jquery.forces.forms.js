@@ -35,17 +35,28 @@ if ( jQuery !== "undefined" ) {
 	getLabelComponent = function( component, options ) {
 		return this.map(function( index, domElement ) {
 
-			var $element = $( domElement );
+			var $element = $( domElement ),
+				labelElement = null,
+				foundElement = null;
 
 			if ( typeof options === 'object' && options.level === 'group' ) {
-				return $element.closest( '.group' ).find( component )[0];
+				foundElement = $element.closest( '.group' ).find( component )[0];
 
 			} else if ( $element.is( ':radio' )) {
-				return $element.closest( 'fieldset' ).find( component )[0];
+				foundElement = $element.closest( 'fieldset' ).find( component )[0];
 
 			} else {
-				return $element.closest( 'form' ).find( 'label[for=' + domElement.id + '] > ' + component )[0];
+				labelElement = $element.closest( 'form' ).find( 'label[for=' + domElement.id + ']' );
+				foundElement = labelElement.children( component )[0];
+				if ( ! foundElement ) {
+					if ( component === '.hint' ) {
+						foundElement = $( '<small class="hint"></small>' );
+						foundElement.appendTo( labelElement );
+					}
+				}
 			}
+
+			return foundElement;
 
 		});
 	},
