@@ -41,7 +41,7 @@
 	</target>
 
 	<target name="get-forces" description="--> get forces libraries">
-		<get src="https://raw.github.com/bboyle/usetheforces-html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
+		<get src="https://raw.github.com/Forces/html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" dest="${lib.dir}/forces.html5.constraintValidationAPI.js"/>
 	</target>
 
 	<target name="dependencies" depends="resolve,get-qunit,get-jquery,get-forces" description="--> get all dependences"/>
