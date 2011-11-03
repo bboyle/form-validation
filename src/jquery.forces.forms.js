@@ -50,8 +50,8 @@ if ( jQuery !== "undefined" ) {
 				foundElement = labelElement.children( component )[0];
 				if ( ! foundElement ) {
 					if ( component === '.hint' ) {
-						foundElement = $( '<small class="hint"></small>' );
-						foundElement.appendTo( labelElement );
+						labelElement.append( '<small class="hint"></small>' );
+						foundElement = labelElement.children( component )[0];
 					}
 				}
 			}
