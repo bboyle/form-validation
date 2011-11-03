@@ -31,6 +31,36 @@ if ( jQuery !== "undefined" ) {
 
 	},
 
+	// helper for .label, .hint and .alert
+	getLabelComponent = function( component, options ) {
+		return this.map(function( index, domElement ) {
+
+			var $element = $( domElement ),
+				labelElement = null,
+				foundElement = null;
+
+			if ( typeof options === 'object' && options.level === 'group' ) {
+				foundElement = $element.closest( '.group' ).find( component )[0];
+
+			} else if ( $element.is( ':radio' )) {
+				foundElement = $element.closest( 'fieldset' ).find( component )[0];
+
+			} else {
+				labelElement = $element.closest( 'form' ).find( 'label[for=' + domElement.id + ']' );
+				foundElement = labelElement.children( component )[0];
+				if ( ! foundElement ) {
+					if ( component === '.hint' ) {
+						labelElement.append( '<small class="hint"></small>' );
+						foundElement = labelElement.children( component )[0];
+					}
+				}
+			}
+
+			return foundElement;
+
+		});
+	},
+
 	validateForm = function() {
 
 		// form object
@@ -120,24 +150,17 @@ if ( jQuery !== "undefined" ) {
 	methods = {
 
 		// $( x ).forcesForms( "label" )
-		// $( x ).forcesForms( "label", { groupLabel : true })
+		// $( x ).forcesForms( "label", [{ level : group }])
 		// return .label associated with element or containing group
 		label : function( options ) {
-			return this.map(function( index, domElement ) {
+			return getLabelComponent.call( this, '.label', options );
+		},
 
-				var $element = $( domElement );
-
-				if ( typeof options === "object" && options.level === "group" ) {
-					return $element.closest( ".group" ).find( ".label" )[0];
-
-				} else if ( $element.is( ":radio" )) {
-					return $element.closest( "fieldset" ).find( ".label" )[0];
-
-				} else {
-					return $element.closest( "form" ).find( "label[for=" + domElement.id + "] > .label" )[0];
-				}
-
-			});
+		// $( x ).forcesForms( "hint" )
+		// $( x ).forcesForms( "hint", [{ level : group }])
+		// return .hint associated with element or containing group
+		hint : function( options ) {
+			return getLabelComponent.call( this, '.hint', options );
 		},
 
 		// $( x ).forcesForms( "group" )

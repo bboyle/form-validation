@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="UTF-8" />
+	<title>hint tests · forces validation UI tests</title>
+
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+
+		.hint {
+			display: block;
+			border: 2px solid green;
+			background: #ff9;
+		}
+
+	</style>
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
+
+</head>
+
+<body>
+
+<form id="test" action="javascript:">
+
+	<ol class="questions">
+
+		<li>
+			<label for="foo">
+				<span class="label">Foo</span>
+				<abbr title="(required)">*</abbr>
+				<small class="hint">Foo hint</small>
+			</label>
+			<input type="text" name="foo" id="foo" value="" required="required" />
+		</li>
+
+		<li>
+			<fieldset>
+				<legend>
+					<span class="label">Radio foo</span>
+					<abbr title="(required)">*</abbr>
+					<small class="hint">Hint for radio foo</small>
+				</legend>
+				<ul class="choices">
+					<li>
+						<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+						<label for="radio-foo-foo">Foo</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+						<label for="radio-foo-bar">Bar</label>
+					</li>
+				</ul>
+			</fieldset>
+		</li>
+
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Your name</span>
+					<small class="hint">Will be displayed on this website</small>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="name-title">
+							<span class="label">Title</span>
+						</label>
+						<input type="text" id="name-title" name="nameTitle" size="3" />
+					</li>
+					<li>
+						<label for="name-given">
+							<span class="label">Given names</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+					</li>
+					<li>
+						<label for="name-family">
+							<span class="label">Family name</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
+		<li class="footer">
+			<ol class="submit">
+				<li>
+					<strong>
+						<input type="submit" value="Submit" />
+					</strong>
+				</li>
+			</ol>
+		</li>
+
+	</ol>
+
+</form>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+</div>
+
+
+<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="../src/jquery.forces.forms.js"></script>
+
+<script><!-- //
+
+	module( 'environment' );
+
+	test( 'test fields are in test form', function() {
+
+		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
+		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 2, 'form#test contains 2 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
+		strictEqual( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
+		strictEqual( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
+
+	});
+
+
+	module( 'form traversal' );
+
+	test( 'can get hints for form fields', function() {
+
+		strictEqual( $( '#foo' ).forcesForms( 'hint' )[0], $( 'label[for=foo] > .hint' )[0], 'found :text hint' );
+		strictEqual( $( '#foo' ).forcesForms( 'hint' ).text(), 'Foo hint', 'found expected hint text' );
+
+		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'hint' )[0], $( 'legend > .hint' )[0], 'found radio button group hint' );
+		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'hint' ).text(), 'Hint for radio foo', 'found expected hint text' );
+
+	});
+
+	test( 'empty hints created on demand', function() {
+
+		strictEqual( $( 'label[for=name-title] > .hint' ).length, 0, 'no hint for #name-title' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' ).length, 1, 'found .hint on demand' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' )[0], $( 'label[for=name-title] > .hint' )[0], '.hint was added to DOM for #name-title' );
+
+	$( '#name-title' ).forcesForms( 'hint' ).text( 'New hint' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint' ).text(), 'New hint', 'populated new .hint with text' );
+	});
+
+	test( 'can get group hint for grouped form fields', function() {
+
+		strictEqual( $( '#name-title' ).forcesForms( 'hint', { level : 'group' })[0], $( '.group .hint' )[0], 'found :text hint for group' );
+		strictEqual( $( '#name-title' ).forcesForms( 'hint', { level : 'group' }).text(), 'Will be displayed on this website', 'found expected group hint text' );
+		strictEqual( $( '#name-given' ).forcesForms( 'hint', { level : 'group' })[0], $( '.group .hint' )[0], 'found :text hint for group' );
+		strictEqual( $( '#name-given' ).forcesForms( 'hint', { level : 'group' }).text(), 'Will be displayed on this website', 'found expected group hint text' );
+		strictEqual( $( '#name-family' ).forcesForms( 'hint', { level : 'group' })[0], $( '.group .hint' )[0], 'found :text hint for group' );
+		strictEqual( $( '#name-family' ).forcesForms( 'hint', { level : 'group' }).text(), 'Will be displayed on this website', 'found expected group hint text' );
+
+	});
+
+	test( 'verify .forcesForm( "hint" ) supports jquery chaining', function() {
+		// test jquery object
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'hint' )[0], $( 'label[for=foo] > .hint' )[0], 'verified 1st hint in jquery object' );
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'hint' )[1], $( 'legend > .hint' )[0], 'verified 2nd hint in jquery object' );
+
+	});
+
+	test( 'verify .forcesForm( "hint", { level : "group" }) supports jquery chaining', function() {
+
+		strictEqual( $( '.group input' ).forcesForms( 'hint', { level : 'group' })[0], $( '.group .hint' )[0], 'verified 1st group hint in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'hint', { level : 'group' })[1], $( '.group .hint' )[0], 'verified 2nd group hint in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'hint', { level : 'group' })[2], $( '.group .hint' )[0], 'verified 3rd group hint in jquery object' );
+
+	});
+
+
+// --></script>
+
+
+</body>
+</html>
