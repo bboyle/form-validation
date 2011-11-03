@@ -9,7 +9,7 @@
 */
 
 if ( jQuery !== "undefined" ) {
-(function( $ ){
+(function( $ ) {
 	"use strict";
 
 	var i = 0,
@@ -60,7 +60,39 @@ if ( jQuery !== "undefined" ) {
 
 		});
 	},
+	
+	validateQuestion = function( event ) {
 
+		var $this = $( this ),
+			alertMessage = $this.forcesForms( "validationMessage" ),
+			alertElement = $this.forcesForms( "alert" )
+		;
+
+		// is there an alert?
+		if ( alertMessage === "" ) {
+
+			// remove old alert
+			alertElement.remove();
+
+		} else {
+
+			// does alert exist?
+			if ( alertElement.length === 0 ) {
+				alertElement = $( "<em class='alert'/>" );
+			}
+
+			alertElement.text( alertMessage );
+			alertElement.appendTo( $this.forcesForms( "label" ).parent() );
+
+			// suppress native validation
+			if ( event.type === "invalid" ) {
+				event.preventDefault();
+				return false;
+			}
+		}
+	},
+
+	
 	validateForm = function() {
 
 		// form object
@@ -149,6 +181,27 @@ if ( jQuery !== "undefined" ) {
 
 	methods = {
 
+		// $( x ).forcesForms( "alert" ) -- get
+		// get or set alert text (html not supported)
+		alert : function( alertMessage ) {
+			return this.map(function( index, domElement ) {
+
+				var $element = $( domElement );
+
+				if ( $element.is( ":radio, :checkbox" ) === true ) {
+				
+					return $element.closest( "fieldset" ).find( "legend > .alert" )[0];
+				
+				} else {
+
+					return $( "label[for='" + domElement.id + "'] > .alert" )[0];
+					
+				}
+
+			});
+		},
+
+
 		// $( x ).forcesForms( "label" )
 		// $( x ).forcesForms( "label", [{ level : group }])
 		// return .label associated with element or containing group
@@ -156,12 +209,14 @@ if ( jQuery !== "undefined" ) {
 			return getLabelComponent.call( this, '.label', options );
 		},
 
+
 		// $( x ).forcesForms( "hint" )
 		// $( x ).forcesForms( "hint", [{ level : group }])
 		// return .hint associated with element or containing group
 		hint : function( options ) {
 			return getLabelComponent.call( this, '.hint', options );
 		},
+
 
 		// $( x ).forcesForms( "group" )
 		// return group element for item
@@ -171,16 +226,20 @@ if ( jQuery !== "undefined" ) {
 			});
 		},
 
+
 		// $( x ).forcesForms( "validate" )
 		// binds validation handler function to all input, select and textarea elements within the closest form
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( "form" )
-					// bind invalid handler to form elements
-					.find( "input, select, textarea" ).bind( "invalid", validateForm )
+					// bind invalid handlers to form elements
+					.find( "input, select, textarea" )
+						.bind( "invalid", validateForm )
+						.bind( "invalid change", validateQuestion )
 				;
 			});
 		},
+
 
 		// $( x ).forcesForms( "validationMessage" )
 		// return String validation message, e.g. "Must be completed"

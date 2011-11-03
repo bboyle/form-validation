@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="UTF-8" />
+	<title>alert tests · forces validation UI tests</title>
+
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+		#qunit-fixture {
+			position: static;
+		}
+
+		.alert {
+			display: block;
+			font-weight: bold;
+			color: red;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+
+<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="../src/jquery.forces.forms.js"></script>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">
+
+
+		<form id="test" action="javascript:">
+
+			<ol class="questions">
+
+				<li>
+					<label for="foo">
+						<span class="label">Foo</span>
+						<abbr title="(required)">*</abbr>
+						<em class="alert">Must be completed</em>
+					</label>
+					<input type="text" name="foo" id="foo" value="" required="required" />
+				</li>
+
+				<li>
+					<label for="bar">
+						<span class="label">Bar</span>
+						<abbr title="(required)">*</abbr>
+					</label>
+					<input type="text" name="bar" id="bar" value="" required="required" />
+				</li>
+
+				<li>
+					<label for="email">
+						<span class="label">Email</span>
+						<abbr title="(required)">*</abbr>
+						<em class="alert">Must be an email address</em>
+					</label>
+					<input type="email" name="email" id="email" value="foo" required="required" />
+				</li>
+
+				<li>
+					<fieldset>
+						<legend>
+							<span class="label">Radio foo</span>
+							<abbr title="(required)">*</abbr>
+							<em class="alert">Must be completed</em>
+						</legend>
+						<ul class="choices">
+							<li>
+								<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+								<label for="radio-foo-foo">Foo</label>
+							</li>
+							<li>
+								<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+								<label for="radio-foo-bar">Bar</label>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+				<li class="footer">
+					<ol class="submit">
+						<li>
+							<strong>
+								<input type="submit" value="Submit" />
+							</strong>
+						</li>
+					</ol>
+				</li>
+
+			</ol>
+
+		</form>
+
+
+	</div>
+</div>
+
+
+<script><!-- //
+
+	module( "environment" );
+
+	test( "test fields are in test form", function() {
+
+		equal( $( "form#test" ).length, 1, "form#test is present" );
+		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
+		equal( $( "form#test label[for=foo] .alert" ).length, 1, "input#foo label contains .alert" );
+		equal( $( "form#test input#bar" ).length, 1, "form#test contains input#bar" );
+		equal( $( "form#test label[for=bar] .alert" ).length, 0, "input#bar label does not contain .alert" );
+		equal( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
+		equal( $( "form#test label[for=email] .alert" ).length, 1, "input#foo label contains .alert" );
+		equal( $( "form#test :radio[name=radioFoo]" ).length, 2, "form#test contains 2 radio buttons in radioFoo group" );
+		equal( $( "form#test :radio[name=radioFoo]" ).closest( "fieldset" ).find( "legend > .alert" ).length, 1, "radioFoo group legend contains .alert" );
+
+	});
+
+
+	module( "inline validation messages (alerts)" );
+
+	test( "can get alert value", function() {
+
+		equal( $( "#foo" ).forcesForms( "alert" )[0], $( "label[for=foo] > .alert" )[0], "found alert" );
+		equal( $( "#foo" ).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text" );
+
+		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for radio group" );
+		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text for radio group" );
+		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for 2nd radio button" );
+		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], "Must be completed", "same alert used for both radio buttons" );
+
+	});
+
+
+// --></script>
+
+
+</body>
+</html>
