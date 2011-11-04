@@ -146,7 +146,7 @@ if ( jQuery !== "undefined" ) {
 					}),
 
 					// get the label id
-					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString())[ 0 ].id,
+					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString() )[ 0 ].id,
 
 					// get alert item
 					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( '<li><a href="#' + labelId + '"></a></li>' )).data( dataFormErrorSummaryElement )
@@ -213,15 +213,11 @@ if ( jQuery !== "undefined" ) {
 				var $element = $( domElement );
 
 				if ( $element.is( ':radio, :checkbox' ) === true ) {
-				
 					return $element.closest( 'fieldset' ).find( 'legend > .alert' )[ 0 ];
-				
+
 				} else {
-
 					return $( 'label[for="' + domElement.id + '"] > .alert' )[ 0 ];
-					
 				}
-
 			});
 		},
 
