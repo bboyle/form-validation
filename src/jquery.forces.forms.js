@@ -197,6 +197,7 @@ if ( jQuery !== "undefined" ) {
 
 			// show the error summary
 			displaySummary.call( this );
+			// TODO show inline errors
 			// TODO focus/scrollTo summary element
 
 			// cancel submit
