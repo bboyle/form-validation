@@ -72,21 +72,22 @@ if ( jQuery !== "undefined" ) {
 			// remove old alert
 			alertElement.remove();
 
+			// TODO remove .invalid class on LI
+
 		} else {
 
 			// does alert exist?
+			// TODO use getLabelComponent() defined above
 			if ( alertElement.length === 0 ) {
 				alertElement = $( '<em class="alert"/>' );
 			}
 
+			// TODO move this to changeHandler
+			// is this function THE change handler?
 			alertElement.text( alertMessage );
 			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
+			// TODO set .invalid class on LI
 
-			// suppress native validation
-			if ( event.type === 'invalid' ) {
-				event.preventDefault();
-				return false;
-			}
 		}
 	},
 
@@ -171,6 +172,7 @@ if ( jQuery !== "undefined" ) {
 			});
 			
 			// display alert
+			// TODO move this to submitValidationHandler
 			form.before( alert );
 		}
 
