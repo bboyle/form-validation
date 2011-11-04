@@ -25,6 +25,13 @@
 			padding: 1em;
 		}
 
+		.invalid {
+			border: 1px solid red;
+		}
+		.alert {
+			color: red;
+		}
+
 	</style>
 
 </head>
@@ -242,26 +249,26 @@
 	test( "status message shown on submit", function() {
 
 		clearStatus();
-		userInitiatedSubmit();
+		$( 'form' ).trigger( 'submit' );
 
 		var status = $( ".status" );
 
 		strictEqual( status.length, 1, ".status element is shown" );
-		strictEqual( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
-		strictEqual( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
+		strictEqual( status.find( "h2" ).length, 1, ".status element contains 1 h2 element" );
+		strictEqual( status.find( "h2" ).text(), "Unable to process this form", ".status h2 has correct text" );
 		strictEqual( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
 		
 	});
 
 	test( "status message shown when button clicked", function() {
 		
-		userInitiatedSubmit();
+		$( 'form :submit' )[ 0 ].click();
 
 		var status = $( ".status" );
 
 		strictEqual( status.length, 1, ".status element is shown" );
-		strictEqual( status.find( "h1" ).length, 1, ".status element contains 1 h1 element" );
-		strictEqual( status.find( "h1" ).text(), "Unable to process this form", ".status h1 has correct text" );
+		strictEqual( status.find( "h2" ).length, 1, ".status element contains 1 h2 element" );
+		strictEqual( status.find( "h2" ).text(), "Unable to process this form", ".status h2 has correct text" );
 		strictEqual( status.find( "ol" ).length, 1, ".status element contains 1 ol element" );
 
 	});

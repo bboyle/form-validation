@@ -59,7 +59,7 @@ if ( jQuery !== "undefined" ) {
 		});
 	},
 	
-	validateQuestion = function( event ) {
+	changeValidityCheck = function( event ) {
 
 		var $this = $( this ),
 			alertMessage = $this.forcesForms( 'validationMessage' ),
@@ -91,7 +91,9 @@ if ( jQuery !== "undefined" ) {
 	},
 
 	
-	validateForm = function() {
+	// checks for invalid elements
+	// returns number of invalid elements
+	submitValidityCheck = function() {
 
 		// form object
 		var form = $( this ).closest( 'form' ),
@@ -111,7 +113,7 @@ if ( jQuery !== "undefined" ) {
 			}),
 
 			// alert container
-			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( '<div class="status"><h1>Unable to process this form</h1><ol></ol></div>' )).data( dataFormErrorSummaryElement ),
+			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )).data( dataFormErrorSummaryElement ),
 
 			// messages within alert
 			messages = alert.find( 'ol' ),
@@ -170,9 +172,34 @@ if ( jQuery !== "undefined" ) {
 			
 			// display alert
 			form.before( alert );
+		}
 
+		return invalid.length;
+	},
+
+
+	submitValidationHandler = function( event ) {
+		// validate form
+		var count = submitValidityCheck.call( this );
+		// cancel submit
+		if ( count > 0 ) {
+			event.stopImmediatePropagation();
+			return false;
 		}
 	},
+
+
+	// bind this AFTER the validation handler
+	submitDoneHandler = function() {
+
+		// remove summary element from DOM on successful submit
+		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
+
+		if ( summaryElement ) {
+			summaryElement.remove();
+		}
+	},
+
 
 	methods = {
 
@@ -223,14 +250,20 @@ if ( jQuery !== "undefined" ) {
 
 
 		// $( x ).forcesForms( "validate" )
-		// binds validation handler function to all input, select and textarea elements within the closest form
+		// binds validation handler functions
+		// sets @novalidate on form to disable built-in validation
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( 'form' )
-					// bind invalid handlers to form elements
+					// turn off native validation
+					.attr( 'novalidate', true )
+					// validate this form
+					.bind( 'submit', submitValidationHandler )
+					// if validation did not cancel submit…
+					.bind( 'submit', submitDoneHandler )
+					// bind inline validation handlers to form elements
 					.find( 'input, select, textarea' )
-						.bind( 'invalid', validateForm )
-						.bind( 'invalid change', validateQuestion )
+						.bind( 'change', changeValidityCheck )
 				;
 			});
 		},
@@ -258,17 +291,6 @@ if ( jQuery !== "undefined" ) {
 
 	// highlight active ancestors when focus received
 	$( 'form a, input, select, textarea' ).live( 'focus', highlightActiveAncestors );
-
-
-	// manage form submission
-	$( 'form' ).live( 'submit', function() {
-		// remove summary element from DOM on submit
-		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
-
-		if ( summaryElement ) {
-			summaryElement.remove();
-		}
-	});
 
 
 	$.fn.forcesForms = function( method ) {
