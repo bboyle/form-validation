@@ -14,20 +14,18 @@ if ( jQuery !== "undefined" ) {
 
 	var i = 0,
 
-	dataFormErrorSummaryElement = "forces:formErrorSummary",
+	dataFormErrorSummaryElement = 'forces:formErrorSummary',
 
 	highlightActiveAncestors = function( event ) {
 
 		var target = $( event.target ),
-
-			ancestorQuestions = target.parentsUntil( "form" , ".group, .questions > *" )
+			ancestorQuestions = target.parentsUntil( 'form' , '.group, .questions > *' )
 		;
 
 		// deactive current previously active questions
-		target.closest( "form" ).find( ".questions > *, .group" ).not( ancestorQuestions ).removeClass( "active" );
-
+		target.closest( 'form' ).find( '.questions > *, .group' ).not( ancestorQuestions ).removeClass( 'active' );
 		// activate current questions
-		ancestorQuestions.addClass( "active" );
+		ancestorQuestions.addClass( 'active' );
 
 	},
 
@@ -64,12 +62,12 @@ if ( jQuery !== "undefined" ) {
 	validateQuestion = function( event ) {
 
 		var $this = $( this ),
-			alertMessage = $this.forcesForms( "validationMessage" ),
-			alertElement = $this.forcesForms( "alert" )
+			alertMessage = $this.forcesForms( 'validationMessage' ),
+			alertElement = $this.forcesForms( 'alert' )
 		;
 
 		// is there an alert?
-		if ( alertMessage === "" ) {
+		if ( alertMessage === '' ) {
 
 			// remove old alert
 			alertElement.remove();
@@ -78,14 +76,14 @@ if ( jQuery !== "undefined" ) {
 
 			// does alert exist?
 			if ( alertElement.length === 0 ) {
-				alertElement = $( "<em class='alert'/>" );
+				alertElement = $( '<em class="alert"/>' );
 			}
 
 			alertElement.text( alertMessage );
-			alertElement.appendTo( $this.forcesForms( "label" ).parent() );
+			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
 
 			// suppress native validation
-			if ( event.type === "invalid" ) {
+			if ( event.type === 'invalid' ) {
 				event.preventDefault();
 				return false;
 			}
@@ -96,62 +94,59 @@ if ( jQuery !== "undefined" ) {
 	validateForm = function() {
 
 		// form object
-		var form = $( this ).closest( "form" ),
+		var form = $( this ).closest( 'form' ),
 
 			// invalid fields
-			invalid = form.find( "input, select, textarea" ).filter(function invalidFields() {
+			invalid = form.find( 'input, select, textarea' ).filter(function invalidFields() {
 
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
 
 				} else if ( invalidFields[ this.name ] === true ) {
-					return false;					
-
+					return false;
 				}
-
 				invalidFields[ this.name ] = true;
 
 				return this.validity && ! this.validity.valid;
 			}),
 
 			// alert container
-			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( "<div class='status'><h1>Unable to process this form</h1><ol></ol></div>" )).data( dataFormErrorSummaryElement ),
+			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( '<div class="status"><h1>Unable to process this form</h1><ol></ol></div>' )).data( dataFormErrorSummaryElement ),
 
 			// messages within alert
-			messages = alert.find( "ol" ),
+			messages = alert.find( 'ol' ),
 
 			// track groups
 			lastGroupSeen = true
-
 		;
 
 		if ( invalid.length > 0 ) {
 
 			// remove old messages
-			messages.find( "li" ).remove();
+			messages.find( 'li' ).remove();
 
 			// add new messages
 			invalid.each(function() {
 
 				// for unique @id
-				i = i + 1;
+				i++;
 
 				// get field
 				var $this = $( this ),
 					
 					// get group (if exists)
-					group = $this.parentsUntil( "form", ".group" ),
+					group = $this.parentsUntil( 'form', '.group' ),
 
 					// get label or group label
-					label = $this.forcesForms( "label", {
-						level : group.length > 0 ? "group" : null
+					label = $this.forcesForms( 'label', {
+						level : group.length > 0 ? 'group' : null
 					}),
 
 					// get the label id
-					labelId = label[0].id || label.attr( "id", "UNIQUE_ID_" + ( i ).toString())[0].id,
+					labelId = label[0].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString())[0].id,
 
 					// get alert item
-					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( "<li><a href='#" + labelId + "'></a></li>" )).data( dataFormErrorSummaryElement )
+					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( '<li><a href="#' + labelId + '"></a></li>' )).data( dataFormErrorSummaryElement )
 				;
 
 				if ( group.length === 0 || group[0] !== lastGroupSeen ) {
@@ -161,8 +156,8 @@ if ( jQuery !== "undefined" ) {
 
 					// create error message with link to label
 					item
-					.find( "a" )
-						.text( label.text().replace( /\?$/, "" ) + ": " + $this.forcesForms( "validationMessage" ) )
+					.find( 'a' )
+						.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'validationMessage' ) )
 						.end()
 					.appendTo( messages );
 
@@ -188,13 +183,13 @@ if ( jQuery !== "undefined" ) {
 
 				var $element = $( domElement );
 
-				if ( $element.is( ":radio, :checkbox" ) === true ) {
+				if ( $element.is( ':radio, :checkbox' ) === true ) {
 				
-					return $element.closest( "fieldset" ).find( "legend > .alert" )[0];
+					return $element.closest( 'fieldset' ).find( 'legend > .alert' )[0];
 				
 				} else {
 
-					return $( "label[for='" + domElement.id + "'] > .alert" )[0];
+					return $( 'label[for="' + domElement.id + '"] > .alert' )[0];
 					
 				}
 
@@ -222,7 +217,7 @@ if ( jQuery !== "undefined" ) {
 		// return group element for item
 		group : function() {
 			return this.map(function( index, domElement ) {
-				return $( domElement ).parentsUntil( "form", ".group" )[0];
+				return $( domElement ).parentsUntil( 'form', '.group' )[0];
 			});
 		},
 
@@ -231,11 +226,11 @@ if ( jQuery !== "undefined" ) {
 		// binds validation handler function to all input, select and textarea elements within the closest form
 		validate : function() {
 			return this.each(function() {
-				$( this ).closest( "form" )
+				$( this ).closest( 'form' )
 					// bind invalid handlers to form elements
-					.find( "input, select, textarea" )
-						.bind( "invalid", validateForm )
-						.bind( "invalid change", validateQuestion )
+					.find( 'input, select, textarea' )
+						.bind( 'invalid', validateForm )
+						.bind( 'invalid change', validateQuestion )
 				;
 			});
 		},
@@ -247,14 +242,14 @@ if ( jQuery !== "undefined" ) {
 
 			var validityState = this[0].validity;
 
-			if ( typeof validityState === "undefined" || validityState.valid === true ) {
-				return "";
+			if ( typeof validityState === 'undefined' || validityState.valid === true ) {
+				return '';
 
 			} else if ( validityState.valueMissing ) {
-				return "Must be completed";
+				return 'Must be completed';
 
 			} else if ( validityState.typeMismatch ) {
-				return "Must be an email address";
+				return 'Must be an email address';
 			}
 		}
 
@@ -262,11 +257,11 @@ if ( jQuery !== "undefined" ) {
 
 
 	// highlight active ancestors when focus received
-	$( "form a, input, select, textarea" ).live( "focus", highlightActiveAncestors );
+	$( 'form a, input, select, textarea' ).live( 'focus', highlightActiveAncestors );
 
 
 	// manage form submission
-	$( "form" ).live( "submit", function() {
+	$( 'form' ).live( 'submit', function() {
 		// remove summary element from DOM on submit
 		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
 
@@ -282,10 +277,10 @@ if ( jQuery !== "undefined" ) {
 		// http://docs.jquery.com/Plugins/Authoring#Plugin_Methods
 		if ( methods[method] ) {
 			return methods[ method ].apply( this, Array.prototype.slice.call( arguments, 1 ));
-		} else if ( typeof method === "object" || ! method ) {
+		} else if ( typeof method === 'object' || ! method ) {
 			return methods.init.apply( this, arguments );
 		} else {
-			$.error( "Method " +  method + " does not exist on jQuery.forcesForms" );
+			$.error( 'Method ' +  method + ' does not exist on jQuery.forcesForms' );
 		}
 
 	};
