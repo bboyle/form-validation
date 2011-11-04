@@ -14,7 +14,9 @@ if ( jQuery !== "undefined" ) {
 
 	var i = 0,
 
-	dataFormErrorSummaryElement = 'forces:formErrorSummary',
+	// follow plugin conventions for storing plugin data
+	// http://docs.jquery.com/Plugins/Authoring#Data
+	dataFormErrorSummaryElement = 'forcesForms',
 
 	highlightActiveAncestors = function( event ) {
 
@@ -72,6 +74,7 @@ if ( jQuery !== "undefined" ) {
 			// remove old alert
 			alertElement.remove();
 
+			// TODO get 'question' wrapper, .forcesForms( 'question' )
 			// TODO remove .invalid class on LI
 
 		} else {
@@ -168,24 +171,35 @@ if ( jQuery !== "undefined" ) {
 					// remove from DOM
 					item.remove();
 				}
-
 			});
-			
-			// display alert
-			// TODO move this to submitValidationHandler
-			form.before( alert );
 		}
 
 		return invalid.length;
 	},
 
 
+	// displays the summary error for a form
+	displaySummary = function() {
+		// form object
+		var form = $( this ).closest( 'form' );
+		// display alert
+		form.before( form.data( dataFormErrorSummaryElement ));
+	},
+
+
 	submitValidationHandler = function( event ) {
 		// validate form
 		var count = submitValidityCheck.call( this );
-		// cancel submit
+		// anything invalid?
 		if ( count > 0 ) {
+			// cancel submit
 			event.stopImmediatePropagation();
+
+			// show the error summary
+			displaySummary.call( this );
+			// TODO focus/scrollTo summary element
+
+			// cancel submit
 			return false;
 		}
 	},
@@ -193,7 +207,6 @@ if ( jQuery !== "undefined" ) {
 
 	// bind this AFTER the validation handler
 	submitDoneHandler = function() {
-
 		// remove summary element from DOM on successful submit
 		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
 
@@ -255,6 +268,7 @@ if ( jQuery !== "undefined" ) {
 				$( this ).closest( 'form' )
 					// turn off native validation
 					.attr( 'novalidate', true )
+					// TODO suppress multiple submits
 					// validate this form
 					.bind( 'submit', submitValidationHandler )
 					// if validation did not cancel submit…
