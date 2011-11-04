@@ -38,18 +38,18 @@ if ( jQuery !== "undefined" ) {
 				foundElement = null;
 
 			if ( typeof options === 'object' && options.level === 'group' ) {
-				foundElement = $element.closest( '.group' ).find( component )[0];
+				foundElement = $element.closest( '.group' ).find( component )[ 0 ];
 
 			} else if ( $element.is( ':radio' )) {
-				foundElement = $element.closest( 'fieldset' ).find( component )[0];
+				foundElement = $element.closest( 'fieldset' ).find( component )[ 0 ];
 
 			} else {
 				labelElement = $element.closest( 'form' ).find( 'label[for=' + domElement.id + ']' );
-				foundElement = labelElement.children( component )[0];
+				foundElement = labelElement.children( component )[ 0 ];
 				if ( ! foundElement ) {
 					if ( component === '.hint' ) {
 						labelElement.append( '<small class="hint"></small>' );
-						foundElement = labelElement.children( component )[0];
+						foundElement = labelElement.children( component )[ 0 ];
 					}
 				}
 			}
@@ -146,16 +146,16 @@ if ( jQuery !== "undefined" ) {
 					}),
 
 					// get the label id
-					labelId = label[0].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString())[0].id,
+					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString())[ 0 ].id,
 
 					// get alert item
 					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( '<li><a href="#' + labelId + '"></a></li>' )).data( dataFormErrorSummaryElement )
 				;
 
-				if ( group.length === 0 || group[0] !== lastGroupSeen ) {
+				if ( group.length === 0 || group[ 0 ] !== lastGroupSeen ) {
 					
 					// update last group seen
-					lastGroupSeen = group[0];
+					lastGroupSeen = group[ 0 ];
 
 					// create error message with link to label
 					item
@@ -214,11 +214,11 @@ if ( jQuery !== "undefined" ) {
 
 				if ( $element.is( ':radio, :checkbox' ) === true ) {
 				
-					return $element.closest( 'fieldset' ).find( 'legend > .alert' )[0];
+					return $element.closest( 'fieldset' ).find( 'legend > .alert' )[ 0 ];
 				
 				} else {
 
-					return $( 'label[for="' + domElement.id + '"] > .alert' )[0];
+					return $( 'label[for="' + domElement.id + '"] > .alert' )[ 0 ];
 					
 				}
 
@@ -246,7 +246,7 @@ if ( jQuery !== "undefined" ) {
 		// return group element for item
 		group : function() {
 			return this.map(function( index, domElement ) {
-				return $( domElement ).parentsUntil( 'form', '.group' )[0];
+				return $( domElement ).parentsUntil( 'form', '.group' )[ 0 ];
 			});
 		},
 
@@ -275,7 +275,7 @@ if ( jQuery !== "undefined" ) {
 		// return String validation message, e.g. "Must be completed"
 		validationMessage : function() {
 
-			var validityState = this[0].validity;
+			var validityState = this[ 0 ].validity;
 
 			if ( typeof validityState === 'undefined' || validityState.valid === true ) {
 				return '';
