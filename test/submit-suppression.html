@@ -83,13 +83,13 @@
 	// bind submit counter
 	$( 'form' ).bind( 'submit', function() {
 		submitted++;
-		ok( submitted <= 2, 'submit event detected' );
+		ok( submitted <= 3, 'submit event detected' );
 	});
 
 
-	module( '11 second test' );
+	module( '21 second test' );
 
-	test( 'submit cannot be triggered more than once per 10 seconds', 2, function() {
+	test( 'submit cannot be triggered more than once per 10 seconds', 3, function() {
 
 		// setup
 		submitted = 0;
@@ -106,6 +106,14 @@
 			userInitiatedSubmit(); // should submit (2)
 			userInitiatedSubmit(); // should be suppressed -
 
+			stop();
+			setTimeout(function() {
+
+				start();
+				userInitiatedSubmit(); // should submit (3)
+				userInitiatedSubmit(); // should be suppressed -
+
+			}, 10000 );
 		}, 10000 );
 
 	});
