@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="UTF-8" />
+	<title>suppression of repeat submit tests · forces validation UI tests</title>
+
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
+<script src="../src/jquery.forces.forms.js"></script>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">
+
+
+		<form id="test" action="javascript:">
+
+			<ol class="questions">
+
+				<li>
+					<label for="foo">
+						<span class="label">Foo</span>
+						<abbr title="(required)">*</abbr>
+					</label>
+					<input type="text" name="foo" id="foo" value="" />
+				</li>
+
+				<li class="footer">
+					<ol class="submit">
+						<li>
+							<strong>
+								<input type="submit" value="Submit" />
+							</strong>
+						</li>
+					</ol>
+				</li>
+
+			</ol>
+
+		</form>
+		<script><!-- //
+
+			// init dynamic fixture
+			$( 'form' ).forcesForms( 'validate' );
+
+		// --></script>
+
+
+	</div>
+</div>
+
+
+<script><!-- //
+
+	var userInitiatedSubmit = function() {
+			$( '#test :submit' )[ 0 ].click();
+		},
+
+		submitted = 0;
+
+
+	// bind submit counter
+	$( 'form' ).bind( 'submit', function() {
+		submitted++;
+		ok( submitted <= 3, 'submit event detected' );
+	});
+
+
+	module( '21 second test' );
+
+	test( 'submit cannot be triggered more than once per 10 seconds', 3, function() {
+
+		// setup
+		submitted = 0;
+		$( '#test' ).removeData( 'forcesForms' );
+
+		userInitiatedSubmit(); // should submit (1)
+		userInitiatedSubmit(); // should be suppressed -
+		userInitiatedSubmit(); // should be suppressed -
+
+		stop();
+		setTimeout(function() {
+
+			start();
+			userInitiatedSubmit(); // should submit (2)
+			userInitiatedSubmit(); // should be suppressed -
+
+			stop();
+			setTimeout(function() {
+
+				start();
+				userInitiatedSubmit(); // should submit (3)
+				userInitiatedSubmit(); // should be suppressed -
+
+			}, 10000 );
+		}, 10000 );
+
+	});
+
+
+// --></script>
+
+
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="UTF-8" />
+	<title>question tests · forces validation UI tests</title>
+
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+		.questions {
+			border: 2px dashed green;
+		}
+
+		.questions > li {
+			display: block;
+			border: 2px solid green;
+			margin: 1em;
+			background: #ff9;
+		}
+
+	</style>
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
+
+</head>
+
+<body>
+
+<form id="test" action="javascript:">
+
+	<ol class="questions">
+
+		<li>
+			<label for="foo">
+				<span class="label">Foo</span>
+				<abbr title="(required)">*</abbr>
+				<small class="hint">Foo hint</small>
+			</label>
+			<input type="text" name="foo" id="foo" value="" required="required" />
+		</li>
+
+		<li>
+			<fieldset>
+				<legend>
+					<span class="label">Radio foo</span>
+					<abbr title="(required)">*</abbr>
+					<small class="hint">Hint for radio foo</small>
+				</legend>
+				<ul class="choices">
+					<li>
+						<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+						<label for="radio-foo-foo">Foo</label>
+					</li>
+					<li>
+						<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+						<label for="radio-foo-bar">Bar</label>
+					</li>
+				</ul>
+			</fieldset>
+		</li>
+
+		<li class="group">
+			<fieldset>
+				<legend>
+					<span class="label">Your name</span>
+					<small class="hint">Will be displayed on this website</small>
+				</legend>
+				<ol class="questions compact">
+					<li>
+						<label for="name-title">
+							<span class="label">Title</span>
+						</label>
+						<input type="text" id="name-title" name="nameTitle" size="3" />
+					</li>
+					<li>
+						<label for="name-given">
+							<span class="label">Given names</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+					</li>
+					<li>
+						<label for="name-family">
+							<span class="label">Family name</span>
+							<abbr title="(required)">*</abbr>
+						</label>
+						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						
+					</li>
+				</ol>
+			</fieldset>
+		</li>
+
+		<li class="footer">
+			<ol class="submit">
+				<li>
+					<strong>
+						<input type="submit" value="Submit" />
+					</strong>
+				</li>
+			</ol>
+		</li>
+
+	</ol>
+
+</form>
+
+
+<div id="qunit">
+	<h1 id="qunit-header">QUnit</h1>
+	<h2 id="qunit-banner"></h2>
+	<div id="qunit-testrunner-toolbar"></div>
+	<h2 id="qunit-userAgent"></h2>
+	<ol id="qunit-tests"></ol>
+	<div id="qunit-fixture">test markup, will be hidden</div>
+</div>
+
+
+<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../src/jquery.forces.forms.js"></script>
+
+<script><!-- //
+
+	module( 'environment' );
+
+	test( 'test fields are in test form', function() {
+
+		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
+		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 2, 'form#test contains 2 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
+		strictEqual( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
+		strictEqual( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
+
+	});
+
+
+	module( 'form traversal' );
+
+	test( 'can get question for form fields', function() {
+
+		strictEqual( $( '#foo' ).forcesForms( 'question' )[ 0 ], $( '#foo' ).closest( '.questions > li ')[ 0 ], 'found :text question' );
+		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'question' )[ 0 ], $( '#radio-foo-foo' ).closest( '.questions > li ')[ 0 ], 'found radio button group question' );
+		strictEqual( $( '#name-title' ).forcesForms( 'question' )[ 0 ], $( '#name-title' ).closest( '.questions > li ')[ 0 ], 'found grouped :text question' );
+
+	});
+
+	test( 'can get group question for grouped form fields', function() {
+
+		strictEqual( $( '#name-title' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-title' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
+		strictEqual( $( '#name-given' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-given' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
+		strictEqual( $( '#name-family' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-family' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
+
+	});
+
+	test( 'verify .forcesForm( "question" ) supports jquery chaining', function() {
+		// test jquery object
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 0 ], $( '#foo' ).closest( '.questions > li ')[ 0 ], 'verified 1st question in jquery object' );
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 1 ], $( '#radio-foo-foo' ).closest( '.questions > li ')[ 0 ], 'verified 2nd question in jquery object' );
+
+	});
+
+	test( 'verify .forcesForm( "question", { level : "group" }) supports jquery chaining', function() {
+
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group' )[ 0 ], 'verified 1st group question in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 1 ], $( '.group' )[ 0 ], 'verified 2nd group question in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 2 ], $( '.group' )[ 0 ], 'verified 3rd group question in jquery object' );
+
+	});
+
+// --></script>
+
+
+</body>
+</html>
