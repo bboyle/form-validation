@@ -190,7 +190,7 @@ if ( jQuery !== 'undefined' ) {
 	submitValidationHandler = function( event ) {
 		// validate form
 		var count = submitValidityCheck.call( this ),
-			topQuestions;
+			questions;
 
 		// anything invalid?
 		if ( count > 0 ) {
@@ -201,19 +201,19 @@ if ( jQuery !== 'undefined' ) {
 			displaySummary.call( this );
 			// TODO focus/scrollTo summary element
 
-			// show inline errors
-			topQuestions = $( this ).children( '.questions' ).children();
+			// get top level questions
+			questions = $( this ).children( '.questions' ).children();
 			// add invalid class to questions that contain invalid fields
-			topQuestions.filter(function() {
+			questions.filter(function() {
 				return $( this ).find( 'input, select, textarea' ).filter(function() {
-					return this.validity && ! this.validity.valid;
+					return ! this.validity.valid;
 				}).length > 0;
 			}).addClass( 'invalid' );
 			// remove invalid class from questions that do not contain invalid fields
-			topQuestions.filter(function() {
+			questions.filter(function() {
 				return $( this ).find( 'input, select, textarea' ).filter(function() {
-					return ! this.validity || this.validity.valid;
-				}).length > 0;
+					return ! this.validity.valid;
+				}).length === 0;
 			}).removeClass( 'invalid' );
 
 			// cancel submit
