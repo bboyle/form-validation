@@ -91,16 +91,18 @@ if ( jQuery !== 'undefined' ) {
 		} else {
 
 			// does alert exist?
-			// TODO use getLabelComponent() defined above
 			if ( alertElement.length === 0 ) {
 				alertElement = $( '<em class="alert"/>' );
 			}
 
-			// TODO move this to changeHandler
-			// is this function THE change handler?
+			// show message
 			alertElement.text( alertMessage );
+			// append to form
 			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
 
+			// NOTE we don't flag the question as .invalid now
+			// .invalid only happens on submit, to soften inline validation errors
+			// TODO consider an .invalid-change class vs .invalid (onsubmit) as a styling hook
 		}
 	},
 
