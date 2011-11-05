@@ -198,7 +198,15 @@
 		},
 
 		userInitiatedSubmit = function() {
-			$( '#test :submit' )[0].click();
+			$( '#test :submit' )[ 0 ].click();
+		},
+
+		makeFormValid = function() {
+			$( '#foo, #select-foo, #textarea-foo, #question' ).val( 'foo' );
+			$( '#radio-foo-foo' )[0].checked = true;
+			$( '#email' ).val( 'foo@example.com' );
+			$( '#name-given' ).val( 'John' );
+			$( '#name-family' ).val( 'Smith' );
 		}
 	;
 
@@ -222,12 +230,12 @@
 
 	test( 'specific fields are present', function() {
 
-		strictEqual( $( '[required]' )[0], $( 'input#foo' )[0], 'input#foo is the first required field' );
-		strictEqual( $( '[required]' )[1], $( 'select#select-foo' )[0], 'select#select-foo is the second required field' );
-		strictEqual( $( '[required]' )[2], $( 'textarea#textarea-foo' )[0], 'textarea#textarea-foo is a required field' );
-		strictEqual( $( '[required]' )[3], $( 'input#radio-foo-foo' )[0], 'input#radio-foo-foo is a required field' );
-		strictEqual( $( '[required]' )[4], $( 'input#email' )[0], 'input#email is a required field' );
-		strictEqual( $( 'input#email' )[0].getAttribute( 'type' ), 'email', 'input#email is an email field' );
+		strictEqual( $( '[required]' )[ 0 ], $( 'input#foo' )[ 0 ], 'input#foo is the first required field' );
+		strictEqual( $( '[required]' )[ 1 ], $( 'select#select-foo' )[ 0 ], 'select#select-foo is the second required field' );
+		strictEqual( $( '[required]' )[ 2 ], $( 'textarea#textarea-foo' )[ 0 ], 'textarea#textarea-foo is a required field' );
+		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
+		strictEqual( $( '[required]' )[ 4 ], $( 'input#email' )[ 0 ], 'input#email is a required field' );
+		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
 
 	});
 
@@ -290,13 +298,13 @@
 		var status = $( '.status' );
 
 		strictEqual( status.find( 'li' ).length, 7, '7 errors displayed' );
-		strictEqual( status.find( 'li' ).eq(0).text(), 'Foo: Must be completed', 'required field message is displayed for input' );
-		strictEqual( status.find( 'li' ).eq(1).text(), 'Select foo: Must be completed', 'required field message is displayed for select' );
-		strictEqual( status.find( 'li' ).eq(2).text(), 'Textarea foo: Must be completed', 'required field message is displayed for textarea' );
-		strictEqual( status.find( 'li' ).eq(3).text(), 'Radio foo: Must be completed', 'required field message is displayed for radio buttons' );
-		strictEqual( status.find( 'li' ).eq(4).text(), 'Email: Must be an email address', 'type mismatch message is displayed for email field' );
-		strictEqual( status.find( 'li' ).eq(5).text(), 'What is your answer: Must be completed', 'question mark is removed from label in status message' );
-		strictEqual( status.find( 'li' ).eq(6).text(), 'Your name: Must be completed', 'group message is displayed for 3 group controls' );
+		strictEqual( status.find( 'li' ).eq( 0 ).text(), 'Foo: Must be completed', 'required field message is displayed for input' );
+		strictEqual( status.find( 'li' ).eq( 1 ).text(), 'Select foo: Must be completed', 'required field message is displayed for select' );
+		strictEqual( status.find( 'li' ).eq( 2 ).text(), 'Textarea foo: Must be completed', 'required field message is displayed for textarea' );
+		strictEqual( status.find( 'li' ).eq( 3 ).text(), 'Radio foo: Must be completed', 'required field message is displayed for radio buttons' );
+		strictEqual( status.find( 'li' ).eq( 4 ).text(), 'Email: Must be an email address', 'type mismatch message is displayed for email field' );
+		strictEqual( status.find( 'li' ).eq( 5 ).text(), 'What is your answer: Must be completed', 'question mark is removed from label in status message' );
+		strictEqual( status.find( 'li' ).eq( 6 ).text(), 'Your name: Must be completed', 'group message is displayed for 3 group controls' );
 
 	});
 
@@ -308,12 +316,12 @@
 
 		var status = $( '.status' );
 
-		strictEqual( $( status.find( 'a' ).eq(0).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( 'label[for=foo] > .label' )[0], 'error message links to input label' );
-		strictEqual( $( status.find( 'a' ).eq(1).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( 'label[for=select-foo] > .label' )[0], 'error message links to select label' );
-		strictEqual( $( status.find( 'a' ).eq(2).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( 'label[for=textarea-foo] > .label' )[0], 'error message links to textarea label' );
-		strictEqual( $( status.find( 'a' ).eq(3).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( ':radio[name=radioFoo]' ).eq(0).closest( 'fieldset' ).find( '.label' )[0], 'error message links to radio button group label' );
-		strictEqual( $( status.find( 'a' ).eq(4).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( 'label[for=email] .label' )[0], 'error message links to email label' );
-		strictEqual( $( status.find( 'a' ).eq(6).attr( 'href' ).replace( /^.*#/, '#' ) )[0], $( '#name-title' ).closest( 'fieldset' ).find( '.label' )[0], 'error message links to group label' );
+		strictEqual( $( status.find( 'a' ).eq( 0 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( 'label[for=foo] > .label' )[ 0 ], 'error message links to input label' );
+		strictEqual( $( status.find( 'a' ).eq( 1 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( 'label[for=select-foo] > .label' )[ 0 ], 'error message links to select label' );
+		strictEqual( $( status.find( 'a' ).eq( 2 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( 'label[for=textarea-foo] > .label' )[ 0 ], 'error message links to textarea label' );
+		strictEqual( $( status.find( 'a' ).eq( 3 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( ':radio[name=radioFoo]' ).eq( 0 ).closest( 'fieldset' ).find( '.label' )[ 0 ], 'error message links to radio button group label' );
+		strictEqual( $( status.find( 'a' ).eq( 4 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( 'label[for=email] .label' )[ 0 ], 'error message links to email label' );
+		strictEqual( $( status.find( 'a' ).eq( 6 ).attr( 'href' ).replace( /^.*#/, '#' ) )[ 0 ], $( '#name-title' ).closest( 'fieldset' ).find( '.label' )[ 0 ], 'error message links to group label' );
 
 	});
 
@@ -329,15 +337,15 @@
 		userInitiatedSubmit();
 
 		strictEqual( $( '.status a:contains(Email)' ).text(), 'Email: Must be completed', 'found email required message after second submit' );
-		strictEqual( $( '.status a:contains(Email)' )[0], emailLink[0], 'same link element used after second submit' );
-		strictEqual( $( '.status a:contains(Email)' ).parent()[0], emailLink.parent()[0], 'same list item element used after second submit' );
+		strictEqual( $( '.status a:contains(Email)' )[ 0 ], emailLink[ 0 ], 'same link element used after second submit' );
+		strictEqual( $( '.status a:contains(Email)' ).parent()[ 0 ], emailLink.parent()[ 0 ], 'same list item element used after second submit' );
 
 		$( '#email' ).val( 'foo' );
 		userInitiatedSubmit();
 
 		strictEqual( $( '.status a:contains(Email)' ).text(), 'Email: Must be an email address', 'found email type mismatch message after third submit' );
-		strictEqual( $( '.status a:contains(Email)' )[0], emailLink[0], 'same link element used after third submit' );
-		strictEqual( $( '.status a:contains(Email)' ).parent()[0], emailLink.parent()[0], 'same list item element used after third submit' );
+		strictEqual( $( '.status a:contains(Email)' )[ 0 ], emailLink[ 0 ], 'same link element used after third submit' );
+		strictEqual( $( '.status a:contains(Email)' ).parent()[ 0 ], emailLink.parent()[ 0 ], 'same list item element used after third submit' );
 
 	});
 
@@ -388,11 +396,11 @@
 		
 		userInitiatedSubmit();
 
-		strictEqual( $( '#foo' )[0].validity.valid, false, '#foo is invalid' );
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
 		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), true, '#foo question is .invalid' );
-		strictEqual( $( '#name-title' )[0].validity.valid, true, '#name-title is valid' );
-		strictEqual( $( '#name-given' )[0].validity.valid, false, '#name-given is invalid' );
-		strictEqual( $( '#name-family' )[0].validity.valid, false, '#name-given is invalid' );
+		strictEqual( $( '#name-title' )[ 0 ].validity.valid, true, '#name-title is valid' );
+		strictEqual( $( '#name-given' )[ 0 ].validity.valid, false, '#name-given is invalid' );
+		strictEqual( $( '#name-family' )[ 0 ].validity.valid, false, '#name-given is invalid' );
 		strictEqual( $( '#name-given' ).closest( '.group' ).is( '.invalid' ), true, '#name-given question is .invalid' );
 
 		// make valid
@@ -400,12 +408,34 @@
 		$( '#name-given, #name-family' ).val( 'foo' );
 		userInitiatedSubmit();
 
-		strictEqual( $( '#foo' )[0].validity.valid, true, '#foo is valid' );
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, true, '#foo is valid' );
 		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), false, '#foo question is not .invalid' );
-		strictEqual( $( '#name-title' )[0].validity.valid, true, '#name-title is valid' );
-		strictEqual( $( '#name-given' )[0].validity.valid, true, '#name-given is valid' );
-		strictEqual( $( '#name-family' )[0].validity.valid, true, '#name-family is valid' );
+		strictEqual( $( '#name-title' )[ 0 ].validity.valid, true, '#name-title is valid' );
+		strictEqual( $( '#name-given' )[ 0 ].validity.valid, true, '#name-given is valid' );
+		strictEqual( $( '#name-family' )[ 0 ].validity.valid, true, '#name-family is valid' );
 		strictEqual( $( '#name-given' ).closest( '.group' ).is( '.invalid' ), false, '#name-given question is not .invalid' );
+	});
+
+
+	module( 'submit suppression' );
+
+	test( 'submit cannot be triggered more than once per 10 seconds', 1, function() {
+
+		// setup
+		var submitted = 0;
+		$( 'form' ).bind( 'submit.QUNIT_TEST_COUNTER', function() {
+			submitted++;
+			ok( submitted < 2, 'submit event detected' );
+		});
+		// make form valid
+		makeFormValid();
+
+		userInitiatedSubmit();
+		userInitiatedSubmit();
+		userInitiatedSubmit();
+
+		// teardown
+		$( 'form' ).unbind( 'submit.QUNIT_TEST_COUNTER' );
 	});
 
 // --></script>

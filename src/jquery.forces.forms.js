@@ -12,7 +12,10 @@ if ( jQuery !== 'undefined' ) {
 (function( $ ) {
 	'use strict';
 
+	// TODO this is used by 'unique id', better wrap it in a function
 	var i = 0,
+
+	SUBMIT_TOLERANCE = 10000, // milliseconds
 
 	// fields that validate
 	candidateForValidation = 'input, select, textarea',
@@ -24,12 +27,28 @@ if ( jQuery !== 'undefined' ) {
 
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
-	dataFormErrorSummaryElement = 'forcesForms',
+	dataKey = 'forcesForms',
+	getData = function( key, value ) {
+		var dataHash = this.data( dataKey ) || this.data( dataKey, {}).data( dataKey );
+
+			if ( key ) {
+				if ( value ) {
+					dataHash[ key ] = value;
+					return value;
+
+				} else if ( typeof dataHash[ key ] !== 'undefined' ) {
+					return dataHash[ key ];
+				}
+				return null;
+			}
+
+			return dataHash;
+	},
 
 	highlightActiveAncestors = function( event ) {
 
 		var target = $( event.target ),
-			ancestorQuestions = target.parentsUntil( 'form' , '.group, .questions > *' )
+			ancestorQuestions = target.parentsUntil( 'form' , '.group, .questions > li' )
 		;
 
 		// deactive current previously active questions
@@ -129,7 +148,7 @@ if ( jQuery !== 'undefined' ) {
 			}),
 
 			// alert container
-			alert = form.data( dataFormErrorSummaryElement ) || form.data( dataFormErrorSummaryElement, $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )).data( dataFormErrorSummaryElement ),
+			alert = getData.call( form, 'summaryElement' ) || getData.call( form, 'summaryElement', $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )),
 
 			// messages within alert
 			messages = alert.find( 'ol' ),
@@ -164,7 +183,7 @@ if ( jQuery !== 'undefined' ) {
 					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString() )[ 0 ].id,
 
 					// get alert item
-					item = $this.data( dataFormErrorSummaryElement ) || $this.data( dataFormErrorSummaryElement, $( '<li><a href="#' + labelId + '"></a></li>' )).data( dataFormErrorSummaryElement )
+					item = getData.call( $this, 'summaryElement' ) || getData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
 				;
 
 				if ( group.length === 0 || group[ 0 ] !== lastGroupSeen ) {
@@ -195,7 +214,7 @@ if ( jQuery !== 'undefined' ) {
 		// form object
 		var form = $( this ).closest( 'form' );
 		// display alert
-		form.before( form.data( dataFormErrorSummaryElement ));
+		form.before( getData.call( form, 'summaryElement' ));
 	},
 
 
@@ -231,12 +250,27 @@ if ( jQuery !== 'undefined' ) {
 
 
 	// bind this AFTER the validation handler
-	submitDoneHandler = function() {
+	submitDoneHandler = function( event ) {
 		// remove summary element from DOM on successful submit
-		var summaryElement = $( this ).data( dataFormErrorSummaryElement );
+		var form = $( this ),
+			summaryElement = getData.call( form, 'summaryElement' ),
+			lastSubmitTimeStamp;
 
 		if ( summaryElement ) {
 			summaryElement.remove();
+		}
+
+		// is this submit event too soon after the last one?
+		lastSubmitTimeStamp = getData.call( form, 'lastSubmitTimeStamp' );
+		if ( lastSubmitTimeStamp && event.timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
+			// cancel the submit event
+			event.stopImmediatePropagation();
+			event.preventDefault();
+			return false;
+
+		} else {
+			// store the timestamp
+			getData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
 		}
 	},
 
@@ -309,7 +343,6 @@ if ( jQuery !== 'undefined' ) {
 				$( this ).closest( 'form' )
 					// turn off native validation
 					.attr( 'novalidate', true )
-					// TODO suppress multiple submits
 					// validate this form
 					.bind( 'submit', submitValidationHandler )
 					// if validation did not cancel submit…
