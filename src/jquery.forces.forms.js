@@ -74,8 +74,8 @@ if ( jQuery !== 'undefined' ) {
 			// remove old alert
 			alertElement.remove();
 
-			// TODO get 'question' wrapper, .forcesForms( 'question' )
-			// TODO remove .invalid class on LI
+			// remove .invalid class on LI
+			$this.closest( 'li' ).removeClass( 'invalid' );
 
 		} else {
 
