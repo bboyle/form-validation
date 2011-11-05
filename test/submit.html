@@ -417,27 +417,6 @@
 	});
 
 
-	module( 'submit suppression' );
-
-	test( 'submit cannot be triggered more than once per 10 seconds', 1, function() {
-
-		// setup
-		var submitted = 0;
-		$( 'form' ).bind( 'submit.QUNIT_TEST_COUNTER', function() {
-			submitted++;
-			ok( submitted < 2, 'submit event detected' );
-		});
-		// make form valid
-		makeFormValid();
-
-		userInitiatedSubmit();
-		userInitiatedSubmit();
-		userInitiatedSubmit();
-
-		// teardown
-		$( 'form' ).unbind( 'submit.QUNIT_TEST_COUNTER' );
-	});
-
 // --></script>
 
 
