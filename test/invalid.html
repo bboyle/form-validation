@@ -286,12 +286,22 @@
 		
 		$( 'form' ).trigger( 'submit' );
 		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), true, '#foo is .invalid after submit' );
+		strictEqual( $( '#select-foo' ).closest( 'li' ).is( '.invalid' ), true, '#select-foo is .invalid after submit' );
+		strictEqual( $( '#textarea-foo' ).closest( 'li' ).is( '.invalid' ), true, '#textarea-foo is .invalid after submit' );
+		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#radio-foo-foo is .invalid after submit' );
 
 		// make valid
 		$( '#foo' ).val( 'foo' ).trigger( 'change' );
+		$( '#select-foo' ).val( 'foo' ).trigger( 'change' );
+		$( '#textarea-foo' ).val( 'foo' ).trigger( 'change' );
+		$( '#radio-foo-foo' )[ 0 ].checked = true;
+		$( '#radio-foo-foo' ).trigger( 'change' );
 
 		// test .invalid class removed
-		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), false, '#foo is not .invalid after becoming valid' );
+		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), false, '#foo is not .invalid after changing' );
+		strictEqual( $( '#select-foo' ).closest( 'li' ).is( '.invalid' ), false, '#select-foo is not .invalid after changing' );
+		strictEqual( $( '#textarea-foo' ).closest( 'li' ).is( '.invalid' ), false, '#textarea-foo is not .invalid after changing' );
+		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#radio-foo-foo is not .invalid after changing' );
 
 	});
 

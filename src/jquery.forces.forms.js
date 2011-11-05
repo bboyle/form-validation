@@ -75,7 +75,7 @@ if ( jQuery !== 'undefined' ) {
 			alertElement.remove();
 
 			// remove .invalid class on LI
-			$this.closest( 'li' ).removeClass( 'invalid' );
+			$this.closest( '.questions > li' ).removeClass( 'invalid' );
 
 		} else {
 
