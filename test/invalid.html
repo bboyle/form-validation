@@ -171,7 +171,7 @@
 		<script><!-- //
 
 			// init dynamic fixture
-			$( "form" ).forcesForms( "validate" );
+			$( 'form' ).forcesForms( 'validate' );
 
 		// --></script>
 
@@ -182,98 +182,98 @@
 
 <script><!-- //
 
-	module( "environment" );
+	module( 'environment' );
 
-	test( "test fields are in test form", function() {
+	test( 'test fields are in test form', function() {
 
-		strictEqual( $( "form#test" ).length, 1, "form#test is present" );
-		strictEqual( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
-		strictEqual( $( "form#test select#select-foo" ).length, 1, "form#test contains select#select-foo" );
-		strictEqual( $( "form#test textarea#textarea-foo" ).length, 1, "form#test contains textarea#textarea-foo" );
-		strictEqual( $( "form#test :radio[name=radioFoo]" ).length, 5, "form#test contains 5 radio buttons in radioFoo group" );
-		strictEqual( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
-		strictEqual( $( "form#test input#question" ).length, 1, "form#test contains input#question" );
-		strictEqual( $( "form#test .group input#name-title" ).length, 1, "form#test contains .group input#name-title" );
-		strictEqual( $( "form#test .group input#name-given" ).length, 1, "form#test contains .group input#name-given" );
-		strictEqual( $( "form#test .group input#name-family" ).length, 1, "form#test contains .group input#name-family" );
-
-	});
-
-	test( "specific fields are present", function() {
-
-		strictEqual( $( "[required]" )[0], $( "input#foo" )[0], "input#foo is the first required field" );
-		strictEqual( $( "[required]" )[1], $( "select#select-foo" )[0], "select#select-foo is the second required field" );
-		strictEqual( $( "[required]" )[2], $( "textarea#textarea-foo" )[0], "textarea#textarea-foo is a required field" );
-		strictEqual( $( "[required]" )[3], $( "input#radio-foo-foo" )[0], "input#radio-foo-foo is a required field" );
-		strictEqual( $( "[required]" )[4], $( "input#email" )[0], "input#email is a required field" );
-		strictEqual( $( "input#email" )[0].getAttribute( "type" ), "email", "input#email is an email field" );
+		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
+		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'form#test select#select-foo' ).length, 1, 'form#test contains select#select-foo' );
+		strictEqual( $( 'form#test textarea#textarea-foo' ).length, 1, 'form#test contains textarea#textarea-foo' );
+		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
+		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
+		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
+		strictEqual( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
+		strictEqual( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
 
 	});
 
+	test( 'specific fields are present', function() {
 
-	module( "invalid events UI" );
+		strictEqual( $( '[required]' )[ 0 ], $( 'input#foo' )[ 0 ], 'input#foo is the first required field' );
+		strictEqual( $( '[required]' )[ 1 ], $( 'select#select-foo' )[ 0 ], 'select#select-foo is the second required field' );
+		strictEqual( $( '[required]' )[ 2 ], $( 'textarea#textarea-foo' )[ 0 ], 'textarea#textarea-foo is a required field' );
+		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
+		strictEqual( $( '[required]' )[ 4 ], $( 'input#email' )[ 0 ], 'input#email is a required field' );
+		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
 
-	test( "inline message shown on invalid event", 9, function() {
+	});
 
-		$( "input#foo" )[0].checkValidity();
 
-		strictEqual( $( "label[for=foo] .alert" ).length, 1, ".alert found in label" );
-		strictEqual( $( "label[for=foo] .alert" ).text(), "Must be completed", "alert message is \"Must be completed\"" );
+	module( 'change events UI' );
+
+	test( 'inline message shown on change event', 9, function() {
+
+		$( 'input#foo' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=foo] .alert' ).length, 1, '.alert found in label' );
+		strictEqual( $( 'label[for=foo] .alert' ).text(), 'Must be completed', 'alert message is "Must be completed"' );
 		
-		$( ":radio[name=radioFoo]" )[0].checkValidity();
+		$( ':radio[name=radioFoo]' ).eq( 0 ).trigger( 'change' );
 
-		strictEqual( $( ":radio[name=radioFoo]" ).eq(0).closest( "fieldset" ).find( "legend .alert" ).length, 1, "1 .alert found for radioFoo group" );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for radioFoo group' );
 
-		$( "input#email" ).val( "foo" )[0].checkValidity();
+		$( 'input#email' ).val( 'foo' ).trigger( 'change' );
 
-		strictEqual( $( "label[for=email] .alert" ).length, 1, ".alert found for invalid email" );
-		strictEqual( $( "label[for=email] .alert" ).text(), "Must be an email address", "correct .alert text for invalid email" );
+		strictEqual( $( 'label[for=email] .alert' ).length, 1, '.alert found for invalid email' );
+		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be an email address', 'correct .alert text for invalid email' );
 
-		$( "#select-foo" )[0].checkValidity();
+		$( '#select-foo' ).trigger( 'change' );
 
-		strictEqual( $( "label[for=select-foo] .alert" ).length, 1, ".alert for found invalid select" );
-		strictEqual( $( "label[for=select-foo] .alert" ).text(), "Must be completed", "blank warning displayed for invalid select" );
+		strictEqual( $( 'label[for=select-foo] .alert' ).length, 1, '.alert for found invalid select' );
+		strictEqual( $( 'label[for=select-foo] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid select' );
 
-		$( "#textarea-foo" )[0].checkValidity();
+		$( '#textarea-foo' ).trigger( 'change' );
 
-		strictEqual( $( "label[for=textarea-foo] .alert" ).length, 1, ".alert for found invalid textarea" );
-		strictEqual( $( "label[for=textarea-foo] .alert" ).text(), "Must be completed", "blank warning displayed for invalid textarea" );
-
-	});
-
-	test( "inline messages are hidden when invalid input is corrected", 4, function() {
-		
-		$( "input#foo" )[0].checkValidity();
-
-		strictEqual( $( "label[for=foo] .alert" ).length, 1, ".alert found in label" );
-		strictEqual( $( "label[for=foo] .alert" ).text(), "Must be completed", "alert message is \"Must be completed\"" );
-
-		$( "input#foo" ).val( "foo" );
-		$( "input#foo" )[0].checkValidity();
-		$( "input#foo" ).trigger( "change" );
-
-		strictEqual( $( "input#foo" )[0].checkValidity(), true, "foo is valid" );
-		strictEqual( $( "label[for=foo] .alert" ).length, 0, "no .alert found in label" );
+		strictEqual( $( 'label[for=textarea-foo] .alert' ).length, 1, '.alert for found invalid textarea' );
+		strictEqual( $( 'label[for=textarea-foo] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid textarea' );
 
 	});
 
-	test( "inline validation messages update when error changes", 3, function() {
+	test( 'inline messages are hidden when invalid input is corrected', 4, function() {
 		
-		$( "#email" ).val( "foo" );
-		$( "#email" )[0].checkValidity();
+		$( 'input#foo' ).trigger( 'change' );
 
-		strictEqual( $( "label[for=email] .alert" ).text(), "Must be an email address", "showing invalid email message" );
+		strictEqual( $( 'label[for=foo] .alert' ).length, 1, '.alert found in label' );
+		strictEqual( $( 'label[for=foo] .alert' ).text(), 'Must be completed', 'alert message is "Must be completed"' );
 
-		$( "#email" ).val( "" );
-		$( "#email" )[0].checkValidity();
+		$( 'input#foo' ).val( 'foo' );
+		$( 'input#foo' ).trigger( 'change' );
+		$( 'input#foo' ).trigger( 'change' );
 
-		strictEqual( $( "label[for=email] .alert" ).text(), "Must be completed", "showing value missing message" );
+		strictEqual( $( 'input#foo' )[ 0 ].validity.valid, true, 'foo is valid' );
+		strictEqual( $( 'label[for=foo] .alert' ).length, 0, 'no .alert found in label' );
 
-		$( "#email" ).val( "foo@example.com" );
-		$( "#email" )[0].checkValidity();
-		$( "#email" ).trigger( "change" );
+	});
 
-		strictEqual( $( "label[for=email] .alert" ).length, 0, "no error message when valid" );
+	test( 'inline validation messages update when error changes', 3, function() {
+		
+		$( '#email' ).val( 'foo' );
+		$( '#email' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be an email address', 'showing invalid email message' );
+
+		$( '#email' ).val( '' );
+		$( '#email' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be completed', 'showing value missing message' );
+
+		$( '#email' ).val( 'foo@example.com' );
+		$( '#email' ).trigger( 'change' );
+		$( '#email' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid' );
 
 	});
 
