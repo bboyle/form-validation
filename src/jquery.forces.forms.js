@@ -8,9 +8,9 @@
 
 */
 
-if ( jQuery !== "undefined" ) {
+if ( jQuery !== 'undefined' ) {
 (function( $ ) {
-	"use strict";
+	'use strict';
 
 	var i = 0,
 
@@ -254,7 +254,14 @@ if ( jQuery !== "undefined" ) {
 
 		// $( x ).forcesForms( 'question' )
 		// return question element for item
-		question : function() {
+		question : function( options ) {
+			// looking for group?
+			if ( typeof options === 'object' && options.level === 'group' ) {
+				// return the group
+				return this.forcesForms( 'group' );
+			}
+
+			// not looking for group
 			return this.map(function( index, domElement ) {
 				return $( domElement ).parentsUntil( 'form', '.questions > li' )[ 0 ];
 			});

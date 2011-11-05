@@ -149,15 +149,16 @@
 		strictEqual( $( '#name-title' ).forcesForms( 'question' )[ 0 ], $( '#name-title' ).closest( '.questions > li ')[ 0 ], 'found grouped :text question' );
 
 	});
-/*
+
 	test( 'can get group question for grouped form fields', function() {
 
-		strictEqual( $( '#name-title' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group .hint' )[ 0 ], 'found :text hint for group' );
-		strictEqual( $( '#name-given' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group .hint' )[ 0 ], 'found :text hint for group' );
-		strictEqual( $( '#name-family' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group .hint' )[ 0 ], 'found :text hint for group' );
+		strictEqual( $( '#name-title' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-title' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
+		strictEqual( $( '#name-given' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-given' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
+		strictEqual( $( '#name-family' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '#name-family' ).closest( '.questions > li' ).parents( '.questions > li' )[ 0 ], 'found question for group' );
 
 	});
 
+/*
 	test( 'verify .forcesForm( "question" ) supports jquery chaining', function() {
 		// test jquery object
 		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 0 ], $( 'label[for=foo] > .hint' )[ 0 ], 'verified 1st hint in jquery object' );
