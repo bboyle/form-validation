@@ -27,9 +27,9 @@ if ( jQuery !== 'undefined' ) {
 
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
-	dataKey = 'forcesForms',
-	getData = function( key, value ) {
-		var dataHash = this.data( dataKey ) || this.data( dataKey, {}).data( dataKey );
+	pluginDataKey = 'forcesForms',
+	pluginData = function( key, value ) {
+		var dataHash = this.data( pluginDataKey ) || this.data( pluginDataKey, {}).data( pluginDataKey );
 
 			if ( key ) {
 				if ( value ) {
@@ -148,7 +148,7 @@ if ( jQuery !== 'undefined' ) {
 			}),
 
 			// alert container
-			alert = getData.call( form, 'summaryElement' ) || getData.call( form, 'summaryElement', $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )),
+			alert = pluginData.call( form, 'summaryElement' ) || pluginData.call( form, 'summaryElement', $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )),
 
 			// messages within alert
 			messages = alert.find( 'ol' ),
@@ -183,7 +183,7 @@ if ( jQuery !== 'undefined' ) {
 					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString() )[ 0 ].id,
 
 					// get alert item
-					item = getData.call( $this, 'summaryElement' ) || getData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
+					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
 				;
 
 				if ( group.length === 0 || group[ 0 ] !== lastGroupSeen ) {
@@ -214,7 +214,7 @@ if ( jQuery !== 'undefined' ) {
 		// form object
 		var form = $( this ).closest( 'form' );
 		// display alert
-		form.before( getData.call( form, 'summaryElement' ));
+		form.before( pluginData.call( form, 'summaryElement' ));
 	},
 
 
@@ -253,7 +253,7 @@ if ( jQuery !== 'undefined' ) {
 	submitDoneHandler = function( event ) {
 		// remove summary element from DOM on successful submit
 		var form = $( this ),
-			summaryElement = getData.call( form, 'summaryElement' ),
+			summaryElement = pluginData.call( form, 'summaryElement' ),
 			lastSubmitTimeStamp;
 
 		if ( summaryElement ) {
@@ -261,7 +261,7 @@ if ( jQuery !== 'undefined' ) {
 		}
 
 		// is this submit event too soon after the last one?
-		lastSubmitTimeStamp = getData.call( form, 'lastSubmitTimeStamp' );
+		lastSubmitTimeStamp = pluginData.call( form, 'lastSubmitTimeStamp' );
 		if ( lastSubmitTimeStamp && event.timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
 			// cancel the submit event
 			event.stopImmediatePropagation();
@@ -270,7 +270,7 @@ if ( jQuery !== 'undefined' ) {
 
 		} else {
 			// store the timestamp
-			getData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
+			pluginData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
 		}
 	},
 
