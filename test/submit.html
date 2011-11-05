@@ -384,6 +384,13 @@
 
 	});
 
+	test( 'invalid class is set after submit', function() {
+		
+		userInitiatedSubmit();
+
+		strictEqual( $( '#foo' )[0].validity.valid, false, '#foo is invalid' );
+		ok( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), '#foo question is .invalid' );
+	});
 
 // --></script>
 
