@@ -384,6 +384,29 @@
 
 	});
 
+	test( 'invalid class is toggled after submit', function() {
+		
+		userInitiatedSubmit();
+
+		strictEqual( $( '#foo' )[0].validity.valid, false, '#foo is invalid' );
+		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), true, '#foo question is .invalid' );
+		strictEqual( $( '#name-title' )[0].validity.valid, true, '#name-title is valid' );
+		strictEqual( $( '#name-given' )[0].validity.valid, false, '#name-given is invalid' );
+		strictEqual( $( '#name-family' )[0].validity.valid, false, '#name-given is invalid' );
+		strictEqual( $( '#name-given' ).closest( '.group' ).is( '.invalid' ), true, '#name-given question is .invalid' );
+
+		// make valid
+		$( '#foo' ).val( 'foo' );
+		$( '#name-given, #name-family' ).val( 'foo' );
+		userInitiatedSubmit();
+
+		strictEqual( $( '#foo' )[0].validity.valid, true, '#foo is valid' );
+		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), false, '#foo question is not .invalid' );
+		strictEqual( $( '#name-title' )[0].validity.valid, true, '#name-title is valid' );
+		strictEqual( $( '#name-given' )[0].validity.valid, true, '#name-given is valid' );
+		strictEqual( $( '#name-family' )[0].validity.valid, true, '#name-family is valid' );
+		strictEqual( $( '#name-given' ).closest( '.group' ).is( '.invalid' ), false, '#name-given question is not .invalid' );
+	});
 
 // --></script>
 
