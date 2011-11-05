@@ -14,6 +14,14 @@ if ( jQuery !== 'undefined' ) {
 
 	var i = 0,
 
+	// fields that validate
+	candidateForValidation = 'input, select, textarea',
+
+	// invalidFilter
+	invalidFilter = function() {
+		return ! this.validity.valid;	
+	},
+
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
 	dataFormErrorSummaryElement = 'forcesForms',
@@ -65,7 +73,8 @@ if ( jQuery !== 'undefined' ) {
 
 		var $this = $( this ),
 			alertMessage = $this.forcesForms( 'validationMessage' ),
-			alertElement = $this.forcesForms( 'alert' )
+			alertElement = $this.forcesForms( 'alert' ),
+			question
 		;
 
 		// is there an alert?
@@ -74,8 +83,10 @@ if ( jQuery !== 'undefined' ) {
 			// remove old alert
 			alertElement.remove();
 
-			// remove .invalid class on LI
-			$this.closest( '.questions > li' ).removeClass( 'invalid' );
+			// check if this control is still .invalid
+			question = $this.parentsUntil( 'group', '.questions > li' ).eq( -1 );
+			// toggle .invalid
+			question.toggleClass( 'invalid', question.find( candidateForValidation ).filter( invalidFilter ).length > 0 );
 
 		} else {
 
@@ -90,7 +101,6 @@ if ( jQuery !== 'undefined' ) {
 			alertElement.text( alertMessage );
 			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
 
-
 		}
 	},
 
@@ -103,7 +113,7 @@ if ( jQuery !== 'undefined' ) {
 		var form = $( this ).closest( 'form' ),
 
 			// invalid fields
-			invalid = form.find( 'input, select, textarea' ).filter(function invalidFields() {
+			invalid = form.find( candidateForValidation ).filter(function invalidFields() {
 
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
@@ -205,15 +215,11 @@ if ( jQuery !== 'undefined' ) {
 			questions = $( this ).children( '.questions' ).children();
 			// add invalid class to questions that contain invalid fields
 			questions.filter(function() {
-				return $( this ).find( 'input, select, textarea' ).filter(function() {
-					return ! this.validity.valid;
-				}).length > 0;
+				return $( this ).find( candidateForValidation ).filter( invalidFilter ).length > 0;
 			}).addClass( 'invalid' );
 			// remove invalid class from questions that do not contain invalid fields
 			questions.filter(function() {
-				return $( this ).find( 'input, select, textarea' ).filter(function() {
-					return ! this.validity.valid;
-				}).length === 0;
+				return $( this ).find( candidateForValidation ).filter( invalidFilter ).length === 0;
 			}).removeClass( 'invalid' );
 
 			// cancel submit
@@ -307,7 +313,7 @@ if ( jQuery !== 'undefined' ) {
 					// if validation did not cancel submit…
 					.bind( 'submit', submitDoneHandler )
 					// bind inline validation handlers to form elements
-					.find( 'input, select, textarea' )
+					.find( candidateForValidation )
 						.bind( 'change', changeValidityCheck )
 				;
 			});

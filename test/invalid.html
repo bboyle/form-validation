@@ -305,6 +305,33 @@
 
 	});
 
+	test( '.invalid class managed for groups', function() {
+		
+		$( 'form' ).trigger( 'submit' );
+		strictEqual( $( '.group input' ).filter(function() {
+			return ! this.validity.valid;
+		}).length, 2, '2 invalid fields in group' )
+		strictEqual( $( '.group' ).is( '.invalid' ), true, '.group is .invalid after submit' );
+
+		// make valid some of the fields valid, but NOT all
+		$( '#name-given' ).val( 'foo' ).trigger( 'change' );
+
+		strictEqual( $( '.group input' ).filter(function() {
+			return ! this.validity.valid;
+		}).length, 1, '1 invalid field in group' )
+		strictEqual( $( '.group' ).is( '.invalid' ), true, '.group remains .invalid if only some invalid fields are corrected' );
+
+		// make all fields valid
+		$( '#name-family' ).val( 'foo' ).trigger( 'change' );
+
+		// test .invalid class removed
+		strictEqual( $( '.group input' ).filter(function() {
+			return ! this.validity.valid;
+		}).length, 0, 'no invalid fields in group' )
+		strictEqual( $( '.group' ).is( '.invalid' ), false, '.group is not .invalid after correcting all invalid fields' );
+
+	});
+
 
 // --></script>
 
