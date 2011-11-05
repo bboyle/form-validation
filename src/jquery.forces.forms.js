@@ -219,7 +219,7 @@ if ( jQuery !== "undefined" ) {
 
 	methods = {
 
-		// $( x ).forcesForms( "alert" ) -- get
+		// $( x ).forcesForms( 'alert' ) -- get
 		// get or set alert text (html not supported)
 		alert : function( alertMessage ) {
 			return this.map(function( index, domElement ) {
@@ -236,23 +236,32 @@ if ( jQuery !== "undefined" ) {
 		},
 
 
-		// $( x ).forcesForms( "label" )
-		// $( x ).forcesForms( "label", [{ level : group }])
+		// $( x ).forcesForms( 'label' )
+		// $( x ).forcesForms( 'label', { level : group })
 		// return .label associated with element or containing group
 		label : function( options ) {
 			return getLabelComponent.call( this, '.label', options );
 		},
 
 
-		// $( x ).forcesForms( "hint" )
-		// $( x ).forcesForms( "hint", [{ level : group }])
+		// $( x ).forcesForms( 'hint' )
+		// $( x ).forcesForms( 'hint', { level : group })
 		// return .hint associated with element or containing group
 		hint : function( options ) {
 			return getLabelComponent.call( this, '.hint', options );
 		},
 
 
-		// $( x ).forcesForms( "group" )
+		// $( x ).forcesForms( 'question' )
+		// return question element for item
+		question : function() {
+			return this.map(function( index, domElement ) {
+				return $( domElement ).parentsUntil( 'form', '.questions > li' )[ 0 ];
+			});
+		},
+
+
+		// $( x ).forcesForms( 'group' )
 		// return group element for item
 		group : function() {
 			return this.map(function( index, domElement ) {
@@ -261,7 +270,7 @@ if ( jQuery !== "undefined" ) {
 		},
 
 
-		// $( x ).forcesForms( "validate" )
+		// $( x ).forcesForms( 'validate' )
 		// binds validation handler functions
 		// sets @novalidate on form to disable built-in validation
 		validate : function() {
@@ -282,7 +291,7 @@ if ( jQuery !== "undefined" ) {
 		},
 
 
-		// $( x ).forcesForms( "validationMessage" )
+		// $( x ).forcesForms( 'validationMessage' )
 		// return String validation message, e.g. "Must be completed"
 		validationMessage : function() {
 
