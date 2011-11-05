@@ -158,22 +158,20 @@
 
 	});
 
-/*
 	test( 'verify .forcesForm( "question" ) supports jquery chaining', function() {
 		// test jquery object
-		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 0 ], $( 'label[for=foo] > .hint' )[ 0 ], 'verified 1st hint in jquery object' );
-		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 1 ], $( 'legend > .hint' )[ 0 ], 'verified 2nd hint in jquery object' );
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 0 ], $( '#foo' ).closest( '.questions > li ')[ 0 ], 'verified 1st question in jquery object' );
+		strictEqual( $( '#foo,#radio-foo-foo' ).forcesForms( 'question' )[ 1 ], $( '#radio-foo-foo' ).closest( '.questions > li ')[ 0 ], 'verified 2nd question in jquery object' );
 
 	});
 
 	test( 'verify .forcesForm( "question", { level : "group" }) supports jquery chaining', function() {
 
-		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group .hint' )[ 0 ], 'verified 1st group hint in jquery object' );
-		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 1 ], $( '.group .hint' )[ 0 ], 'verified 2nd group hint in jquery object' );
-		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 2 ], $( '.group .hint' )[ 0 ], 'verified 3rd group hint in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 0 ], $( '.group' )[ 0 ], 'verified 1st group question in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 1 ], $( '.group' )[ 0 ], 'verified 2nd group question in jquery object' );
+		strictEqual( $( '.group input' ).forcesForms( 'question', { level : 'group' })[ 2 ], $( '.group' )[ 0 ], 'verified 3rd group question in jquery object' );
 
 	});
-*/
 
 // --></script>
 
