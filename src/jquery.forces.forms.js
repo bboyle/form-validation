@@ -221,19 +221,26 @@ if ( jQuery !== 'undefined' ) {
 	submitValidationHandler = function( event ) {
 		// validate form
 		var count = submitValidityCheck.call( this ),
-			questions;
+			questions,
+			form;
 
 		// anything invalid?
 		if ( count > 0 ) {
 			// cancel submit
 			event.stopImmediatePropagation();
 
+			form = $( this );
+
 			// show the error summary
 			displaySummary.call( this );
 			// TODO focus/scrollTo summary element
 
 			// get top level questions
-			questions = $( this ).children( '.questions' ).children();
+			questions = form.children( '.questions' ).children();
+			// show inline alerts
+			form.find( candidateForValidation ).each(function() {
+				changeValidityCheck.call( this );
+			});
 			// add invalid class to questions that contain invalid fields
 			questions.filter(function() {
 				return $( this ).find( candidateForValidation ).filter( invalidFilter ).length > 0;

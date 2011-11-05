@@ -417,6 +417,48 @@
 	});
 
 
+	test( 'inline alerts visible after submit', function() {
+		
+		userInitiatedSubmit();
+
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
+		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#foo has 1 alert displayed' );
+		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be completed', '#foo alert has correct text' );
+
+	});
+
+
+	test( 'inline alerts visible for invalid autofilled fields', function() {
+		
+		// simulate autofill email
+		$( '#email' ).val( 'foo' ); // do not fire focus, change or blur events!
+
+		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+
+		userInitiatedSubmit();
+
+		strictEqual( $( '#email' )[ 0 ].validity.valid, false, '#email is invalid' );
+		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#email has 1 alert displayed' );
+		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be an email address', '#email alert has correct text' );
+
+	});
+
+
+	test( 'inline alerts not present for valid autofilled fields', function() {
+		
+		// simulate autofill email
+		$( '#email' ).val( 'foo@example.com' ); // do not fire focus, change or blur events!
+
+		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+
+		userInitiatedSubmit();
+
+		strictEqual( $( '#email' )[ 0 ].validity.valid, true, '#email is valid' );
+		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+
+	});
+
+
 // --></script>
 
 
