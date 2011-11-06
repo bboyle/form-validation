@@ -17,6 +17,8 @@ if ( jQuery !== 'undefined' ) {
 
 	SUBMIT_TOLERANCE = 10000, // milliseconds
 
+	DEFAULT_STATUS_HTML = '<div class="status warn"><div class="inner"><h2>Unable to process this form</h2><ol></ol></div></div>',
+
 	// fields that validate
 	candidateForValidation = 'input, select, textarea',
 
@@ -45,20 +47,6 @@ if ( jQuery !== 'undefined' ) {
 			}
 
 			return dataHash;
-	},
-
-
-	highlightActiveAncestors = function( event ) {
-
-		var target = $( event.target ),
-			ancestorQuestions = target.parentsUntil( 'form' , '.group, .questions > li' )
-		;
-
-		// deactive current previously active questions
-		target.closest( 'form' ).find( '.questions > *, .group' ).not( ancestorQuestions ).removeClass( 'active' );
-		// activate current questions
-		ancestorQuestions.addClass( 'active' );
-
 	},
 
 
@@ -153,7 +141,7 @@ if ( jQuery !== 'undefined' ) {
 			}),
 
 			// alert container
-			alert = pluginData.call( form, 'summaryElement' ) || pluginData.call( form, 'summaryElement', $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )),
+			alert = pluginData.call( form, 'summaryElement' ) || pluginData.call( form, 'summaryElement', $( DEFAULT_STATUS_HTML )),
 
 			// messages within alert
 			messages = alert.find( 'ol' ),
@@ -386,10 +374,6 @@ if ( jQuery !== 'undefined' ) {
 		}
 
 	};
-
-
-	// highlight active ancestors when focus received
-	$( 'form a, input, select, textarea' ).live( 'focus', highlightActiveAncestors );
 
 
 	$.fn.forcesForms = function( method ) {
