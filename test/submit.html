@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="../lib/qunit-git.css" />
 	<script src="../lib/qunit-git.js"></script>
+	<script src="qunit-helpers.js"></script>
 	<style>
 		body {
 			padding: 2em;
@@ -192,18 +193,13 @@
 
 <script><!-- //
 
-	var clearStatus = function() {
-			$( '#test' ).trigger( 'reset' );
-			$( '.status' ).remove();
-		},
-
-		userInitiatedSubmit = function() {
+	var userInitiatedSubmit = function() {
 			$( '#test :submit' )[ 0 ].click();
 		},
 
 		makeFormValid = function() {
 			$( '#foo, #select-foo, #textarea-foo, #question' ).val( 'foo' );
-			$( '#radio-foo-foo' )[0].checked = true;
+			$( '#radio-foo-foo' )[ 0 ].checked = true;
 			$( '#email' ).val( 'foo@example.com' );
 			$( '#name-given' ).val( 'John' );
 			$( '#name-family' ).val( 'Smith' );
@@ -211,7 +207,7 @@
 	;
 
 
-	module( 'environment' );
+	module( 'environment', lifecycleCVAPI );
 
 	test( 'test fields are in test form', function() {
 
@@ -252,11 +248,10 @@
 	});
 
 
-	module( 'form submission UI' );
+	module( 'form submission UI', lifecycleCVAPI );
 
 	test( 'status message shown on submit', function() {
 
-		clearStatus();
 		$( 'form' ).trigger( 'submit' );
 
 		var status = $( '.status' );
@@ -457,7 +452,6 @@
 		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
 
 	});
-
 
 // --></script>
 

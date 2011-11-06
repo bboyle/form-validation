@@ -17,13 +17,17 @@ if ( jQuery !== 'undefined' ) {
 
 	SUBMIT_TOLERANCE = 10000, // milliseconds
 
+	DEFAULT_STATUS_HTML = '<div class="status warn"><div class="inner"><h2>Unable to process this form</h2><ol></ol></div></div>',
+
 	// fields that validate
 	candidateForValidation = 'input, select, textarea',
+
 
 	// invalidFilter
 	invalidFilter = function() {
 		return ! this.validity.valid;	
 	},
+
 
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
@@ -45,18 +49,6 @@ if ( jQuery !== 'undefined' ) {
 			return dataHash;
 	},
 
-	highlightActiveAncestors = function( event ) {
-
-		var target = $( event.target ),
-			ancestorQuestions = target.parentsUntil( 'form' , '.group, .questions > li' )
-		;
-
-		// deactive current previously active questions
-		target.closest( 'form' ).find( '.questions > *, .group' ).not( ancestorQuestions ).removeClass( 'active' );
-		// activate current questions
-		ancestorQuestions.addClass( 'active' );
-
-	},
 
 	// helper for .label, .hint and .alert
 	getLabelComponent = function( component, options ) {
@@ -88,6 +80,7 @@ if ( jQuery !== 'undefined' ) {
 		});
 	},
 	
+
 	changeValidityCheck = function( event ) {
 
 		var $this = $( this ),
@@ -117,7 +110,7 @@ if ( jQuery !== 'undefined' ) {
 			// show message
 			alertElement.text( alertMessage );
 			// append to form
-			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
+			$this.forcesForms( 'label' ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
@@ -148,7 +141,7 @@ if ( jQuery !== 'undefined' ) {
 			}),
 
 			// alert container
-			alert = pluginData.call( form, 'summaryElement' ) || pluginData.call( form, 'summaryElement', $( '<div class="status"><h2>Unable to process this form</h2><ol></ol></div>' )),
+			alert = pluginData.call( form, 'summaryElement' ) || pluginData.call( form, 'summaryElement', $( DEFAULT_STATUS_HTML )),
 
 			// messages within alert
 			messages = alert.find( 'ol' ),
@@ -180,7 +173,7 @@ if ( jQuery !== 'undefined' ) {
 					}),
 
 					// get the label id
-					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString() )[ 0 ].id,
+					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + String( i ))[ 0 ].id,
 
 					// get alert item
 					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
@@ -345,6 +338,7 @@ if ( jQuery !== 'undefined' ) {
 		// $( x ).forcesForms( 'validate' )
 		// binds validation handler functions
 		// sets @novalidate on form to disable built-in validation
+		// TODO allow this to be called multiple times without binding additional handlers!
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( 'form' )
@@ -380,10 +374,6 @@ if ( jQuery !== 'undefined' ) {
 		}
 
 	};
-
-
-	// highlight active ancestors when focus received
-	$( 'form a, input, select, textarea' ).live( 'focus', highlightActiveAncestors );
 
 
 	$.fn.forcesForms = function( method ) {
