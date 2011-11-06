@@ -81,15 +81,35 @@
 
 
 	// bind submit counter
-	$( 'form' ).bind( 'submit', function() {
+	$( 'form' ).live( 'submit', function() {
 		submitted++;
 		ok( submitted <= 3, 'submit event detected' );
 	});
 
 
-	module( '21 second test' );
+	module( 'submit suppression' );
 
-	test( 'submit cannot be triggered more than once per 10 seconds', 3, function() {
+	test( 'invalid submit is not suppressed', 6, function() {
+
+		// setup
+		submitted = 0;
+
+		$( '#foo' )[ 0 ].setCustomValidity( 'invalid' );
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
+		userInitiatedSubmit(); // should submit (1)
+		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
+		userInitiatedSubmit(); // should submit (2)
+		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+		
+		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
+		userInitiatedSubmit(); // should submit (3)
+		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+		
+	});
+
+	test( '(SLOW!) submit cannot be triggered more than once per 10 seconds', 3, function() {
 
 		// setup
 		submitted = 0;
