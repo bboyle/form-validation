@@ -6,6 +6,7 @@
 
 	<link rel="stylesheet" href="../lib/qunit-git.css" />
 	<script src="../lib/qunit-git.js"></script>
+	<script src="qunit-helpers.js"></script>
 	<style>
 		body {
 			padding: 2em;
@@ -184,7 +185,7 @@
 
 <script><!-- //
 
-	module( 'environment' );
+	module( 'environment', lifecycleCVAPI );
 
 	test( 'test fields are in test form', function() {
 
@@ -213,7 +214,7 @@
 	});
 
 
-	module( 'change events UI' );
+	module( 'change events UI', lifecycleCVAPI );
 
 	test( 'inline message shown on change event', 9, function() {
 
@@ -280,7 +281,7 @@
 	});
 
 
-	module( 'after submit event UI' );
+	module( 'after submit event UI', lifecycleCVAPI );
 
 	test( '.invalid class removed after submit', function() {
 		
