@@ -20,10 +20,12 @@ if ( jQuery !== 'undefined' ) {
 	// fields that validate
 	candidateForValidation = 'input, select, textarea',
 
+
 	// invalidFilter
 	invalidFilter = function() {
 		return ! this.validity.valid;	
 	},
+
 
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
@@ -45,6 +47,7 @@ if ( jQuery !== 'undefined' ) {
 			return dataHash;
 	},
 
+
 	highlightActiveAncestors = function( event ) {
 
 		var target = $( event.target ),
@@ -57,6 +60,7 @@ if ( jQuery !== 'undefined' ) {
 		ancestorQuestions.addClass( 'active' );
 
 	},
+
 
 	// helper for .label, .hint and .alert
 	getLabelComponent = function( component, options ) {
@@ -88,6 +92,7 @@ if ( jQuery !== 'undefined' ) {
 		});
 	},
 	
+
 	changeValidityCheck = function( event ) {
 
 		var $this = $( this ),
@@ -180,7 +185,7 @@ if ( jQuery !== 'undefined' ) {
 					}),
 
 					// get the label id
-					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + ( i ).toString() )[ 0 ].id,
+					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + String( i ))[ 0 ].id,
 
 					// get alert item
 					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
