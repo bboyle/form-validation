@@ -350,6 +350,7 @@ if ( jQuery !== 'undefined' ) {
 		// $( x ).forcesForms( 'validate' )
 		// binds validation handler functions
 		// sets @novalidate on form to disable built-in validation
+		// TODO allow this to be called multiple times without binding additional handlers!
 		validate : function() {
 			return this.each(function() {
 				$( this ).closest( 'form' )
