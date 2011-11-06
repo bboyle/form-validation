@@ -227,6 +227,9 @@ if ( jQuery !== 'undefined' ) {
 			// show the error summary
 			displaySummary.call( this );
 			// TODO focus/scrollTo summary element
+			// required jquery.scrollTo plugin
+			// http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+			$( window ).scrollTo( form.prev( '.status' ));
 
 			// get top level questions
 			questions = form.children( '.questions' ).children();
