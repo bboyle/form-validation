@@ -110,7 +110,7 @@ if ( jQuery !== 'undefined' ) {
 			// show message
 			alertElement.text( alertMessage );
 			// append to form
-			alertElement.appendTo( $this.forcesForms( 'label' ).parent() );
+			$this.forcesForms( 'label' ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
