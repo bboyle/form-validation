@@ -1,10 +1,11 @@
 /*
 	jquery forces forms plugin
 
-	Forms helper
+	Forms validation helper
 
-	jquery.forcesForms( "label" ) -- get label element
 	requires jquery
+	requires HTML5 constraint validation API (native browser or polyfill)
+	tested with polyfill forces.html5.constraintValidationAPI
 
 */
 
