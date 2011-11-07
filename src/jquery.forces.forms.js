@@ -9,7 +9,6 @@
 
 */
 
-if ( jQuery !== 'undefined' ) {
 (function( $ ) {
 	'use strict';
 
@@ -396,4 +395,3 @@ if ( jQuery !== 'undefined' ) {
 
 
 }( jQuery ));
-}
