@@ -4,6 +4,7 @@
 	Forms validation helper
 
 	requires jquery
+	requires jquery.scrollTo plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
 	tested with polyfill forces.html5.constraintValidationAPI
 
@@ -226,6 +227,7 @@
 
 			// show the error summary
 			displaySummary.call( this );
+
 			// TODO focus/scrollTo summary element
 			// required jquery.scrollTo plugin
 			// http://flesler.blogspot.com/2007/10/jqueryscrollto.html
