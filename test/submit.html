@@ -329,7 +329,6 @@
 		var emailLink = $( '.status a:contains(Email)' );
 
 		strictEqual( emailLink.text(), 'Email: Must be completed', 'found email required message' );
-
 		userInitiatedSubmit();
 
 		strictEqual( $( '.status a:contains(Email)' ).text(), 'Email: Must be completed', 'found email required message after second submit' );
@@ -339,6 +338,8 @@
 		$( '#email' ).val( 'foo' );
 		userInitiatedSubmit();
 
+		strictEqual( $( '#email' )[ 0 ].validity.valid, false, '#email is invalid' );
+		strictEqual( $( '#email' )[ 0 ].validity.typeMismatch, true, '#email has a typeMismatch' );
 		strictEqual( $( '.status a:contains(Email)' ).text(), 'Email: Must be an email address', 'found email type mismatch message after third submit' );
 		strictEqual( $( '.status a:contains(Email)' )[ 0 ], emailLink[ 0 ], 'same link element used after third submit' );
 		strictEqual( $( '.status a:contains(Email)' ).parent()[ 0 ], emailLink.parent()[ 0 ], 'same list item element used after third submit' );

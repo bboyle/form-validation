@@ -26,7 +26,7 @@
 
 	// invalidFilter
 	invalidFilter = function() {
-		return ! this.validity.valid;	
+		return ! ( this.disabled || this.validity.valid );
 	},
 
 
@@ -130,6 +130,11 @@
 			// invalid fields
 			invalid = form.find( candidateForValidation ).filter(function invalidFields() {
 
+				// skip disabled
+				if ( this.disabled ) {
+					return false;
+				}
+
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
 
@@ -164,18 +169,14 @@
 
 				// get field
 				var $this = $( this ),
-					
 					// get group (if exists)
 					group = $this.parentsUntil( 'form', '.group' ),
-
 					// get label or group label
 					label = $this.forcesForms( 'label', {
 						level : group.length > 0 ? 'group' : null
 					}),
-
 					// get the label id
 					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + String( i ))[ 0 ].id,
-
 					// get alert item
 					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
 				;
@@ -187,10 +188,11 @@
 
 					// create error message with link to label
 					item
-					.find( 'a' )
-						.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'validationMessage' ) )
-						.end()
-					.appendTo( messages );
+						.find( 'a' )
+							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'validationMessage' ) )
+							.end()
+						.appendTo( messages )
+					;
 
 				} else {
 					// remove from DOM
@@ -222,6 +224,7 @@
 		if ( count > 0 ) {
 			// cancel submit
 			event.stopImmediatePropagation();
+			event.preventDefault();
 
 			form = $( this );
 
@@ -349,12 +352,16 @@
 				$( this ).closest( 'form' )
 					// turn off native validation
 					.attr( 'novalidate', true )
+					// unbind and rebind handlers
+					.unbind( 'submit', submitDoneHandler )
+					.unbind( 'submit', submitValidationHandler )
 					// validate this form
 					.bind( 'submit', submitValidationHandler )
 					// if validation did not cancel submit…
 					.bind( 'submit', submitDoneHandler )
 					// bind inline validation handlers to form elements
 					.find( candidateForValidation )
+						.unbind( 'change', changeValidityCheck )
 						.bind( 'change', changeValidityCheck )
 				;
 			});
