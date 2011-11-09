@@ -161,7 +161,13 @@
 									<abbr title="(required)">*</abbr>
 								</label>
 								<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
-								
+							</li>
+							<li>
+								<label for="name">
+									<span class="label">Preferred name</span>
+									<abbr title="(required)">*</abbr>
+								</label>
+								<input type="text" id="name" name="name" size="20" required="required" />
 							</li>
 						</ol>
 					</fieldset>
@@ -233,6 +239,11 @@
 		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
 		strictEqual( $( '[required]' )[ 4 ], $( 'input#email' )[ 0 ], 'input#email is a required field' );
 		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
+		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
+		// bug 5 @id="name" @name="name"
+		strictEqual( $( 'input#name' ).attr( 'name' ), 'name', 'input#name exists and @name is "name"' );
+		ok( $( 'input#name' ).attr( 'required' ), 'input#name is required' );
+		strictEqual( $( 'input#name' ).val(), '', 'input#name value is ""' );
 
 	});
 
