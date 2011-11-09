@@ -368,7 +368,7 @@
 
 		var status = $( '.status' );
 
-		strictEqual( status.find( 'li' ).length, 4, 'only 4 errors appear' );
+		strictEqual( status.find( 'li' ).length, 5, '5 errors appear' );
 
 		strictEqual( status.find( 'li' ).filter(function() {
 			return $( this ).text() === 'Foo: Must be completed';
@@ -393,6 +393,7 @@
 		$( '#question' ).val( 'answer' );
 		$( '#name-given' ).val( 'John' );
 		$( '#name-family' ).val( 'Smith' );
+		$( '#name' ).val( 'Jonny' );
 
 		userInitiatedSubmit();
 
@@ -413,7 +414,7 @@
 
 		// make valid
 		$( '#foo' ).val( 'foo' );
-		$( '#name-given, #name-family' ).val( 'foo' );
+		$( '#name-given, #name-family, #name' ).val( 'foo' );
 		userInitiatedSubmit();
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, true, '#foo is valid' );
