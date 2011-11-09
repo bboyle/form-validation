@@ -138,10 +138,10 @@
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
 
-				} else if ( invalidFields[ this.name ] === true ) {
+				} else if ( invalidFields.cache[ this.name ] === true ) {
 					return false;
 				}
-				invalidFields[ this.name ] = true;
+				invalidFields.cache[ this.name ] = true;
 
 				return this.validity && ! this.validity.valid;
 			}),
