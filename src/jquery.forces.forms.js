@@ -85,7 +85,7 @@
 	changeValidityCheck = function( event ) {
 
 		var $this = $( this ),
-			alertMessage = $this.forcesForms( 'validationMessage' ),
+			alertMessage = $this.forcesForms( 'getValidationMessage' ),
 			alertElement = $this.forcesForms( 'alert' ),
 			question
 		;
@@ -189,7 +189,7 @@
 					// create error message with link to label
 					item
 						.find( 'a' )
-							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'validationMessage' ) )
+							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'getValidationMessage' ) )
 							.end()
 						.appendTo( messages )
 					;
@@ -368,9 +368,9 @@
 		},
 
 
-		// $( x ).forcesForms( 'validationMessage' )
+		// $( x ).forcesForms( 'getValidationMessage' )
 		// return String validation message, e.g. "Must be completed"
-		validationMessage : function() {
+		getValidationMessage : function() {
 
 			var validityState = this[ 0 ].validity;
 
@@ -379,6 +379,9 @@
 
 			} else if ( validityState.valueMissing ) {
 				return 'Must be completed';
+
+			} else if ( validityState.customError ) {
+				return this[ 0 ].validationMessage;
 
 			} else if ( validityState.typeMismatch ) {
 				return 'Must be an email address';
