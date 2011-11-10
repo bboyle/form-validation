@@ -316,13 +316,14 @@
 		$( '#select-foo' ).val( 'foo' ).trigger( 'change' );
 		$( '#textarea-foo' ).val( 'foo' ).trigger( 'change' );
 		$( '#radio-foo-foo' )[ 0 ].click();
-		$( '#radio-foo-foo' ).trigger( 'click' );
+		$( '#radio-foo-foo' ).trigger( 'change' );
 
 		// test .invalid class removed
 		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), false, '#foo is not .invalid after changing' );
 		strictEqual( $( '#select-foo' ).closest( 'li' ).is( '.invalid' ), false, '#select-foo is not .invalid after changing' );
 		strictEqual( $( '#textarea-foo' ).closest( 'li' ).is( '.invalid' ), false, '#textarea-foo is not .invalid after changing' );
 
+		strictEqual( $( '#radio-foo-foo' ).is( ':checked' ), true, '#radio-foo-foo is :checked' );
 		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#radio-foo-foo is not .invalid after changing' );
 
 	});
