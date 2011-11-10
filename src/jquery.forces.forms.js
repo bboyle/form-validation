@@ -96,8 +96,8 @@
 			// remove old alert
 			alertElement.remove();
 
-			// check if this control is still .invalid
-			question = $this.parentsUntil( 'group', '.questions > li' ).eq( -1 );
+			// check if this question is still .invalid
+			question = $this.parentsUntil( 'form', '.questions > li' ).not( '.section' ).eq( -1 );
 			// toggle .invalid
 			question.toggleClass( 'invalid', question.find( candidateForValidation ).filter( invalidFilter ).length > 0 );
 
@@ -237,7 +237,9 @@
 			$( window ).scrollTo( form.prev( '.status' ));
 
 			// get top level questions
-			questions = form.children( '.questions' ).children();
+			questions = form.children( '.questions' ).children()
+						.add( form.find( '.section > fieldset > .questions ' ).children() )
+						.not( '.section' );
 			// show inline alerts
 			form.find( candidateForValidation ).each(function() {
 				changeValidityCheck.call( this );
