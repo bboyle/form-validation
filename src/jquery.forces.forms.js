@@ -85,7 +85,7 @@
 	changeValidityCheck = function( event ) {
 
 		var $this = $( this ),
-			alertMessage = $this.forcesForms( 'validationMessage' ),
+			alertMessage = $this.forcesForms( 'getValidationMessage' ),
 			alertElement = $this.forcesForms( 'alert' ),
 			question
 		;
@@ -96,8 +96,8 @@
 			// remove old alert
 			alertElement.remove();
 
-			// check if this control is still .invalid
-			question = $this.parentsUntil( 'group', '.questions > li' ).eq( -1 );
+			// check if this question is still .invalid
+			question = $this.parentsUntil( 'form', '.questions > li' ).not( '.section' ).eq( -1 );
 			// toggle .invalid
 			question.toggleClass( 'invalid', question.find( candidateForValidation ).filter( invalidFilter ).length > 0 );
 
@@ -189,7 +189,7 @@
 					// create error message with link to label
 					item
 						.find( 'a' )
-							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'validationMessage' ) )
+							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'getValidationMessage' ) )
 							.end()
 						.appendTo( messages )
 					;
@@ -237,7 +237,9 @@
 			$( window ).scrollTo( form.prev( '.status' ));
 
 			// get top level questions
-			questions = form.children( '.questions' ).children();
+			questions = form.children( '.questions' ).children()
+						.add( form.find( '.section > fieldset > .questions ' ).children() )
+						.not( '.section' );
 			// show inline alerts
 			form.find( candidateForValidation ).each(function() {
 				changeValidityCheck.call( this );
@@ -368,9 +370,9 @@
 		},
 
 
-		// $( x ).forcesForms( 'validationMessage' )
+		// $( x ).forcesForms( 'getValidationMessage' )
 		// return String validation message, e.g. "Must be completed"
-		validationMessage : function() {
+		getValidationMessage : function() {
 
 			var validityState = this[ 0 ].validity;
 
@@ -379,6 +381,9 @@
 
 			} else if ( validityState.valueMissing ) {
 				return 'Must be completed';
+
+			} else if ( validityState.customError ) {
+				return this[ 0 ].validationMessage;
 
 			} else if ( validityState.typeMismatch ) {
 				return 'Must be an email address';
