@@ -280,7 +280,7 @@
 
 	});
 
-	test( 'inline validation messages update when error changes', 3, function() {
+	test( 'inline validation messages update when error changes', 4, function() {
 		
 		$( '#email' ).val( 'foo' );
 		$( '#email' ).trigger( 'change' );
@@ -294,9 +294,13 @@
 
 		$( '#email' ).val( 'foo@example.com' );
 		$( '#email' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid (foo@example.com)' );
+
+		$( '#email' ).val( 'a@b' );
 		$( '#email' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid' );
+		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid (a@b)' );
 
 	});
 
