@@ -431,8 +431,12 @@
 		userInitiatedSubmit();
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
+
 		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#foo has 1 alert displayed' );
 		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be completed', '#foo alert has correct text' );
+
+		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#radio-foo-foo has 1 alert displayed' );
+		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be completed', '#radio-foo-foo alert has correct text' );
 
 	});
 
