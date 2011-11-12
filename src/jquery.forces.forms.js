@@ -82,24 +82,26 @@
 	},
 	
 
-	changeValidityCheck = function( event ) {
+	changeValidityCheck = function() {
 
 		var $this = $( this ),
-			alertMessage = $this.forcesForms( 'getValidationMessage' ),
-			alertElement = $this.forcesForms( 'alert' ),
-			question
+			alertElement = $this.forcesForms( 'alert' )
 		;
 
-		// is there an alert?
-		if ( alertMessage === '' ) {
+		// is this control valid?
+		if ( this.validity.valid ) {
 
-			// remove old alert
 			alertElement.remove();
 
-			// check if this question is still .invalid
-			question = $this.parentsUntil( 'form', '.questions > li' ).not( '.section' ).eq( -1 );
-			// toggle .invalid
-			question.toggleClass( 'invalid', question.find( candidateForValidation ).filter( invalidFilter ).length > 0 );
+			// remove invalid class from ancestors that do not contain invalid fields
+			$this.parentsUntil( 'form', '.invalid' ).filter(function() {
+				return $( this ).find( candidateForValidation ).filter( invalidFilter ).length === 0;
+			})
+				// remove .invalid class
+				.removeClass( 'invalid' )
+				// remove old alerts (change handler should have already done this)
+				.find( '.alert' ).remove()
+			;
 
 		} else {
 
@@ -109,13 +111,12 @@
 			}
 
 			// show message
-			alertElement.text( alertMessage );
+			alertElement.text( $this.forcesForms( 'getValidationMessage' ) );
 			// append to form
 			$this.forcesForms( 'label' ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
-			// TODO consider an .invalid-change class vs .invalid (onsubmit) as a styling hook
 		}
 	},
 
@@ -228,12 +229,14 @@
 			event.preventDefault();
 
 			// show the error summary
-			form.before( pluginData.call( form, 'summaryElement' ).fadeIn() );
-
-			// focus/scrollTo summary element
-			// required jquery.scrollTo plugin
-			// http://flesler.blogspot.com/2007/10/jqueryscrollto.html
-			$( window ).scrollTo( form.prev( '.status' ));
+			(function( form ) {
+				var summary = pluginData.call( form, 'summaryElement' );
+				form.before( summary.fadeIn() );
+				// focus/scrollTo summary element
+				// required jquery.scrollTo plugin
+				// http://flesler.blogspot.com/2007/10/jqueryscrollto.html
+				$( window ).scrollTo( summary );
+			}( form ));
 
 			// find all the invalid fields
 			form.find( candidateForValidation ).filter( invalidFilter ).each(function() {
@@ -243,7 +246,7 @@
 				// set .invalid on ancestor LI elements
 				.parentsUntil( 'form', '.questions > li' )
 				// but not sections
-				.not( '.section' )
+				.not( '.section, .compact' )
 				.addClass( 'invalid' )
 			;
 
