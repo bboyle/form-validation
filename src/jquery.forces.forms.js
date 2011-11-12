@@ -208,9 +208,11 @@
 	// displays the summary error for a form
 	displaySummary = function() {
 		// form object
-		var form = $( this ).closest( 'form' );
+		var form = $( this ).closest( 'form' ),
+			summary = pluginData.call( form, 'summaryElement' );
+
 		// display alert
-		form.before( pluginData.call( form, 'summaryElement' ));
+		form.before( summary.stop( true, true ).fadeIn() );
 	},
 
 
