@@ -6,7 +6,6 @@
 
 	<link rel="stylesheet" href="../lib/qunit-git.css" />
 	<script src="../lib/qunit-git.js"></script>
-	<script src="qunit-helpers.js"></script>
 	<style>
 		body {
 			padding: 2em;
@@ -20,9 +19,10 @@
 		}
 
 		.invalid {
-			margin: 1em 0;
-			padding: 1em;
-			background: #FCC;
+			border: 1px solid red;
+		}
+		.alert {
+			color: red;
 		}
 
 	</style>
@@ -126,7 +126,7 @@
 							<span class="h2">Your details</span>
 						</legend>
 						<ol class="questions">
-							<li class="group">
+							<li class="group" id="name-group">
 								<ol class="questions compact">
 									<li>
 										<label for="name-title">
@@ -171,6 +171,328 @@
 											</label>
 											<input type="tel" name="tel" id="tel" size="15" value="" required="required" />
 										</li>
+
+										<li class="group" id="address-group">
+											<fieldset>
+												<legend>
+													<span class="label">Address</span>
+													<ol class="questions">
+														<li>
+															<label for="address-line1">
+																<span class="label">Address line 1</span>
+																<abbr title="(required)">*</abbr>
+															</label>
+															<input id="address-line1" name="address.line1" size="20" required="required" />
+														</li>
+														<li>
+															<label for="address-line2">
+																<span class="label">Address line 2</span>
+															</label>
+															<input id="address-line2" name="address.line2" size="20" />
+														</li>
+														<li>
+															<label for="address-line3">
+																<span class="label">Address line 3</span>
+															</label>
+															<input id="address-line3" name="address.line3" size="20" />
+														</li>
+														<li class="compact">
+															<ol class="questions">
+																<li>
+																	<label for="address-city">
+																		<span class="label">Town, city or suburb</span>
+																		<abbr title="(required)">*</abbr>
+																	</label>
+																	<input id="address-city" name="address.city" size="20" required="required" />
+																</li>
+																<li>
+																	<label for="address-state">
+																		<span class="label">State</span>
+																		<abbr title="(required)">*</abbr>
+																	</label>
+																	<input id="address-state" name="address.state" size="5" required="required" />
+																</li>
+																<li>
+																	<label for="address-postcode">
+																		<span class="label">Postcode</span>
+																		<abbr title="(required)">*</abbr>
+																	</label>
+																	<input id="address-postcode" name="address.postcode" size="5" required="required" />
+																</li>
+															</ol>
+														</li>
+														<li>
+															<label for="address-country">
+																<span class="label">Country</span>
+															</label>
+															<select id="address-country" required="required">
+																<option value=""></option>
+																<!-- 2011-11-12 http://en.wikipedia.org/wiki/List_of_sovereign_states -->
+																<option>Afghanistan</option>
+																<option>Albania</option>
+																<option>Algeria</option>
+																<option>Andorra</option>
+																<option>Angola</option>
+																<option>Antigua and Barbuda</option>
+																<option>Argentina</option>
+																<option>Armenia</option>
+																<option>Australia</option>
+																<option>Ashmore and Cartier Islands</option>
+																<option>Australian Antarctic Territory</option>
+																<option>Christmas Island</option>
+																<option>Cocos (Keeling) Islands</option>
+																<option>Coral Sea Islands Territory</option>
+																<option>Heard Island and McDonald Islands</option>
+																<option>Norfolk Island</option>
+																<option>Austria</option>
+																<option>Azerbaijan</option>
+																<option>Bahamas</option>
+																<option>Bahrain</option>
+																<option>Bangladesh</option>
+																<option>Barbados</option>
+																<option>Belarus</option>
+																<option>Belgium</option>
+																<option>Belize</option>
+																<option>Benin</option>
+																<option>Bhutan</option>
+																<option>Bolivia</option>
+																<option>Bosnia and Herzegovina</option>
+																<option>Botswana</option>
+																<option>Brazil</option>
+																<option>Brunei</option>
+																<option>Bulgaria</option>
+																<option>Burkina Faso</option>
+																<option>Burma</option>
+																<option>Burundi</option>
+																<option>Cambodia</option>
+																<option>Cameroon</option>
+																<option>Canada</option>
+																<option>Cape Verde</option>
+																<option>Central African Republic</option>
+																<option>Chad</option>
+																<option>Chile</option>
+																<option>China</option>
+																<option>Hong Kong</option>
+																<option>Macau</option>
+																<option>Colombia</option>
+																<option>Comoros</option>
+																<option>Congo, Democratic Republic of the</option>
+																<option>Congo, Republic of the</option>
+																<option>Costa Rica</option>
+																<option>Côte d'Ivoire</option>
+																<option>Croatia</option>
+																<option>Cuba</option>
+																<option>Cyprus</option>
+																<option>Czech Republic</option>
+																<option>Denmark</option>
+																<option>Faroe Islands</option>
+																<option>Greenland</option>
+																<option>Djibouti</option>
+																<option>Dominica</option>
+																<option>Dominican Republic</option>
+																<option>East Timor</option>
+																<option>Ecuador</option>
+																<option>Egypt</option>
+																<option>El Salvador</option>
+																<option>Equatorial Guinea</option>
+																<option>Eritrea</option>
+																<option>Estonia</option>
+																<option>Ethiopia</option>
+																<option>Fiji</option>
+																<option>Finland</option>
+																<option>Åland</option>
+																<option>France</option>
+																<option>Clipperton Island</option>
+																<option>French Polynesia</option>
+																<option>New Caledonia</option>
+																<option>Saint-Barthélemy</option>
+																<option>Saint Martin</option>
+																<option>Saint Pierre and Miquelon</option>
+																<option>Wallis and Futuna</option>
+																<option>French Southern and Antarctic Lands</option>
+																<option>Gabon</option>
+																<option>The Gambia</option>
+																<option>Georgia</option>
+																<option>Germany</option>
+																<option>Ghana</option>
+																<option>Greece</option>
+																<option>Grenada</option>
+																<option>Guatemala</option>
+																<option>Guinea</option>
+																<option>Guinea-Bissau</option>
+																<option>Guyana</option>
+																<option>Haiti</option>
+																<option>Honduras</option>
+																<option>Hungary</option>
+																<option>Iceland</option>
+																<option>India</option>
+																<option>Indonesia</option>
+																<option>Iran</option>
+																<option>Iraq</option>
+																<option>Ireland</option>
+																<option>Israel</option>
+																<option>Italy</option>
+																<option>Jamaica</option>
+																<option>Japan</option>
+																<option>Jordan</option>
+																<option>Kazakhstan</option>
+																<option>Kenya</option>
+																<option>Kiribati</option>
+																<option>Korea, North</option>
+																<option>Korea, South</option>
+																<option>Kuwait</option>
+																<option>Kyrgyzstan</option>
+																<option>Laos</option>
+																<option>Latvia</option>
+																<option>Lebanon</option>
+																<option>Lesotho</option>
+																<option>Liberia</option>
+																<option>Libya</option>
+																<option>Liechtenstein</option>
+																<option>Lithuania</option>
+																<option>Luxembourg</option>
+																<option>Macedonia</option>
+																<option>Madagascar</option>
+																<option>Malawi</option>
+																<option>Malaysia</option>
+																<option>Maldives</option>
+																<option>Mali</option>
+																<option>Malta</option>
+																<option>Marshall Islands</option>
+																<option>Mauritania</option>
+																<option>Mauritius</option>
+																<option>Mexico</option>
+																<option>Micronesia, Federated States of</option>
+																<option>Moldova</option>
+																<option>Monaco</option>
+																<option>Mongolia</option>
+																<option>Montenegro</option>
+																<option>Morocco</option>
+																<option>Mozambique</option>
+																<option>Namibia</option>
+																<option>Nauru</option>
+																<option>Nepal</option>
+																<option>Netherlands</option>
+																<option>Netherlands</option>
+																<option>Aruba</option>
+																<option>Curaçao</option>
+																<option>Sint Maarten</option>
+																<option>New Zealand</option>
+																<option>Cook Islands</option>
+																<option>Niue</option>
+																<option>Ross Dependency</option>
+																<option>Tokelau</option>
+																<option>Nicaragua</option>
+																<option>Niger</option>
+																<option>Nigeria</option>
+																<option>Norway</option>
+																<option>Oman</option>
+																<option>Pakistan</option>
+																<option>Azad Kashmir</option>
+																<option>Gilgit-Baltistan</option>
+																<option>Palau</option>
+																<option>Panama</option>
+																<option>Papua New Guinea</option>
+																<option>Paraguay</option>
+																<option>Peru</option>
+																<option>Philippines</option>
+																<option>Poland</option>
+																<option>Portugal</option>
+																<option>Qatar</option>
+																<option>Romania</option>
+																<option>Russia</option>
+																<option>Rwanda</option>
+																<option>Saint Kitts and Nevis</option>
+																<option>Saint Lucia</option>
+																<option>Saint Vincent and the Grenadines</option>
+																<option>Samoa</option>
+																<option>San Marino</option>
+																<option>São Tomé and Príncipe</option>
+																<option>Saudi Arabia</option>
+																<option>Senegal</option>
+																<option>Serbia</option>
+																<option>Seychelles</option>
+																<option>Sierra Leone</option>
+																<option>Singapore</option>
+																<option>Slovakia</option>
+																<option>Slovenia</option>
+																<option>Solomon Islands</option>
+																<option>Somalia</option>
+																<option>South Africa</option>
+																<option>South Sudan</option>
+																<option>Spain</option>
+																<option>Sri Lanka</option>
+																<option>Sudan</option>
+																<option>Suriname</option>
+																<option>Swaziland</option>
+																<option>Sweden</option>
+																<option>Switzerland</option>
+																<option>Syria</option>
+																<option>Tajikistan</option>
+																<option>Tanzania</option>
+																<option>Thailand</option>
+																<option>Togo</option>
+																<option>Tonga</option>
+																<option>Trinidad and Tobago</option>
+																<option>Tunisia</option>
+																<option>Turkey</option>
+																<option>Turkmenistan</option>
+																<option>Tuvalu</option>
+																<option>Uganda</option>
+																<option>Ukraine</option>
+																<option>United Arab Emirates</option>
+																<option>United Kingdom</option>
+																<option>Akrotiri and Dhekelia</option>
+																<option>Anguilla</option>
+																<option>Bermuda</option>
+																<option>British Indian Ocean Territory</option>
+																<option>British Virgin Islands</option>
+																<option>Cayman Islands</option>
+																<option>Falkland Islands</option>
+																<option>Gibraltar</option>
+																<option>Montserrat</option>
+																<option>Pitcairn Islands</option>
+																<option>Saint Helena, Ascension and Tristan da Cunha</option>
+																<option>South Georgia and the South Sandwich Islands</option>
+																<option>Turks and Caicos Islands</option>
+																<option>British Antarctic Territory</option>
+																<option>Guernsey</option>
+																<option>Alderney</option>
+																<option>Herm</option>
+																<option>Sark</option>
+																<option>Isle of Man</option>
+																<option>Jersey</option>
+																<option>United States</option>
+																<option>American Samoa</option>
+																<option>Guam</option>
+																<option>Northern Mariana Islands</option>
+																<option>Puerto Rico</option>
+																<option>U.S. Virgin Islands</option>
+																<option>Uruguay</option>
+																<option>Uzbekistan</option>
+																<option>Vanuatu</option>
+																<option>Vatican City</option>
+																<option>Venezuela</option>
+																<option>Vietnam</option>
+																<option>Yemen</option>
+																<option>Zambia</option>
+																<option>Zimbabwe</option>
+																<option>Abkhazia</option>
+																<option>Kosovo</option>
+																<option>Nagorno-Karabakh</option>
+																<option>Northern Cyprus</option>
+																<option>Palestine</option>
+																<option>Sahrawi Arab Democratic Republic</option>
+																<option>Somaliland</option>
+																<option>South Ossetia</option>
+																<option>Taiwan</option>
+																<option>Transnistria</option>
+															</select>
+														</li>
+													</ol>
+												</legend>
+											</fieldset>
+										</li>
 									</ol>
 								</fieldset>
 							</li>
@@ -191,12 +513,15 @@
 			</ol>
 
 		</form>
-		<script><!-- //
 
+		<script>
 			// init dynamic fixture
+			initConstraintValidationAPI();
 			$( 'form' ).forcesForms( 'validate' );
 
-		// --></script>
+			// scroll to top
+			$( window ).scrollTo( 0 );
+		</script>
 
 
 	</div>
@@ -205,7 +530,7 @@
 
 <script><!-- //
 
-	module( 'environment', lifecycleCVAPI );
+	module( 'environment' );
 
 	test( 'test fields are in test form', function() {
 
@@ -216,9 +541,9 @@
 		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
 		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
 		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
-		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
-		strictEqual( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
-		strictEqual( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
+		strictEqual( $( 'form#test #name-group input#name-title' ).length, 1, 'form#test contains #name-group input#name-title' );
+		strictEqual( $( 'form#test #name-group input#name-given' ).length, 1, 'form#test contains #name-group input#name-given' );
+		strictEqual( $( 'form#test #name-group input#name-family' ).length, 1, 'form#test contains #name-group input#name-family' );
 
 	});
 
@@ -234,7 +559,7 @@
 	});
 
 
-	module( 'change events UI', lifecycleCVAPI );
+	module( 'change events UI' );
 
 	test( 'inline message shown on change event', 9, function() {
 
@@ -305,7 +630,7 @@
 	});
 
 
-	module( 'after submit event UI', lifecycleCVAPI );
+	module( 'after submit event UI' );
 
 	test( '.invalid class removed after submit', function() {
 		
@@ -335,27 +660,63 @@
 	test( '.invalid class managed for groups', function() {
 		
 		$( 'form' ).trigger( 'submit' );
-		strictEqual( $( '.group input' ).filter(function() {
+		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 2, '2 invalid fields in group' )
-		strictEqual( $( '.group' ).is( '.invalid' ), true, '.group is .invalid after submit' );
+		strictEqual( $( '#name-group' ).is( '.invalid' ), true, '#name-group is .invalid after submit' );
 
-		// make valid some of the fields valid, but NOT all
+		// make some of the fields valid, but NOT all
 		$( '#name-given' ).val( 'foo' ).trigger( 'change' );
 
-		strictEqual( $( '.group input' ).filter(function() {
+		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 1, '1 invalid field in group' )
-		strictEqual( $( '.group' ).is( '.invalid' ), true, '.group remains .invalid if only some invalid fields are corrected' );
+		strictEqual( $( '#name-group' ).is( '.invalid' ), true, '#name-group remains .invalid if only some invalid fields are corrected' );
 
 		// make all fields valid
 		$( '#name-family' ).val( 'foo' ).trigger( 'change' );
 
 		// test .invalid class removed
-		strictEqual( $( '.group input' ).filter(function() {
+		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 0, 'no invalid fields in group' )
-		strictEqual( $( '.group' ).is( '.invalid' ), false, '.group is not .invalid after correcting all invalid fields' );
+		strictEqual( $( '#name-group' ).is( '.invalid' ), false, '#name-group is not .invalid after correcting all invalid fields' );
+
+	});
+
+	test( '.invalid class managed for groups onchange', function() {
+		
+		$( 'form' ).trigger( 'submit' );
+		strictEqual( $( '#address-group' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-group is .invalid' );
+		strictEqual( $( '#address-line1' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-line1 is .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.compact' ).is( '.invalid' ), false, '.compact container is not .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-city is .invalid' );
+		strictEqual( $( '#address-state' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-state is .invalid' );
+		strictEqual( $( '#address-postcode' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-postcode is .invalid' );
+		strictEqual( $( '#address-country' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-country is .invalid' );
+
+		// make some of the fields valid, but NOT all
+		$( '#address-line1' ).val( '123 Test Circuit' ).trigger( 'change' );
+		$( '#address-state' ).val( 'QLD' ).trigger( 'change' );
+		$( '#address-country' ).val( 'Australia' ).trigger( 'change' );
+		strictEqual( $( '#address-group' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-group is .invalid' );
+		strictEqual( $( '#address-line1' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-line1 is not .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.compact' ).is( '.invalid' ), false, '.compact container is not .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-city is .invalid' );
+		strictEqual( $( '#address-state' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-state is not .invalid' );
+		strictEqual( $( '#address-postcode' ).closest( '.questions > li' ).is( '.invalid' ), true, '#address-postcode is .invalid' );
+		strictEqual( $( '#address-country' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-country is not .invalid' );
+
+		// make all some of the fields valid, but NOT all
+		$( '#address-city' ).val( 'Brisbane' ).trigger( 'change' );
+		$( '#address-postcode' ).val( '4000' ).trigger( 'change' );
+		strictEqual( $( '#address-group' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-group is not .invalid' );
+		strictEqual( $( '#address-line1' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-line1 is not .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.compact' ).is( '.invalid' ), false, '.compact container is not .invalid' );
+		strictEqual( $( '#address-city' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-city is not .invalid' );
+		strictEqual( $( '#address-state' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-state is not .invalid' );
+		strictEqual( $( '#address-postcode' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-postcode is not .invalid' );
+		strictEqual( $( '#address-country' ).closest( '.questions > li' ).is( '.invalid' ), false, '#address-country is not .invalid' );
 
 	});
 
