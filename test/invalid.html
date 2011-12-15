@@ -500,6 +500,17 @@
 					</fieldset>
 				</li>
 
+				<li>
+					<label for="part">
+						<span class="label">Part number</span>
+						<small class="hint">
+							Example:
+							<samp class="pattern">1ABC</samp>
+						</small>
+					</label>
+					<input type="text" name="part" id="part" value="" pattern="[0-9][A-Z]{3}" />
+				</li>
+
 				<li class="footer">
 					<ol class="submit">
 						<li>
@@ -544,6 +555,7 @@
 		strictEqual( $( 'form#test #name-group input#name-title' ).length, 1, 'form#test contains #name-group input#name-title' );
 		strictEqual( $( 'form#test #name-group input#name-given' ).length, 1, 'form#test contains #name-group input#name-given' );
 		strictEqual( $( 'form#test #name-group input#name-family' ).length, 1, 'form#test contains #name-group input#name-family' );
+		strictEqual( $( 'form#test input#part' ).length, 1, 'form#test contains input#part' );
 
 	});
 
@@ -555,13 +567,14 @@
 		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
 		ok( $( 'input#email' )[ 0 ].getAttribute( 'required' ), 'input#email is a required field' );
 		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
+		strictEqual( $( 'input#part' )[ 0 ].getAttribute( 'pattern' ), '[0-9][A-Z]{3}', 'input#part has @pattern' );
 
 	});
 
 
 	module( 'change events UI' );
 
-	test( 'inline message shown on change event', 9, function() {
+	test( 'inline message shown on change event', 11, function() {
 
 		$( 'input#foo' ).trigger( 'change' );
 
@@ -586,6 +599,11 @@
 
 		strictEqual( $( 'label[for=textarea-foo] .alert' ).length, 1, '.alert for found invalid textarea' );
 		strictEqual( $( 'label[for=textarea-foo] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid textarea' );
+
+		$( '#part' ).val( 'foo' ).trigger( 'change' );
+
+		strictEqual( $( 'label[for=part] .alert' ).length, 1, '.alert for found invalid pattern' );
+		strictEqual( $( 'label[for=part] .alert' ).text(), 'Must use the format shown', 'pattern warning displayed for invalid value' );
 
 	});
 

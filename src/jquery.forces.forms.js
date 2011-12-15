@@ -386,6 +386,12 @@
 
 			} else if ( validityState.typeMismatch ) {
 				return 'Must be an email address';
+
+			} else if ( validityState.patternMismatch ) {
+				return 'Must use the format shown';
+
+			} else {
+				return 'Must be a valid answer';
 			}
 		}
 
