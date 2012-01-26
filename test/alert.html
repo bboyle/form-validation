@@ -95,6 +95,37 @@
 					</fieldset>
 				</li>
 
+				<li class="group atomic">
+					<fieldset id="name-group">
+						<legend>
+							<span class="label">Your name</span>
+							<em class="alert">Must be completed</em>
+						</legend>
+						<ol class="questions compact">
+							<li>
+								<label for="name-title">
+									<span class="label">Title</span>
+								</label>
+								<input type="text" id="name-title" name="nameTitle" size="3" />
+							</li>
+							<li>
+								<label for="name-given">
+									<span class="label">Given names</span>
+									<abbr title="(required)">*</abbr>
+								</label>
+								<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+							</li>
+							<li>
+								<label for="name-family">
+									<span class="label">Family name</span>
+									<abbr title="(required)">*</abbr>
+								</label>
+								<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+							</li>
+						</ol>
+					</fieldset>
+				</li>
+
 				<li class="footer">
 					<ol class="submit">
 						<li>
@@ -116,34 +147,47 @@
 
 <script><!-- //
 
-	module( "environment" );
+	module( 'environment' );
 
-	test( "test fields are in test form", function() {
+	test( 'test fields are in test form', function() {
 
-		equal( $( "form#test" ).length, 1, "form#test is present" );
-		equal( $( "form#test input#foo" ).length, 1, "form#test contains input#foo" );
-		equal( $( "form#test label[for=foo] .alert" ).length, 1, "input#foo label contains .alert" );
-		equal( $( "form#test input#bar" ).length, 1, "form#test contains input#bar" );
-		equal( $( "form#test label[for=bar] .alert" ).length, 0, "input#bar label does not contain .alert" );
-		equal( $( "form#test input#email" ).length, 1, "form#test contains input#email" );
-		equal( $( "form#test label[for=email] .alert" ).length, 1, "input#foo label contains .alert" );
-		equal( $( "form#test :radio[name=radioFoo]" ).length, 2, "form#test contains 2 radio buttons in radioFoo group" );
-		equal( $( "form#test :radio[name=radioFoo]" ).closest( "fieldset" ).find( "legend > .alert" ).length, 1, "radioFoo group legend contains .alert" );
+		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
+		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'form#test label[for=foo] .alert' ).length, 1, 'input#foo label contains .alert' );
+		strictEqual( $( 'form#test input#bar' ).length, 1, 'form#test contains input#bar' );
+		strictEqual( $( 'form#test label[for=bar] .alert' ).length, 0, 'input#bar label does not contain .alert' );
+		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
+		strictEqual( $( 'form#test label[for=email] .alert' ).length, 1, 'input#foo label contains .alert' );
+		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 2, 'form#test contains 2 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test :radio[name=radioFoo]' ).closest( 'fieldset' ).find( 'legend > .alert' ).length, 1, 'radioFoo group legend contains .alert' );
+		strictEqual( $( 'form#test #name-group input#name-title' ).length, 1, 'form#test contains #name-group input#name-title' );
+		strictEqual( $( 'form#test #name-group input#name-given' ).length, 1, 'form#test contains #name-group input#name-given' );
+		strictEqual( $( 'form#test #name-group input#name-family' ).length, 1, 'form#test contains #name-group input#name-family' );
+		ok( $( '#name-group' ).parent().hasClass( 'group' ), '#name-group is a group' );
+		ok( $( '#name-group' ).parent().hasClass( 'atomic' ), '#name-group is an atomic group' );
 
 	});
 
 
-	module( "inline validation messages (alerts)" );
+	module( 'inline validation messages (alerts)' );
 
-	test( "can get alert value", function() {
+	test( 'can get alert value', function() {
 
-		equal( $( "#foo" ).forcesForms( "alert" )[0], $( "label[for=foo] > .alert" )[0], "found alert" );
-		equal( $( "#foo" ).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text" );
+		strictEqual( $( '#foo' ).forcesForms( 'alert' )[ 0 ], $( 'label[for=foo] > .alert' )[ 0 ], 'found alert' );
+		strictEqual( $( '#foo' ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
 
-		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for radio group" );
-		equal( $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" ).text(), "Must be completed", "found expected alert text for radio group" );
-		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( "legend > .alert" )[0], "found alert for 2nd radio button" );
-		equal( $( ":radio[name=radioFoo]" ).eq(1).forcesForms( "alert" )[0], $( ":radio[name=radioFoo]" ).eq(0).forcesForms( "alert" )[0], "Must be completed", "same alert used for both radio buttons" );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for radio group' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text for radio group' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).forcesForms( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for 2nd radio button' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).forcesForms( 'alert' )[ 0 ], $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' )[ 0 ], 'Must be completed', 'same alert used for both radio buttons' );
+
+	});
+
+	test( 'can get group alert for atomic group', function() {
+		
+		strictEqual( $( '#name-given' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
+		strictEqual( $( '#name-family' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
+		strictEqual( $( '#name-given' ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
 
 	});
 

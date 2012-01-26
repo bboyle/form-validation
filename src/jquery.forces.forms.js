@@ -85,7 +85,8 @@
 	changeValidityCheck = function() {
 
 		var $this = $( this ),
-			alertElement = $this.forcesForms( 'alert' )
+			alertElement = $this.forcesForms( 'alert' ),
+			alertLevel = undefined
 		;
 
 		// is this control valid?
@@ -113,7 +114,11 @@
 			// show message
 			alertElement.text( $this.forcesForms( 'getValidationMessage' ) );
 			// append to form
-			$this.forcesForms( 'label' ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
+			if ( $this.forcesForms( 'group' ).hasClass( 'atomic' )) {
+				alertLevel = { 'level' : 'group' };
+			}
+
+			$this.forcesForms( 'label', alertLevel ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
@@ -291,13 +296,21 @@
 		alert : function( alertMessage ) {
 			return this.map(function( index, domElement ) {
 
-				var $element = $( domElement );
+				var $element = $( domElement ),
+					group;
 
 				if ( $element.is( ':radio, :checkbox' ) === true ) {
 					return $element.closest( 'fieldset' ).find( 'legend > .alert' )[ 0 ];
 
 				} else {
-					return $( 'label[for="' + domElement.id + '"] > .alert' )[ 0 ];
+					// atomic groups
+					group = $element.parentsUntil( 'form', '.group' );
+					if ( group.length > 0 && group.hasClass( 'atomic' )) {
+						return group.find( 'legend > .alert' )[ 0 ];
+						
+					} else {
+						return $( 'label[for="' + domElement.id + '"] > .alert' )[ 0 ];
+					}
 				}
 			});
 		},
