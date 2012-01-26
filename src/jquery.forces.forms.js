@@ -86,7 +86,7 @@
 
 		var $this = $( this ),
 			alertElement = $this.forcesForms( 'alert' ),
-			alertLevel = undefined
+			alertLevel
 		;
 
 		// is this control valid?
