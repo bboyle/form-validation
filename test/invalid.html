@@ -126,29 +126,34 @@
 							<span class="h2">Your details</span>
 						</legend>
 						<ol class="questions">
-							<li class="group" id="name-group">
-								<ol class="questions compact">
-									<li>
-										<label for="name-title">
-											<span class="label">Title</span>
-										</label>
-										<input type="text" id="name-title" name="nameTitle" size="3" />
-									</li>
-									<li>
-										<label for="name-given">
-											<span class="label">Given names</span>
-											<abbr title="(required)">*</abbr>
-										</label>
-										<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
-									</li>
-									<li>
-										<label for="name-family">
-											<span class="label">Family name</span>
-											<abbr title="(required)">*</abbr>
-										</label>
-										<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
-									</li>
-								</ol>
+							<li class="group atomic">
+								<fieldset id="name-group">
+									<legend>
+										<span class="label">Your name</span>
+									</legend>
+									<ol class="questions compact">
+										<li>
+											<label for="name-title">
+												<span class="label">Title</span>
+											</label>
+											<input type="text" id="name-title" name="nameTitle" size="3" />
+										</li>
+										<li>
+											<label for="name-given">
+												<span class="label">Given names</span>
+												<abbr title="(required)">*</abbr>
+											</label>
+											<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+										</li>
+										<li>
+											<label for="name-family">
+												<span class="label">Family name</span>
+												<abbr title="(required)">*</abbr>
+											</label>
+											<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+										</li>
+									</ol>
+								</fieldset>
 							</li>
 
 							<li class="section">
@@ -568,6 +573,8 @@
 		ok( $( 'input#email' )[ 0 ].getAttribute( 'required' ), 'input#email is a required field' );
 		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
 		strictEqual( $( 'input#part' )[ 0 ].getAttribute( 'pattern' ), '[0-9][A-Z]{3}', 'input#part has @pattern' );
+		ok( $( '#name-group' ).parent().hasClass( 'group' ), '#name-group is a group' );
+		ok( $( '#name-group' ).parent().hasClass( 'atomic' ), '#name-group is an atomic group' );
 
 	});
 
@@ -648,6 +655,19 @@
 	});
 
 
+	module( 'grouped alert messages' );
+
+	test( 'group errors shown on group label', function() {
+		
+		$( '#name-given' ).trigger( 'change' );
+
+		strictEqual( $( '#name-group .alert' ).length, 1, 'only 1 alert shown for name group' );
+		strictEqual( $( '#name-group .alert' ).text(), 'Must be completed', 'showing value missing message' );
+		strictEqual( $( '#name-group legend .alert' ).text(), 'Must be completed', 'alert placed inside group legend' );
+
+	});
+
+
 	module( 'after submit event UI' );
 
 	test( '.invalid class removed after submit', function() {
@@ -681,7 +701,7 @@
 		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 2, '2 invalid fields in group' )
-		strictEqual( $( '#name-group' ).is( '.invalid' ), true, '#name-group is .invalid after submit' );
+		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), true, '#name-group is .invalid after submit' );
 
 		// make some of the fields valid, but NOT all
 		$( '#name-given' ).val( 'foo' ).trigger( 'change' );
@@ -689,7 +709,7 @@
 		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 1, '1 invalid field in group' )
-		strictEqual( $( '#name-group' ).is( '.invalid' ), true, '#name-group remains .invalid if only some invalid fields are corrected' );
+		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), true, '#name-group remains .invalid if only some invalid fields are corrected' );
 
 		// make all fields valid
 		$( '#name-family' ).val( 'foo' ).trigger( 'change' );
@@ -698,7 +718,7 @@
 		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 0, 'no invalid fields in group' )
-		strictEqual( $( '#name-group' ).is( '.invalid' ), false, '#name-group is not .invalid after correcting all invalid fields' );
+		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), false, '#name-group is not .invalid after correcting all invalid fields' );
 
 	});
 
