@@ -18,7 +18,7 @@
 
 	SUBMIT_TOLERANCE = 10000, // milliseconds
 
-	DEFAULT_STATUS_HTML = '<div class="status warn"><div class="inner"><h2>Unable to process this form</h2><ol></ol></div></div>',
+	DEFAULT_STATUS_HTML = '<div class="status warn"><div class="inner"><h2>Please check your answers</h2><ol></ol></div></div>',
 
 	// fields that validate
 	candidateForValidation = 'input, select, textarea',
