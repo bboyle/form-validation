@@ -62,7 +62,7 @@
 			if ( typeof options === 'object' && options.level === 'group' ) {
 				foundElement = $element.closest( '.group' ).find( component )[ 0 ];
 
-			} else if ( $element.is( ':radio' )) {
+			} else if ( $element.is( ':radio, :checkbox' )) {
 				foundElement = $element.closest( 'fieldset' ).find( component )[ 0 ];
 
 			} else {
