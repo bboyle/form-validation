@@ -113,6 +113,29 @@
 				</li>
 
 				<li>
+					<fieldset>
+						<legend>
+							<span class="label">Favourite flavours</span>
+							<abbr title="(required)">*</abbr>
+						</legend>
+						<ul class="choices">
+							<li>
+								<input type="checkbox" id="flavour-chocolate" name="flavour" value="chocolate" required="required" />
+								<label for="flavour-chocolate">Chocolate</label>
+							</li>
+							<li>
+								<input type="checkbox" id="flavour-strawberry" name="flavour" value="strawberry" />
+								<label for="flavour-strawberry">Strawberry</label>
+							</li>
+							<li>
+								<input type="checkbox" id="flavour-vanilla" name="flavour" value="vanilla" />
+								<label for="flavour-vanilla">Vanilla</label>
+							</li>
+						</ul>
+					</fieldset>
+				</li>
+
+				<li>
 					<label for="question">
 						<span class="label">What is your answer?</span>
 						<abbr title="(required)">*</abbr>
@@ -555,6 +578,7 @@
 		strictEqual( $( 'form#test select#select-foo' ).length, 1, 'form#test contains select#select-foo' );
 		strictEqual( $( 'form#test textarea#textarea-foo' ).length, 1, 'form#test contains textarea#textarea-foo' );
 		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test :checkbox[name=flavour]' ).length, 3, 'form#test contains 3 checkboxes in flavour group' );
 		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
 		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
 		strictEqual( $( 'form#test #name-group input#name-title' ).length, 1, 'form#test contains #name-group input#name-title' );
@@ -570,6 +594,10 @@
 		strictEqual( $( '[required]' )[ 1 ], $( 'select#select-foo' )[ 0 ], 'select#select-foo is the second required field' );
 		strictEqual( $( '[required]' )[ 2 ], $( 'textarea#textarea-foo' )[ 0 ], 'textarea#textarea-foo is a required field' );
 		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
+		// strictEqual( $( '[required]' )[ 4 ], $( 'input#radio-foo-bar' )[ 0 ], 'input#radio-foo-bar is a required field' );
+		strictEqual( $( ':checkbox[required]' )[ 0 ], $( 'input#flavour-chocolate' )[ 0 ], 'input#flavour-chocolate is a required field' );
+		// strictEqual( $( ':checkbox[required]' )[ 1 ], $( 'input#flavour-strawberry' )[ 0 ], 'input#flavour-strawberry is a required field' );
+		// strictEqual( $( ':checkbox[required]' )[ 2 ], $( 'input#flavour-vanilla' )[ 0 ], 'input#flavour-vanilla is a required field' );
 		ok( $( 'input#email' )[ 0 ].getAttribute( 'required' ), 'input#email is a required field' );
 		strictEqual( $( 'input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is an email field' );
 		strictEqual( $( 'input#part' )[ 0 ].getAttribute( 'pattern' ), '[0-9][A-Z]{3}', 'input#part has @pattern' );
@@ -581,7 +609,7 @@
 
 	module( 'change events UI' );
 
-	test( 'inline message shown on change event', 11, function() {
+	test( 'inline message shown on change event', 12, function() {
 
 		$( 'input#foo' ).trigger( 'change' );
 
@@ -591,6 +619,10 @@
 		$( ':radio[name=radioFoo]' ).eq( 0 ).trigger( 'change' );
 
 		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for radioFoo group' );
+
+		$( ':checkbox[name=flavour]' ).eq( 0 ).trigger( 'change' );
+
+		strictEqual( $( ':checkbox[name=flavour]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for flavour group' );
 
 		$( 'input#email' ).val( 'foo' ).trigger( 'change' );
 
@@ -677,6 +709,7 @@
 		strictEqual( $( '#select-foo' ).closest( 'li' ).is( '.invalid' ), true, '#select-foo is .invalid after submit' );
 		strictEqual( $( '#textarea-foo' ).closest( 'li' ).is( '.invalid' ), true, '#textarea-foo is .invalid after submit' );
 		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#radio-foo-foo is .invalid after submit' );
+		strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#flavour-chocolate is .invalid after submit' );
 
 		// make valid
 		$( '#foo' ).val( 'foo' ).trigger( 'change' );
@@ -684,6 +717,8 @@
 		$( '#textarea-foo' ).val( 'foo' ).trigger( 'change' );
 		$( '#radio-foo-foo' )[ 0 ].click();
 		$( '#radio-foo-foo' ).trigger( 'change' );
+		$( '#flavour-chocolate' )[ 0 ].click();
+		$( '#flavour-chocolate' ).trigger( 'change' );
 
 		// test .invalid class removed
 		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), false, '#foo is not .invalid after changing' );
@@ -692,6 +727,8 @@
 
 		strictEqual( $( '#radio-foo-foo' ).is( ':checked' ), true, '#radio-foo-foo is :checked' );
 		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#radio-foo-foo is not .invalid after changing' );
+		strictEqual( $( '#flavour-chocolate' ).is( ':checked' ), true, '#flavour-chocolate is :checked' );
+		strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#flavour-chocolate is not .invalid after changing' );
 
 	});
 
