@@ -3,8 +3,9 @@
 
 	Forms validation helper
 
-	requires jquery
+	requires jquery (tested with 1.4.4)
 	requires jquery.scrollTo plugin
+	requires generateId plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
 	tested with polyfill forces.html5.constraintValidationAPI
 
@@ -13,10 +14,8 @@
 (function( $ ) {
 	'use strict';
 
-	// TODO this is used by 'unique id', better wrap it in a function
-	var i = 0,
 
-	SUBMIT_TOLERANCE = 10000, // milliseconds
+	var SUBMIT_TOLERANCE = 10000, // milliseconds
 
 	DEFAULT_STATUS_HTML = '<div class="status warn"><div class="inner"><h2>Please check your answers</h2><ol></ol></div></div>',
 
@@ -170,9 +169,6 @@
 			// add new messages
 			invalid.each(function() {
 
-				// for unique @id
-				i++;
-
 				// get field
 				var $this = $( this ),
 					// get group (if exists)
@@ -182,7 +178,7 @@
 						level : group.length > 0 ? 'group' : null
 					}),
 					// get the label id
-					labelId = label[ 0 ].id || label.attr( 'id', 'UNIQUE_ID_' + String( i ))[ 0 ].id,
+					labelId = label[ 0 ].id || label.generateId( 'label-' + this.id )[ 0 ].id,
 					// get alert item
 					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
 				;
