@@ -42,6 +42,10 @@
 
 	<target name="get-forces" description="--> get forces libraries">
 		<get
+		 src="https://raw.github.com/Forces/Generate-ID/master/src/generateId.js" 
+		 dest="${lib.dir}/generateId.js"
+		/>
+		<get
 		 src="https://raw.github.com/Forces/html5-constraint-validation-API/master/src/forces.html5.constraintValidationAPI.js" 
 		 dest="${lib.dir}/forces.html5.constraintValidationAPI.js"
 		/>
