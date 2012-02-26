@@ -54,7 +54,6 @@
 	<ol id="qunit-tests"></ol>
 	<div id="qunit-fixture">
 
-
 		<form id="test" action="javascript:">
 
 			<ol class="questions">
@@ -619,6 +618,18 @@
 		userInitiatedSubmit();
 		strictEqual( $( '.status' ).length, 1, 'only 1 .status element is shown' );
 		
+	});
+
+	test( 'server side status block is reused', 2, function() {
+
+		// add simulated server-side status
+		$( '#test' ).before( '<div class="status warn"><h2>Server side messages</h2><p>Simulated message embedded in HTML response from server.</p></div>' );
+
+		strictEqual( $( '.status' ).length, 1, '.status element is shown before submit' );
+
+		userInitiatedSubmit();
+		strictEqual( $( '.status' ).length, 1, 'only 1 .status element is shown after submit' );
+
 	});
 
 	test( 'correct errors shown in status', function() {
