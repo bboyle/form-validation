@@ -232,6 +232,9 @@
 			// show the error summary
 			(function( form ) {
 				var summary = pluginData.call( form, 'summaryElement' );
+				// hide any previous status blocks
+				form.prev( '.status' ).not( summary ).remove();
+				// show the new summary
 				form.before( summary.fadeIn() );
 				// focus/scrollTo summary element
 				// required jquery.scrollTo plugin
