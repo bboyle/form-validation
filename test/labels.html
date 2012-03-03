@@ -4,6 +4,8 @@
 	<meta charset="UTF-8" />
 	<title>label tests · forces validation UI tests</title>
 
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
 	<style>
 		body {
 			padding: 2em;
@@ -12,6 +14,9 @@
 			color: #111;
 		}
 
+		#qunit-fixture {
+			position: static;
+		}
 
 		.label {
 			display: block;
@@ -20,101 +25,93 @@
 		}
 
 	</style>
-	<link rel="stylesheet" href="../lib/qunit-git.css" />
-	<script src="../lib/qunit-git.js"></script>
 
 </head>
 
 <body>
 
-<form id="test" action="javascript:">
 
-	<ol class="questions">
+<div id="qunit"></div>
+<div id="qunit-fixture">
+	<form id="test" action="javascript:">
 
-		<li>
-			<label for="foo">
-				<span class="label">Foo</span>
-				<abbr title="(required)">*</abbr>
-			</label>
-			<input type="text" name="foo" id="foo" value="" required="required" />
-		</li>
+		<ol class="questions">
 
-		<li>
-			<fieldset>
-				<legend>
-					<span class="label">Radio foo</span>
+			<li>
+				<label for="foo">
+					<span class="label">Foo</span>
 					<abbr title="(required)">*</abbr>
-				</legend>
-				<ul class="choices">
-					<li>
-						<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
-						<label for="radio-foo-foo">Foo</label>
-					</li>
-					<li>
-						<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
-						<label for="radio-foo-bar">Bar</label>
-					</li>
-				</ul>
-			</fieldset>
-		</li>
+				</label>
+				<input type="text" name="foo" id="foo" value="" required="required" />
+			</li>
 
-		<li class="group">
-			<fieldset>
-				<legend>
-					<span class="label">Your name</span>
-				</legend>
-				<ol class="questions compact">
+			<li>
+				<fieldset>
+					<legend>
+						<span class="label">Radio foo</span>
+						<abbr title="(required)">*</abbr>
+					</legend>
+					<ul class="choices">
+						<li>
+							<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+							<label for="radio-foo-foo">Foo</label>
+						</li>
+						<li>
+							<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+							<label for="radio-foo-bar">Bar</label>
+						</li>
+					</ul>
+				</fieldset>
+			</li>
+
+			<li class="group">
+				<fieldset>
+					<legend>
+						<span class="label">Your name</span>
+					</legend>
+					<ol class="questions compact">
+						<li>
+							<label for="name-title">
+								<span class="label">Title</span>
+							</label>
+							<input type="text" id="name-title" name="nameTitle" size="3" />
+						</li>
+						<li>
+							<label for="name-given">
+								<span class="label">Given names</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+						</li>
+						<li>
+							<label for="name-family">
+								<span class="label">Family name</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+							
+						</li>
+					</ol>
+				</fieldset>
+			</li>
+
+			<li class="footer">
+				<ol class="submit">
 					<li>
-						<label for="name-title">
-							<span class="label">Title</span>
-						</label>
-						<input type="text" id="name-title" name="nameTitle" size="3" />
-					</li>
-					<li>
-						<label for="name-given">
-							<span class="label">Given names</span>
-							<abbr title="(required)">*</abbr>
-						</label>
-						<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
-					</li>
-					<li>
-						<label for="name-family">
-							<span class="label">Family name</span>
-							<abbr title="(required)">*</abbr>
-						</label>
-						<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
-						
+						<strong>
+							<input type="submit" value="Submit" />
+						</strong>
 					</li>
 				</ol>
-			</fieldset>
-		</li>
+			</li>
 
-		<li class="footer">
-			<ol class="submit">
-				<li>
-					<strong>
-						<input type="submit" value="Submit" />
-					</strong>
-				</li>
-			</ol>
-		</li>
+		</ol>
 
-	</ol>
-
-</form>
-
-
-<div id="qunit">
-	<h1 id="qunit-header">QUnit</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture">test markup, will be hidden</div>
+	</form>
 </div>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../lib/jquery-1.7.1-min.js"></script>
 <script src="../lib/forces.html5.constraintValidationAPI.js"></script>
 <script src="../src/jquery.forces.forms.js"></script>
 

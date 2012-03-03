@@ -31,86 +31,80 @@
 <body>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
+<script src="../lib/jquery-1.7.1-min.js"></script>
 <script src="../lib/forces.html5.constraintValidationAPI.js"></script>
 <script src="../src/jquery.forces.forms.js"></script>
 
 
-<div id="qunit">
-	<h1 id="qunit-header">QUnit</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
-	<div id="qunit-fixture">
+<div id="qunit"></div>
+<div id="qunit-fixture">
 
 
-		<form id="test" action="javascript:">
+	<form id="test" action="javascript:">
 
-			<ol class="questions">
+		<ol class="questions">
 
-				<li>
-					<label for="foo">
-						<span class="label">Foo</span>
+			<li>
+				<label for="foo">
+					<span class="label">Foo</span>
+					<abbr title="(required)">*</abbr>
+					<em class="alert">Must be completed</em>
+				</label>
+				<input type="text" name="foo" id="foo" value="" required="required" />
+			</li>
+
+			<li>
+				<label for="bar">
+					<span class="label">Bar</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="bar" id="bar" value="" required="required" />
+			</li>
+
+			<li>
+				<label for="email">
+					<span class="label">Email</span>
+					<abbr title="(required)">*</abbr>
+					<em class="alert">Must be an email address</em>
+				</label>
+				<input type="email" name="email" id="email" value="foo" required="required" />
+			</li>
+
+			<li>
+				<fieldset>
+					<legend>
+						<span class="label">Radio foo</span>
 						<abbr title="(required)">*</abbr>
 						<em class="alert">Must be completed</em>
-					</label>
-					<input type="text" name="foo" id="foo" value="" required="required" />
-				</li>
-
-				<li>
-					<label for="bar">
-						<span class="label">Bar</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="text" name="bar" id="bar" value="" required="required" />
-				</li>
-
-				<li>
-					<label for="email">
-						<span class="label">Email</span>
-						<abbr title="(required)">*</abbr>
-						<em class="alert">Must be an email address</em>
-					</label>
-					<input type="email" name="email" id="email" value="foo" required="required" />
-				</li>
-
-				<li>
-					<fieldset>
-						<legend>
-							<span class="label">Radio foo</span>
-							<abbr title="(required)">*</abbr>
-							<em class="alert">Must be completed</em>
-						</legend>
-						<ul class="choices">
-							<li>
-								<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
-								<label for="radio-foo-foo">Foo</label>
-							</li>
-							<li>
-								<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
-								<label for="radio-foo-bar">Bar</label>
-							</li>
-						</ul>
-					</fieldset>
-				</li>
-
-				<li class="footer">
-					<ol class="submit">
+					</legend>
+					<ul class="choices">
 						<li>
-							<strong>
-								<input type="submit" value="Submit" />
-							</strong>
+							<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+							<label for="radio-foo-foo">Foo</label>
 						</li>
-					</ol>
-				</li>
+						<li>
+							<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+							<label for="radio-foo-bar">Bar</label>
+						</li>
+					</ul>
+				</fieldset>
+			</li>
 
-			</ol>
+			<li class="footer">
+				<ol class="submit">
+					<li>
+						<strong>
+							<input type="submit" value="Submit" />
+						</strong>
+					</li>
+				</ol>
+			</li>
 
-		</form>
+		</ol>
+
+	</form>
 
 
-	</div>
 </div>
 
 
