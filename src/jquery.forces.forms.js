@@ -35,18 +35,18 @@ if ( jQuery !== 'undefined' ) {
 	pluginData = function( key, value ) {
 		var dataHash = this.data( pluginDataKey ) || this.data( pluginDataKey, {}).data( pluginDataKey );
 
-			if ( key ) {
-				if ( value ) {
-					dataHash[ key ] = value;
-					return value;
+		if ( typeof key !== 'undefined' ) {
+			if ( typeof value !== 'undefined' ) {
+				dataHash[ key ] = value;
+				return value;
 
-				} else if ( typeof dataHash[ key ] !== 'undefined' ) {
-					return dataHash[ key ];
-				}
-				return null;
+			} else if ( typeof dataHash[ key ] !== 'undefined' ) {
+				return dataHash[ key ];
 			}
+			return null;
+		}
 
-			return dataHash;
+		return dataHash;
 	},
 
 
@@ -254,7 +254,8 @@ if ( jQuery !== 'undefined' ) {
 		// remove summary element from DOM on successful submit
 		var form = $( this ),
 			summaryElement = pluginData.call( form, 'summaryElement' ),
-			lastSubmitTimeStamp;
+			lastSubmitTimeStamp,
+			now = ( new Date() ).getTime();
 
 		if ( summaryElement ) {
 			summaryElement.remove();
@@ -262,7 +263,7 @@ if ( jQuery !== 'undefined' ) {
 
 		// is this submit event too soon after the last one?
 		lastSubmitTimeStamp = pluginData.call( form, 'lastSubmitTimeStamp' );
-		if ( lastSubmitTimeStamp && event.timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
+		if ( lastSubmitTimeStamp && now - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
 			// cancel the submit event
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -270,7 +271,7 @@ if ( jQuery !== 'undefined' ) {
 
 		} else {
 			// store the timestamp
-			pluginData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
+			pluginData.call( form, 'lastSubmitTimeStamp', now );
 		}
 	},
 
@@ -345,12 +346,12 @@ if ( jQuery !== 'undefined' ) {
 					// turn off native validation
 					.attr( 'novalidate', true )
 					// validate this form
-					.bind( 'submit', submitValidationHandler )
+					.on( 'submit', submitValidationHandler )
 					// if validation did not cancel submit…
-					.bind( 'submit', submitDoneHandler )
+					.on( 'submit', submitDoneHandler )
 					// bind inline validation handlers to form elements
 					.find( candidateForValidation )
-						.bind( 'change', changeValidityCheck )
+						.on( 'change', changeValidityCheck )
 				;
 			});
 		},
