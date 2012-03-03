@@ -266,7 +266,8 @@
 		// remove summary element from DOM on successful submit
 		var form = $( this ),
 			summaryElement = pluginData.call( form, 'summaryElement' ),
-			lastSubmitTimeStamp;
+			lastSubmitTimeStamp,
+			now = ( new Date() ).getTime();
 
 		if ( summaryElement ) {
 			summaryElement.remove();
@@ -274,7 +275,7 @@
 
 		// is this submit event too soon after the last one?
 		lastSubmitTimeStamp = pluginData.call( form, 'lastSubmitTimeStamp' );
-		if ( lastSubmitTimeStamp && event.timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
+		if ( lastSubmitTimeStamp && now - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
 			// cancel the submit event
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -282,7 +283,7 @@
 
 		} else {
 			// store the timestamp
-			pluginData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
+			pluginData.call( form, 'lastSubmitTimeStamp', now );
 		}
 	},
 
