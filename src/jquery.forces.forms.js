@@ -251,19 +251,21 @@ if ( jQuery !== 'undefined' ) {
 
 	// bind this AFTER the validation handler
 	submitDoneHandler = function( event ) {
-		// remove summary element from DOM on successful submit
-		var form = $( this ),
+			// use eventtimeStamp when available and $.now() otherwise
+		var timeStamp = event.timeStamp || $.now(),
+			form = $( this ),
 			summaryElement = pluginData.call( form, 'summaryElement' ),
-			lastSubmitTimeStamp,
-			now = ( new Date() ).getTime();
+			lastSubmitTimeStamp
+		;
 
+		// remove summary element from DOM on successful submit
 		if ( summaryElement ) {
 			summaryElement.remove();
 		}
 
 		// is this submit event too soon after the last one?
 		lastSubmitTimeStamp = pluginData.call( form, 'lastSubmitTimeStamp' );
-		if ( lastSubmitTimeStamp && now - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
+		if ( lastSubmitTimeStamp && timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
 			// cancel the submit event
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -271,7 +273,7 @@ if ( jQuery !== 'undefined' ) {
 
 		} else {
 			// store the timestamp
-			pluginData.call( form, 'lastSubmitTimeStamp', now );
+			pluginData.call( form, 'lastSubmitTimeStamp', timeStamp );
 		}
 	},
 
