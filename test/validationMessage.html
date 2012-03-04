@@ -4,6 +4,8 @@
 	<meta charset="UTF-8" />
 	<title>validation message tests · forces validation UI tests</title>
 
+	<link rel="stylesheet" href="../lib/qunit-git.css" />
+	<script src="../lib/qunit-git.js"></script>
 	<style>
 		body {
 			padding: 2em;
@@ -12,25 +14,18 @@
 			color: #111;
 		}
 
+		#qunit-fixture {
+			position: static;
+		}
+
 	</style>
-	<link rel="stylesheet" href="../lib/qunit-git.css" />
-	<script src="../lib/qunit-git.js"></script>
-	<script src="qunit-helpers.js"></script>
 
 </head>
 
 <body>
 
-
-<div id="qunit">
-	<h1 id="qunit-header">QUnit</h1>
-	<h2 id="qunit-banner"></h2>
-	<div id="qunit-testrunner-toolbar"></div>
-	<h2 id="qunit-userAgent"></h2>
-	<ol id="qunit-tests"></ol>
+	<div id="qunit"></div>
 	<div id="qunit-fixture">
-
-
 		<form id="test" action="javascript:">
 
 			<ol class="questions">
@@ -84,9 +79,7 @@
 
 		</form>
 
-
 	</div>
-</div>
 
 
 <script src="../lib/jquery-1.4.4-min.js"></script>
@@ -94,6 +87,7 @@
 <script src="../lib/forces.html5.constraintValidationAPI.js"></script>
 <script src="../src/jquery.forces.forms.js"></script>
 
+<script src="qunit-helpers.js"></script>
 <script><!-- //
 
 	module( 'environment', lifecycleCVAPI );
