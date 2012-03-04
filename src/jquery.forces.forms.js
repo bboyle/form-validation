@@ -263,7 +263,7 @@
 	// bind this AFTER the validation handler
 	// only invoked if validation did not prevent submit
 	submitDoneHandler = function( event ) {
-			// use eventtimeStamp when available and $.now() otherwise
+			// use event.timeStamp when available and $.now() otherwise
 		var timeStamp = event.timeStamp || $.now(),
 			form = $( this ),
 			summaryElement = pluginData.call( form, 'summaryElement' ),
