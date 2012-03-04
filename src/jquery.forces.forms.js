@@ -35,18 +35,18 @@
 	pluginData = function( key, value ) {
 		var dataHash = this.data( pluginDataKey ) || this.data( pluginDataKey, {}).data( pluginDataKey );
 
-			if ( key ) {
-				if ( value ) {
-					dataHash[ key ] = value;
-					return value;
+		if ( typeof key !== 'undefined' ) {
+			if ( typeof value !== 'undefined' ) {
+				dataHash[ key ] = value;
+				return value;
 
-				} else if ( typeof dataHash[ key ] !== 'undefined' ) {
-					return dataHash[ key ];
-				}
-				return null;
+			} else if ( typeof dataHash[ key ] !== 'undefined' ) {
+				return dataHash[ key ];
 			}
+			return null;
+		}
 
-			return dataHash;
+		return dataHash;
 	},
 
 
@@ -263,18 +263,21 @@
 	// bind this AFTER the validation handler
 	// only invoked if validation did not prevent submit
 	submitDoneHandler = function( event ) {
-		// remove summary element from DOM on successful submit
-		var form = $( this ),
+			// use event.timeStamp when available and $.now() otherwise
+		var timeStamp = event.timeStamp || $.now(),
+			form = $( this ),
 			summaryElement = pluginData.call( form, 'summaryElement' ),
-			lastSubmitTimeStamp;
+			lastSubmitTimeStamp
+		;
 
+		// remove summary element from DOM on successful submit
 		if ( summaryElement ) {
 			summaryElement.remove();
 		}
 
 		// is this submit event too soon after the last one?
 		lastSubmitTimeStamp = pluginData.call( form, 'lastSubmitTimeStamp' );
-		if ( lastSubmitTimeStamp && event.timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
+		if ( lastSubmitTimeStamp && timeStamp - lastSubmitTimeStamp < SUBMIT_TOLERANCE ) {
 			// cancel the submit event
 			event.stopImmediatePropagation();
 			event.preventDefault();
@@ -282,7 +285,7 @@
 
 		} else {
 			// store the timestamp
-			pluginData.call( form, 'lastSubmitTimeStamp', event.timeStamp );
+			pluginData.call( form, 'lastSubmitTimeStamp', timeStamp );
 		}
 	},
 

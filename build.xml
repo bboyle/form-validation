@@ -13,6 +13,9 @@
 	<tstamp/>
 
 
+	<mkdir dir="${lib.dir}"/>
+
+
 	<target name="help" description="command line help">
 		<echo message="use 'ant clean all' to build"/>
 	</target>
@@ -70,7 +73,6 @@
 	<target name="init" description="initialise">
 		<mkdir dir="${build.dir}"/>
 		<mkdir dir="${log.dir}"/>
-		<mkdir dir="${lib.dir}"/>
 	</target>
 
 
