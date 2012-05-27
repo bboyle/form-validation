@@ -20,13 +20,6 @@
 <body>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
-<script src="../lib/jquery.scrollTo-1.4.2-min.js"></script>
-<script src="../lib/generateId.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="../src/jquery.forces.forms.js"></script>
-
-
 	<div id="qunit"></div>
 	<div id="qunit-fixture">
 		<form id="test" action="javascript:">
@@ -54,17 +47,12 @@
 			</ol>
 
 		</form>
-		<script><!-- //
-
-			// init dynamic fixture
-			$( 'form' ).forcesForms( 'validate' );
-
-		// --></script>
-
 
 	</div>
 </div>
 
+
+<script src="qunit-helpers.js"></script>
 
 <script><!-- //
 
@@ -82,7 +70,7 @@
 	});
 
 
-	module( 'submit suppression' );
+	module( 'submit suppression', lifecycleCVAPI );
 
 	test( 'invalid submit is not suppressed', 6, function() {
 

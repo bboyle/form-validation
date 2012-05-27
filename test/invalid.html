@@ -32,13 +32,6 @@
 <body>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
-<script src="../lib/jquery.scrollTo-1.4.2-min.js"></script>
-<script src="../lib/generateId.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="../src/jquery.forces.forms.js"></script>
-
-
 <div id="qunit"></div>
 <div id="qunit-fixture">
 
@@ -116,7 +109,7 @@
 					</legend>
 					<ul class="choices">
 						<li>
-							<input type="checkbox" id="flavour-chocolate" name="flavour" value="chocolate" required="required" />
+							<input type="checkbox" id="flavour-chocolate" name="flavour" value="chocolate" />
 							<label for="flavour-chocolate">Chocolate</label>
 						</li>
 						<li>
@@ -549,22 +542,14 @@
 
 	</form>
 
-	<script>
-		// init dynamic fixture
-		initConstraintValidationAPI();
-		$( 'form' ).forcesForms( 'validate' );
-
-		// scroll to top
-		$( window ).scrollTo( 0 );
-	</script>
-
-
 </div>
 
 
+<script src="qunit-helpers.js"></script>
+
 <script><!-- //
 
-	module( 'environment' );
+	module( 'environment', lifecycleCVAPI );
 
 	test( 'test fields are in test form', function() {
 
@@ -573,7 +558,7 @@
 		strictEqual( $( 'form#test select#select-foo' ).length, 1, 'form#test contains select#select-foo' );
 		strictEqual( $( 'form#test textarea#textarea-foo' ).length, 1, 'form#test contains textarea#textarea-foo' );
 		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
-		strictEqual( $( 'form#test :checkbox[name=flavour]' ).length, 3, 'form#test contains 3 checkboxes in flavour group' );
+		strictEqual( $( 'form#test :checkbox[name="flavour"]' ).length, 3, 'form#test contains 3 checkboxes in flavour group' );
 		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
 		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
 		strictEqual( $( 'form#test #name-group input#name-title' ).length, 1, 'form#test contains #name-group input#name-title' );
@@ -590,7 +575,7 @@
 		strictEqual( $( '[required]' )[ 2 ], $( 'textarea#textarea-foo' )[ 0 ], 'textarea#textarea-foo is a required field' );
 		strictEqual( $( '[required]' )[ 3 ], $( 'input#radio-foo-foo' )[ 0 ], 'input#radio-foo-foo is a required field' );
 		// strictEqual( $( '[required]' )[ 4 ], $( 'input#radio-foo-bar' )[ 0 ], 'input#radio-foo-bar is a required field' );
-		strictEqual( $( ':checkbox[required]' )[ 0 ], $( 'input#flavour-chocolate' )[ 0 ], 'input#flavour-chocolate is a required field' );
+		// strictEqual( $( ':checkbox[required]' )[ 0 ], $( 'input#flavour-chocolate' )[ 0 ], 'input#flavour-chocolate is a required field' );
 		// strictEqual( $( ':checkbox[required]' )[ 1 ], $( 'input#flavour-strawberry' )[ 0 ], 'input#flavour-strawberry is a required field' );
 		// strictEqual( $( ':checkbox[required]' )[ 2 ], $( 'input#flavour-vanilla' )[ 0 ], 'input#flavour-vanilla is a required field' );
 		ok( $( 'input#email' )[ 0 ].getAttribute( 'required' ), 'input#email is a required field' );
@@ -602,42 +587,35 @@
 	});
 
 
-	module( 'change events UI' );
+	module( 'change events UI', lifecycleCVAPI );
 
-	test( 'inline message shown on change event', 12, function() {
+	test( 'inline message shown on change event', 11, function() {
 
 		$( 'input#foo' ).trigger( 'change' );
-
 		strictEqual( $( 'label[for=foo] .alert' ).length, 1, '.alert found in label' );
 		strictEqual( $( 'label[for=foo] .alert' ).text(), 'Must be completed', 'alert message is "Must be completed"' );
 		
 		$( ':radio[name=radioFoo]' ).eq( 0 ).trigger( 'change' );
-
 		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for radioFoo group' );
 
-		$( ':checkbox[name=flavour]' ).eq( 0 ).trigger( 'change' );
-
-		strictEqual( $( ':checkbox[name=flavour]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for flavour group' );
+		// $( ':checkbox[name="flavour"]' ).eq( 0 ).trigger( 'change' );
+		// strictEqual( $( ':checkbox[name="flavour"]' ).eq( 0 ).closest( 'fieldset' ).find( 'legend .alert' ).length, 1, '1 .alert found for flavour group' );
 
 		$( 'input#email' ).val( 'foo' ).trigger( 'change' );
-
-		strictEqual( $( 'label[for=email] .alert' ).length, 1, '.alert found for invalid email' );
-		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be an email address', 'correct .alert text for invalid email' );
+		strictEqual( $( 'label[for="email"] .alert' ).length, 1, '.alert found for invalid email' );
+		strictEqual( $( 'label[for="email"] .alert' ).text(), 'Must be an email address', 'correct .alert text for invalid email' );
 
 		$( '#select-foo' ).trigger( 'change' );
-
-		strictEqual( $( 'label[for=select-foo] .alert' ).length, 1, '.alert for found invalid select' );
-		strictEqual( $( 'label[for=select-foo] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid select' );
+		strictEqual( $( 'label[for="select-foo"] .alert' ).length, 1, '.alert for found invalid select' );
+		strictEqual( $( 'label[for="select-foo"] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid select' );
 
 		$( '#textarea-foo' ).trigger( 'change' );
-
-		strictEqual( $( 'label[for=textarea-foo] .alert' ).length, 1, '.alert for found invalid textarea' );
-		strictEqual( $( 'label[for=textarea-foo] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid textarea' );
+		strictEqual( $( 'label[for="textarea-foo"] .alert' ).length, 1, '.alert for found invalid textarea' );
+		strictEqual( $( 'label[for="textarea-foo"] .alert' ).text(), 'Must be completed', 'blank warning displayed for invalid textarea' );
 
 		$( '#part' ).val( 'foo' ).trigger( 'change' );
-
-		strictEqual( $( 'label[for=part] .alert' ).length, 1, '.alert for found invalid pattern' );
-		strictEqual( $( 'label[for=part] .alert' ).text(), 'Must use the format shown', 'pattern warning displayed for invalid value' );
+		strictEqual( $( 'label[for="part"] .alert' ).length, 1, '.alert for found invalid pattern' );
+		strictEqual( $( 'label[for="part"] .alert' ).text(), 'Must use the format shown', 'pattern warning displayed for invalid value' );
 
 	});
 
@@ -645,15 +623,15 @@
 		
 		$( 'input#foo' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=foo] .alert' ).length, 1, '.alert found in label' );
-		strictEqual( $( 'label[for=foo] .alert' ).text(), 'Must be completed', 'alert message is "Must be completed"' );
+		strictEqual( $( 'label[for="foo"] .alert' ).length, 1, '.alert found in label' );
+		strictEqual( $( 'label[for="foo"] .alert' ).text(), 'Must be completed', 'alert message is "Must be completed"' );
 
 		$( 'input#foo' ).val( 'foo' );
 		$( 'input#foo' ).trigger( 'change' );
 		$( 'input#foo' ).trigger( 'change' );
 
 		strictEqual( $( 'input#foo' )[ 0 ].validity.valid, true, 'foo is valid' );
-		strictEqual( $( 'label[for=foo] .alert' ).length, 0, 'no .alert found in label' );
+		strictEqual( $( 'label[for="foo"] .alert' ).length, 0, 'no .alert found in label' );
 
 	});
 
@@ -662,27 +640,27 @@
 		$( '#email' ).val( 'foo' );
 		$( '#email' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be an email address', 'showing invalid email message' );
+		strictEqual( $( 'label[for="email"] .alert' ).text(), 'Must be an email address', 'showing invalid email message' );
 
 		$( '#email' ).val( '' );
 		$( '#email' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=email] .alert' ).text(), 'Must be completed', 'showing value missing message' );
+		strictEqual( $( 'label[for="email"] .alert' ).text(), 'Must be completed', 'showing value missing message' );
 
 		$( '#email' ).val( 'foo@example.com' );
 		$( '#email' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid (foo@example.com)' );
+		strictEqual( $( 'label[for="email"] .alert' ).length, 0, 'no error message when valid (foo@example.com)' );
 
 		$( '#email' ).val( 'a@b' );
 		$( '#email' ).trigger( 'change' );
 
-		strictEqual( $( 'label[for=email] .alert' ).length, 0, 'no error message when valid (a@b)' );
+		strictEqual( $( 'label[for="email"] .alert' ).length, 0, 'no error message when valid (a@b)' );
 
 	});
 
 
-	module( 'grouped alert messages' );
+	module( 'grouped alert messages', lifecycleCVAPI );
 
 	test( 'group errors shown on group label', function() {
 		
@@ -695,7 +673,7 @@
 	});
 
 
-	module( 'after submit event UI' );
+	module( 'after submit event UI', lifecycleCVAPI );
 
 	test( '.invalid class removed after submit', function() {
 		
@@ -704,7 +682,7 @@
 		strictEqual( $( '#select-foo' ).closest( 'li' ).is( '.invalid' ), true, '#select-foo is .invalid after submit' );
 		strictEqual( $( '#textarea-foo' ).closest( 'li' ).is( '.invalid' ), true, '#textarea-foo is .invalid after submit' );
 		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#radio-foo-foo is .invalid after submit' );
-		strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#flavour-chocolate is .invalid after submit' );
+		// strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), true, '#flavour-chocolate is .invalid after submit' );
 
 		// make valid
 		$( '#foo' ).val( 'foo' ).trigger( 'change' );
@@ -712,8 +690,8 @@
 		$( '#textarea-foo' ).val( 'foo' ).trigger( 'change' );
 		$( '#radio-foo-foo' )[ 0 ].click();
 		$( '#radio-foo-foo' ).trigger( 'change' );
-		$( '#flavour-chocolate' )[ 0 ].click();
-		$( '#flavour-chocolate' ).trigger( 'change' );
+		// $( '#flavour-chocolate' )[ 0 ].click();
+		// $( '#flavour-chocolate' ).trigger( 'change' );
 
 		// test .invalid class removed
 		strictEqual( $( '#foo' ).closest( 'li' ).is( '.invalid' ), false, '#foo is not .invalid after changing' );
@@ -722,8 +700,8 @@
 
 		strictEqual( $( '#radio-foo-foo' ).is( ':checked' ), true, '#radio-foo-foo is :checked' );
 		strictEqual( $( '#radio-foo-foo' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#radio-foo-foo is not .invalid after changing' );
-		strictEqual( $( '#flavour-chocolate' ).is( ':checked' ), true, '#flavour-chocolate is :checked' );
-		strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#flavour-chocolate is not .invalid after changing' );
+		// strictEqual( $( '#flavour-chocolate' ).is( ':checked' ), true, '#flavour-chocolate is :checked' );
+		// strictEqual( $( '#flavour-chocolate' ).closest( '.choices' ).closest( 'li' ).is( '.invalid' ), false, '#flavour-chocolate is not .invalid after changing' );
 
 	});
 
