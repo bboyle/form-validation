@@ -65,7 +65,7 @@
 				foundElement = $element.closest( 'fieldset' ).find( component )[ 0 ];
 
 			} else {
-				labelElement = $element.closest( 'form' ).find( 'label[for=' + domElement.id + ']' );
+				labelElement = $element.closest( 'form' ).find( 'label[for="' + domElement.id + '"]' );
 				foundElement = labelElement.children( component )[ 0 ];
 				if ( ! foundElement ) {
 					if ( component === '.hint' ) {
