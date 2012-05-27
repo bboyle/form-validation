@@ -39,13 +39,6 @@
 <body>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
-<script src="../lib/jquery.scrollTo-1.4.2-min.js"></script>
-<script src="../lib/generateId.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="../src/jquery.forces.forms.js"></script>
-
-
 	<div id="qunit"></div>
 	<div id="qunit-fixture">
 
@@ -512,17 +505,10 @@
 			</ol>
 		</form>
 
-		<script>
-			// init dynamic fixture
-			initConstraintValidationAPI();
-			$( 'form' ).forcesForms( 'validate' );
-
-			// scroll to top
-			$( window ).scrollTo( 0 );
-		</script>
-
 	</div>
 
+
+<script src="qunit-helpers.js"></script>
 
 <script><!-- //
 
@@ -540,7 +526,7 @@
 	;
 
 
-	module( 'environment' );
+	module( 'environment', lifecycleCVAPI );
 
 	test( 'test fields are in test form', function() {
 
@@ -587,7 +573,7 @@
 	});
 
 
-	module( 'form submission UI' );
+	module( 'form submission UI', lifecycleCVAPI );
 
 	test( 'status message shown on submit', function() {
 
