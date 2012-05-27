@@ -39,13 +39,6 @@
 <body>
 
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
-<script src="../lib/jquery.scrollTo-1.4.2-min.js"></script>
-<script src="../lib/generateId.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="../src/jquery.forces.forms.js"></script>
-
-
 	<div id="qunit"></div>
 	<div id="qunit-fixture">
 
@@ -489,6 +482,17 @@
 					</fieldset>
 				</li>
 
+				<!-- issue #22: problem with markup pattern -->
+				<li>
+					<label for="consultationResponse:group:0:question:3:answerTL:value">
+						<small class="instructions relevance">Please answer this question if you answered ‘<samp>No</samp>’ to ‘<var>Q1 Do you own a pet?</var>’</small>
+						<span class="label">Q3 Why don't you own a pet?</span>
+						<abbr title="(required)">*</abbr>
+					</label>
+					<textarea id="consultationResponse:group:0:question:3:answerTL:value" name="consultationResponse:group:0:question:3:answerTL:value" cols="100" rows="5" required="required"></textarea>
+					<small class="hint">Maximum 500 characters</small>
+				</li>
+
 				<li class="footer">
 					<ol class="submit">
 						<li>
@@ -501,17 +505,10 @@
 			</ol>
 		</form>
 
-		<script>
-			// init dynamic fixture
-			initConstraintValidationAPI();
-			$( 'form' ).forcesForms( 'validate' );
-
-			// scroll to top
-			$( window ).scrollTo( 0 );
-		</script>
-
 	</div>
 
+
+<script src="qunit-helpers.js"></script>
 
 <script><!-- //
 
@@ -529,7 +526,7 @@
 	;
 
 
-	module( 'environment' );
+	module( 'environment', lifecycleCVAPI );
 
 	test( 'test fields are in test form', function() {
 
@@ -537,7 +534,7 @@
 		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
 		strictEqual( $( 'form#test select#select-foo' ).length, 1, 'form#test contains select#select-foo' );
 		strictEqual( $( 'form#test textarea#textarea-foo' ).length, 1, 'form#test contains textarea#textarea-foo' );
-		strictEqual( $( 'form#test :radio[name=radioFoo]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
+		strictEqual( $( 'form#test :radio[name="radioFoo"]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
 		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
 		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
 		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
@@ -546,7 +543,7 @@
 
 	});
 
-	test( 'specific fields are present', function() {
+	test( 'specific fields are present', 11, function() {
 
 		strictEqual( $( '[required]' )[ 0 ], $( 'input#foo' )[ 0 ], 'input#foo is the first required field' );
 		strictEqual( $( '[required]' )[ 1 ], $( 'select#select-foo' )[ 0 ], 'select#select-foo is the second required field' );
@@ -559,6 +556,7 @@
 		strictEqual( $( 'input#name' ).attr( 'name' ), 'name', 'input#name exists and @name is "name"' );
 		ok( $( 'input#name' ).attr( 'required' ), 'input#name is required' );
 		strictEqual( $( 'input#name' ).val(), '', 'input#name value is ""' );
+		strictEqual( document.getElementById( 'consultationResponse:group:0:question:3:answerTL:value' ).id, 'consultationResponse:group:0:question:3:answerTL:value', 'field with complex @id is present' );
 
 	});
 
@@ -575,7 +573,7 @@
 	});
 
 
-	module( 'form submission UI' );
+	module( 'form submission UI', lifecycleCVAPI );
 
 	test( 'status message shown on submit', function() {
 
@@ -623,7 +621,7 @@
 
 	});
 
-	test( 'correct errors shown in status', function() {
+	test( 'correct errors shown in status', 10, function() {
 		
 		$( '#email' ).val( 'foo' );
 
@@ -631,7 +629,7 @@
 
 		var status = $( '.status' );
 
-		strictEqual( status.find( 'li' ).length, 8, '8 errors displayed' );
+		strictEqual( status.find( 'li' ).length, 9, '9 errors displayed' );
 		strictEqual( status.find( 'li' ).eq( 0 ).text(), 'Foo: Must be completed', 'required field message is displayed for input' );
 		strictEqual( status.find( 'li' ).eq( 1 ).text(), 'Select foo: Must be completed', 'required field message is displayed for select' );
 		strictEqual( status.find( 'li' ).eq( 2 ).text(), 'Textarea foo: Must be completed', 'required field message is displayed for textarea' );
@@ -640,6 +638,7 @@
 		strictEqual( status.find( 'li' ).eq( 5 ).text(), 'What is your answer: Must be completed', 'question mark is removed from label in status message' );
 		strictEqual( status.find( 'li' ).eq( 6 ).text(), 'Your name: Must be completed', 'group message is displayed for 3 group controls' );
 		strictEqual( status.find( 'li' ).eq( 7 ).text(), 'Address: Must be completed', 'group message is displayed for major group' );
+		strictEqual( status.find( 'li' ).eq( 8 ).text(), 'Q3 Why don\'t you own a pet: Must be completed', 'message is displayed for textarea with complex @id' );
 
 	});
 
@@ -693,6 +692,7 @@
 		$( '#email' ).val( 'foo@example.com' );
 		$( '#name-given' ).val( 'John' );
 		$( '#name-family' ).val( 'Smith' );
+		$( document.getElementById( 'consultationResponse:group:0:question:3:answerTL:value' )).val( 'foo' );
 
 		userInitiatedSubmit();
 
@@ -729,6 +729,7 @@
 		$( '#address-state' ).val( 'Queensland' );
 		$( '#address-postcode' ).val( '4000' );
 		$( '#address-country' ).val( 'Australia' );
+		$( document.getElementById( 'consultationResponse:group:0:question:3:answerTL:value' )).val( 'foo' );
 
 		userInitiatedSubmit();
 
