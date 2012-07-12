@@ -169,46 +169,46 @@
 
 <script><!-- //
 
-	module( "environment" );
+	module( 'environment' );
 
-	test( "test fields are in test form", function() {
+	test( 'test fields are in test form', function() {
 
-		equal( $( "form#test" ).length, 1, "form#test is present" );
-		equal( $( "form#test .group input#name-title" ).length, 1, "form#test contains .group input#name-title" );
-		equal( $( "form#test .group input#name-given" ).length, 1, "form#test contains .group input#name-given" );
-		equal( $( "form#test .group input#name-family" ).length, 1, "form#test contains .group input#name-family" );
-		equal( $( "form#test .group input#foo" ).length, 1, "form#test contains .group input#foo" );
-		equal( $( "form#test .group input#bar" ).length, 1, "form#test contains .group input#bar" );
-		equal( $( "form#test input#nogroup" ).length, 1, "form#test contains input#nogroup" );
-		equal( $( "form#test .group input#nogroup" ).length, 0, "form#test does not contain .group input#nogroup" );
-
-	});
-
-
-	module( "form traversal" );
-
-	test( "can get groups for form fields", function() {
-
-		equal( $( "#name-title" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for title" );
-		equal( $( "#name-given" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for given name" );
-		equal( $( "#name-family" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for family name" );
+		equal( $( 'form#test' ).length, 1, 'form#test is present' );
+		equal( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
+		equal( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
+		equal( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
+		equal( $( 'form#test .group input#foo' ).length, 1, 'form#test contains .group input#foo' );
+		equal( $( 'form#test .group input#bar' ).length, 1, 'form#test contains .group input#bar' );
+		equal( $( 'form#test input#nogroup' ).length, 1, 'form#test contains input#nogroup' );
+		equal( $( 'form#test .group input#nogroup' ).length, 0, 'form#test does not contain .group input#nogroup' );
 
 	});
 
-	test( "non-grouped fields return undefined", function() {
 
-		equal( $( "#nogroup" ).forcesForms( "group" )[0], undefined, "nogroup has no group" );
+	module( 'form traversal' );
+
+	test( 'can get groups for form fields', function() {
+
+		equal( $( '#name-title' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for title' );
+		equal( $( '#name-given' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for given name' );
+		equal( $( '#name-family' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for family name' );
 
 	});
 
-	test( "verify .forcesForm( \"group\" ) supports jquery chaining", function() {
+	test( 'non-grouped fields return undefined', function() {
+
+		equal( $( '#nogroup' ).forcesForms( 'group' )[ 0 ], undefined, 'nogroup has no group' );
+
+	});
+
+	test( 'verify .forcesForm( \'group\' ) supports jquery chaining', function() {
 		// test jquery object
-		equal( $( "input" ).forcesForms( "group" )[0], $( ".group" )[0], "found group for first item" );
-		equal( $( "input" ).forcesForms( "group" )[1], $( ".group" )[0], "found group for second item" );
-		equal( $( "input" ).forcesForms( "group" )[2], $( ".group" )[0], "found group for third item" );
-		equal( $( "input" ).forcesForms( "group" )[3], $( ".group" )[1], "found second group for fourth item" );
-		equal( $( "input" ).forcesForms( "group" )[4], $( ".group" )[1], "found second group for fifth item" );
-		equal( $( "input" ).forcesForms( "group" )[5], undefined, "found undefined for sixth item" );
+		equal( $( 'input' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for first item' );
+		equal( $( 'input' ).forcesForms( 'group' )[ 1 ], $( '.group' )[ 0 ], 'found group for second item' );
+		equal( $( 'input' ).forcesForms( 'group' )[ 2 ], $( '.group' )[ 0 ], 'found group for third item' );
+		equal( $( 'input' ).forcesForms( 'group' )[ 3 ], $( '.group' )[ 1 ], 'found second group for fourth item' );
+		equal( $( 'input' ).forcesForms( 'group' )[ 4 ], $( '.group' )[ 1 ], 'found second group for fifth item' );
+		equal( $( 'input' ).forcesForms( 'group' )[ 5 ], undefined, 'found undefined for sixth item' );
 
 	});
 
