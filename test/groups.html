@@ -173,14 +173,16 @@
 
 	test( 'test fields are in test form', function() {
 
-		equal( $( 'form#test' ).length, 1, 'form#test is present' );
-		equal( $( '.group input#name-title', '#test' ).length, 1, 'form#test contains .group input#name-title' );
-		equal( $( '.group input#name-given', '#test' ).length, 1, 'form#test contains .group input#name-given' );
-		equal( $( '.group input#name-family', '#test' ).length, 1, 'form#test contains .group input#name-family' );
-		equal( $( '.group input#foo', '#test' ).length, 1, 'form#test contains .group input#foo' );
-		equal( $( '.group input#bar', '#test' ).length, 1, 'form#test contains .group input#bar' );
-		equal( $( 'input#nogroup', '#test' ).length, 1, 'form#test contains input#nogroup' );
-		equal( $( '.group input#nogroup', '#test' ).length, 0, 'form#test does not contain .group input#nogroup' );
+		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
+		strictEqual( $( '.group input#name-title', '#test' ).length, 1, 'form#test contains .group input#name-title' );
+		strictEqual( $( '.group input#name-given', '#test' ).length, 1, 'form#test contains .group input#name-given' );
+		strictEqual( $( '.group input#name-family', '#test' ).length, 1, 'form#test contains .group input#name-family' );
+		strictEqual( $( '.group input#foo', '#test' ).length, 1, 'form#test contains .group input#foo' );
+		strictEqual( $( '.group input#bar', '#test' ).length, 1, 'form#test contains .group input#bar' );
+		strictEqual( $( 'input#nogroup', '#test' ).length, 1, 'form#test contains input#nogroup' );
+		strictEqual( $( '.group input#nogroup', '#test' ).length, 0, 'form#test does not contain .group input#nogroup' );
+		strictEqual( $( '.group input#country', '#test' ).length, 1, 'form#test contains .group input#country' );
+		strictEqual( $( '.group .group input#city', '#test' ).length, 1, 'form#test contains nested .group input#city' );
 
 	});
 
@@ -189,26 +191,31 @@
 
 	test( 'can get groups for form fields', function() {
 
-		equal( $( '#name-title' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for title' );
-		equal( $( '#name-given' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for given name' );
-		equal( $( '#name-family' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for family name' );
+		strictEqual( $( '#name-title' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for title' );
+		strictEqual( $( '#name-given' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for given name' );
+		strictEqual( $( '#name-family' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for family name' );
 
 	});
 
 	test( 'non-grouped fields return undefined', function() {
 
-		equal( $( '#nogroup' ).forcesForms( 'group' )[ 0 ], undefined, 'nogroup has no group' );
+		strictEqual( $( '#nogroup' ).forcesForms( 'group' )[ 0 ], undefined, 'nogroup has no group' );
 
 	});
 
 	test( 'verify .forcesForm( \'group\' ) supports jquery chaining', function() {
 		// test jquery object
-		equal( $( 'input' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for first item' );
-		equal( $( 'input' ).forcesForms( 'group' )[ 1 ], $( '.group' )[ 0 ], 'found group for second item' );
-		equal( $( 'input' ).forcesForms( 'group' )[ 2 ], $( '.group' )[ 0 ], 'found group for third item' );
-		equal( $( 'input' ).forcesForms( 'group' )[ 3 ], $( '.group' )[ 1 ], 'found second group for fourth item' );
-		equal( $( 'input' ).forcesForms( 'group' )[ 4 ], $( '.group' )[ 1 ], 'found second group for fifth item' );
-		equal( $( 'input' ).forcesForms( 'group' )[ 5 ], undefined, 'found undefined for sixth item' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for name (title)' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 1 ], $( '.group' )[ 0 ], 'found group for name (given)' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 2 ], $( '.group' )[ 0 ], 'found group for name (family)' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 3 ], $( '.group' )[ 1 ], 'found fubar group for foo' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 4 ], $( '.group' )[ 1 ], 'found fubar group for bar' );
+		// .nogroup will be removed from jquery object after .forcesForms( 'group' )
+		// strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 5 ], undefined, 'found undefined for ungrouped input' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 5 ], $( '.group' )[ 2 ], 'found address group for city' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 6 ], $( '.group' )[ 2 ], 'found address group for state' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 7 ], $( '.group' )[ 2 ], 'found address group for postcode' );
+		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 8 ], $( '.group' )[ 2 ], 'found address group for country' );
 
 	});
 
