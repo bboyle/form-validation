@@ -24,70 +24,116 @@
 
 <body>
 
-	<div id="qunit"></div>
-	<div id="qunit-fixture">
-		<form id="test" action="javascript:">
 
-			<ol class="questions">
+<div id="qunit"></div>
+<div id="qunit-fixture">
+	<form id="test" action="javascript:">
 
-				<li>
-					<label for="foo">
-						<span class="label">Foo</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="text" name="foo" id="foo" value="" required="required" />
-				</li>
+		<ol class="questions">
 
-				<li>
-					<label for="bar">
-						<span class="label">Bar</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="text" name="bar" id="bar" value="" required="required" />
-				</li>
+			<li>
+				<label for="foo">
+					<span class="label">Foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="foo" id="foo" value="" required="required" />
+			</li>
 
-				<li>
-					<label for="email">
-						<span class="label">Email</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="email" name="email" id="email" value="" required="required" />
-				</li>
+			<li>
+				<label for="bar">
+					<span class="label">Bar</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="bar" id="bar" value="" required="required" />
+			</li>
 
-				<li>
-					<label for="part">
-						<span class="label">Part number</span>
-						<small class="hint">
-							Example:
-							<samp class="pattern">1ABC</samp>
-						</small>
-					</label>
-					<input type="text" name="part" id="part" value="" pattern="[0-9][A-Z]{3}" />
-				</li>
+			<li>
+				<label for="email">
+					<span class="label">Email</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="email" name="email" id="email" value="" required="required" />
+			</li>
 
-				<li class="footer">
-					<ol class="submit">
+			<li>
+				<label for="part">
+					<span class="label">Part number</span>
+					<small class="hint">
+						Example:
+						<samp class="pattern">1ABC</samp>
+					</small>
+				</label>
+				<input type="text" name="part" id="part" value="" pattern="[0-9][A-Z]{3}" />
+			</li>
+
+			<li class="atomic group">
+				<fieldset>
+					<legend>
+						<span class="label">Postal address</span>
+					</legend>
+					<ol class="questions">
 						<li>
-							<strong>
-								<input type="submit" value="Submit" />
-							</strong>
+							<label for="street-address">
+								<span class="label">Street address</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<textarea id="street-address" name="streetAddress" rows="2" cols="30" required="required"></textarea>
+						</li>
+						<li class="group">
+							<ol class="questions compact">
+								<li>
+									<label for="city">
+										<span class="label">Town or suburb</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="city" name="city" size="15" required="required" />
+								</li>
+								<li>
+									<label for="state">
+										<span class="label">State</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="state" name="state" size="15" required="required" />
+								</li>
+								<li>
+									<label for="postcode">
+										<span class="label">Postcode</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="postcode" name="postcode" size="5" required="required" />
+								</li>
+							</ol>
+						</li>
+						<li>
+							<label for="country">
+								<span class="label">Country</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input id="country" name="country" size="30" required="required" />
 						</li>
 					</ol>
-				</li>
+				</fieldset>
+			</li>
 
-			</ol>
+			<li class="footer">
+				<ol class="submit">
+					<li>
+						<strong>
+							<input type="submit" value="Submit" />
+						</strong>
+					</li>
+				</ol>
+			</li>
 
-		</form>
+		</ol>
 
-	</div>
+	</form>
 
+</div>
 
-<script src="../lib/jquery-1.4.4-min.js"></script>
-<script src="../lib/generateId.js"></script>
-<script src="../lib/forces.html5.constraintValidationAPI.js"></script>
-<script src="../src/jquery.forces.forms.js"></script>
 
 <script src="qunit-helpers.js"></script>
+
 <script><!-- //
 
 	module( 'environment', lifecycleCVAPI );
@@ -95,14 +141,17 @@
 	test( 'test fields are in test form', function() {
 
 		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
-		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
-		strictEqual( $( 'form#test input#bar' ).length, 1, 'form#test contains input#bar' );
+		strictEqual( $( 'input#foo', '#test' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'input#bar', '#test' ).length, 1, 'form#test contains input#bar' );
 
-		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
-		strictEqual( $( 'form#test input#email' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is @type=email' );
+		strictEqual( $( 'input#email', '#test' ).length, 1, 'form#test contains input#email' );
+		strictEqual( $( 'input#email', '#test' )[ 0 ].getAttribute( 'type' ), 'email', 'input#email is @type=email' );
 
-		strictEqual( $( 'form#test input#part' ).length, 1, 'form#test contains input#part' );
+		strictEqual( $( 'input#part', '#test' ).length, 1, 'form#test contains input#part' );
 		strictEqual( $( 'input#part' )[ 0 ].getAttribute( 'pattern' ), '[0-9][A-Z]{3}', 'input#part has @pattern' );
+
+		strictEqual( $( '.group input#country', '#test' ).length, 1, 'form#test contains .group input#country' );
+		strictEqual( $( '.group .group input#city', '#test' ).length, 1, 'form#test contains nested .group input#city' );
 
 	});
 
@@ -141,6 +190,15 @@
 		});
 		strictEqual( $( '#foo, #bar' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found expected message' );
 		
+	});
+
+	test( 'required field message for atomic groups', function() {
+
+		$( '#city, #country' ).each(function() {
+			this.checkValidity();
+		});
+		strictEqual( $( '#city' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #city' );
+		strictEqual( $( '#country' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #country' );
 	});
 
 

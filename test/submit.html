@@ -39,473 +39,474 @@
 <body>
 
 
-	<div id="qunit"></div>
-	<div id="qunit-fixture">
+<div id="qunit"></div>
+<div id="qunit-fixture">
 
-		<form id="test" action="javascript:">
+	<form id="test" action="javascript:">
 
-			<ol class="questions">
+		<ol class="questions">
 
-				<li>
-					<label for="foo">
-						<span class="label">Foo</span>
+			<li>
+				<label for="foo">
+					<span class="label">Foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="foo" id="foo" value="" required="required" />
+			</li>
+
+			<li>
+				<label for="select-foo">
+					<span class="label">Select foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<select id="select-foo" name="selectFoo" required="required">
+					<option value=""></option>
+					<option value="foo">foo</option>
+					<option value="0">0</option>
+					<option value="null">null</option>
+					<option value="undefined">undefined</option>
+				</select>
+			</li>
+
+			<li>
+				<label for="textarea-foo">
+					<span class="label">Textarea foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<textarea name="textareaFoo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
+			</li>
+
+			<li>
+				<fieldset>
+					<legend>
+						<span class="label">Radio foo</span>
 						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="text" name="foo" id="foo" value="" required="required" />
-				</li>
-
-				<li>
-					<label for="select-foo">
-						<span class="label">Select foo</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<select id="select-foo" name="selectFoo" required="required">
-						<option value=""></option>
-						<option value="foo">foo</option>
-						<option value="0">0</option>
-						<option value="null">null</option>
-						<option value="undefined">undefined</option>
-					</select>
-				</li>
-
-				<li>
-					<label for="textarea-foo">
-						<span class="label">Textarea foo</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<textarea name="textareaFoo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
-				</li>
-
-				<li>
-					<fieldset>
-						<legend>
-							<span class="label">Radio foo</span>
-							<abbr title="(required)">*</abbr>
-						</legend>
-						<ul class="choices">
-							<li>
-								<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
-								<label for="radio-foo-foo">Foo</label>
-							</li>
-							<li>
-								<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
-								<label for="radio-foo-bar">Bar</label>
-							</li>
-							<li>
-								<input type="radio" name="radioFoo" value="" id="radio-foo-BLANK" />
-								<label for="radio-foo-BLANK">BLANK</label>
-							</li>
-							<li>
-								<input type="radio" name="radioFoo" value="undefined" id="radio-foo-undefined" />
-								<label for="radio-foo-undefined">undefined</label>
-							</li>
-							<li>
-								<input type="radio" name="radioFoo" value="null" id="radio-foo-null" />
-								<label for="radio-foo-null">null</label>
-							</li>
-						</ul>
-					</fieldset>
-				</li>
-
-				<li>
-					<label for="email">
-						<span class="label">Email</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="email" name="email" id="email" value="" required="required" />
-				</li>
-
-				<li>
-					<label for="question">
-						<span class="label">What is your answer?</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<input type="text" name="question" id="question" value="" required="required" />
-				</li>
-
-				<li class="group">
-					<fieldset>
-						<legend>
-							<span class="label">Your name?</span>
-						</legend>
-						<ol class="questions compact">
-							<li>
-								<label for="name-title">
-									<span class="label">Title</span>
-								</label>
-								<input type="text" id="name-title" name="nameTitle" size="3" />
-							</li>
-							<li>
-								<label for="name-given">
-									<span class="label">Given names</span>
-									<abbr title="(required)">*</abbr>
-								</label>
-								<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
-							</li>
-							<li>
-								<label for="name-family">
-									<span class="label">Family name</span>
-									<abbr title="(required)">*</abbr>
-								</label>
-								<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
-							</li>
-							<li>
-								<label for="name">
-									<span class="label">Preferred name</span>
-									<abbr title="(required)">*</abbr>
-								</label>
-								<input type="text" id="name" name="name" size="20" required="required" />
-							</li>
-						</ol>
-					</fieldset>
-				</li>
-
-				<li class="group">
-					<fieldset>
-						<legend>
-							<span class="label">Address</span>
-						</legend>
-						<ol class="questions">
-							<li>
-								<label for="address-line1">
-									<span class="label">Address line 1</span>
-									<abbr title="(required)">*</abbr>
-								</label>
-								<input id="address-line1" name="address.line1" size="20" required="required" />
-							</li>
-							<li>
-								<label for="address-line2">
-									<span class="label">Address line 2</span>
-								</label>
-								<input id="address-line2" name="address.line2" size="20" />
-							</li>
-							<li>
-								<label for="address-line3">
-									<span class="label">Address line 3</span>
-								</label>
-								<input id="address-line3" name="address.line3" size="20" />
-							</li>
-							<li class="compact">
-								<ol class="questions">
-									<li>
-										<label for="address-city">
-											<span class="label">Town, city or suburb</span>
-											<abbr title="(required)">*</abbr>
-										</label>
-										<input id="address-city" name="address.city" size="20" required="required" />
-									</li>
-									<li>
-										<label for="address-state">
-											<span class="label">State</span>
-											<abbr title="(required)">*</abbr>
-										</label>
-										<input id="address-state" name="address.state" size="5" required="required" />
-									</li>
-									<li>
-										<label for="address-postcode">
-											<span class="label">Postcode</span>
-											<abbr title="(required)">*</abbr>
-										</label>
-										<input id="address-postcode" name="address.postcode" size="5" required="required" />
-									</li>
-								</ol>
-							</li>
-							<li>
-								<label for="address-country">
-									<span class="label">Country</span>
-								</label>
-								<select id="address-country" required="required">
-									<option value=""></option>
-									<!-- 2011-11-12 http://en.wikipedia.org/wiki/List_of_sovereign_states -->
-									<option>Afghanistan</option>
-									<option>Albania</option>
-									<option>Algeria</option>
-									<option>Andorra</option>
-									<option>Angola</option>
-									<option>Antigua and Barbuda</option>
-									<option>Argentina</option>
-									<option>Armenia</option>
-									<option>Australia</option>
-									<option>Ashmore and Cartier Islands</option>
-									<option>Australian Antarctic Territory</option>
-									<option>Christmas Island</option>
-									<option>Cocos (Keeling) Islands</option>
-									<option>Coral Sea Islands Territory</option>
-									<option>Heard Island and McDonald Islands</option>
-									<option>Norfolk Island</option>
-									<option>Austria</option>
-									<option>Azerbaijan</option>
-									<option>Bahamas</option>
-									<option>Bahrain</option>
-									<option>Bangladesh</option>
-									<option>Barbados</option>
-									<option>Belarus</option>
-									<option>Belgium</option>
-									<option>Belize</option>
-									<option>Benin</option>
-									<option>Bhutan</option>
-									<option>Bolivia</option>
-									<option>Bosnia and Herzegovina</option>
-									<option>Botswana</option>
-									<option>Brazil</option>
-									<option>Brunei</option>
-									<option>Bulgaria</option>
-									<option>Burkina Faso</option>
-									<option>Burma</option>
-									<option>Burundi</option>
-									<option>Cambodia</option>
-									<option>Cameroon</option>
-									<option>Canada</option>
-									<option>Cape Verde</option>
-									<option>Central African Republic</option>
-									<option>Chad</option>
-									<option>Chile</option>
-									<option>China</option>
-									<option>Hong Kong</option>
-									<option>Macau</option>
-									<option>Colombia</option>
-									<option>Comoros</option>
-									<option>Congo, Democratic Republic of the</option>
-									<option>Congo, Republic of the</option>
-									<option>Costa Rica</option>
-									<option>Côte d'Ivoire</option>
-									<option>Croatia</option>
-									<option>Cuba</option>
-									<option>Cyprus</option>
-									<option>Czech Republic</option>
-									<option>Denmark</option>
-									<option>Faroe Islands</option>
-									<option>Greenland</option>
-									<option>Djibouti</option>
-									<option>Dominica</option>
-									<option>Dominican Republic</option>
-									<option>East Timor</option>
-									<option>Ecuador</option>
-									<option>Egypt</option>
-									<option>El Salvador</option>
-									<option>Equatorial Guinea</option>
-									<option>Eritrea</option>
-									<option>Estonia</option>
-									<option>Ethiopia</option>
-									<option>Fiji</option>
-									<option>Finland</option>
-									<option>Åland</option>
-									<option>France</option>
-									<option>Clipperton Island</option>
-									<option>French Polynesia</option>
-									<option>New Caledonia</option>
-									<option>Saint-Barthélemy</option>
-									<option>Saint Martin</option>
-									<option>Saint Pierre and Miquelon</option>
-									<option>Wallis and Futuna</option>
-									<option>French Southern and Antarctic Lands</option>
-									<option>Gabon</option>
-									<option>The Gambia</option>
-									<option>Georgia</option>
-									<option>Germany</option>
-									<option>Ghana</option>
-									<option>Greece</option>
-									<option>Grenada</option>
-									<option>Guatemala</option>
-									<option>Guinea</option>
-									<option>Guinea-Bissau</option>
-									<option>Guyana</option>
-									<option>Haiti</option>
-									<option>Honduras</option>
-									<option>Hungary</option>
-									<option>Iceland</option>
-									<option>India</option>
-									<option>Indonesia</option>
-									<option>Iran</option>
-									<option>Iraq</option>
-									<option>Ireland</option>
-									<option>Israel</option>
-									<option>Italy</option>
-									<option>Jamaica</option>
-									<option>Japan</option>
-									<option>Jordan</option>
-									<option>Kazakhstan</option>
-									<option>Kenya</option>
-									<option>Kiribati</option>
-									<option>Korea, North</option>
-									<option>Korea, South</option>
-									<option>Kuwait</option>
-									<option>Kyrgyzstan</option>
-									<option>Laos</option>
-									<option>Latvia</option>
-									<option>Lebanon</option>
-									<option>Lesotho</option>
-									<option>Liberia</option>
-									<option>Libya</option>
-									<option>Liechtenstein</option>
-									<option>Lithuania</option>
-									<option>Luxembourg</option>
-									<option>Macedonia</option>
-									<option>Madagascar</option>
-									<option>Malawi</option>
-									<option>Malaysia</option>
-									<option>Maldives</option>
-									<option>Mali</option>
-									<option>Malta</option>
-									<option>Marshall Islands</option>
-									<option>Mauritania</option>
-									<option>Mauritius</option>
-									<option>Mexico</option>
-									<option>Micronesia, Federated States of</option>
-									<option>Moldova</option>
-									<option>Monaco</option>
-									<option>Mongolia</option>
-									<option>Montenegro</option>
-									<option>Morocco</option>
-									<option>Mozambique</option>
-									<option>Namibia</option>
-									<option>Nauru</option>
-									<option>Nepal</option>
-									<option>Netherlands</option>
-									<option>Netherlands</option>
-									<option>Aruba</option>
-									<option>Curaçao</option>
-									<option>Sint Maarten</option>
-									<option>New Zealand</option>
-									<option>Cook Islands</option>
-									<option>Niue</option>
-									<option>Ross Dependency</option>
-									<option>Tokelau</option>
-									<option>Nicaragua</option>
-									<option>Niger</option>
-									<option>Nigeria</option>
-									<option>Norway</option>
-									<option>Oman</option>
-									<option>Pakistan</option>
-									<option>Azad Kashmir</option>
-									<option>Gilgit-Baltistan</option>
-									<option>Palau</option>
-									<option>Panama</option>
-									<option>Papua New Guinea</option>
-									<option>Paraguay</option>
-									<option>Peru</option>
-									<option>Philippines</option>
-									<option>Poland</option>
-									<option>Portugal</option>
-									<option>Qatar</option>
-									<option>Romania</option>
-									<option>Russia</option>
-									<option>Rwanda</option>
-									<option>Saint Kitts and Nevis</option>
-									<option>Saint Lucia</option>
-									<option>Saint Vincent and the Grenadines</option>
-									<option>Samoa</option>
-									<option>San Marino</option>
-									<option>São Tomé and Príncipe</option>
-									<option>Saudi Arabia</option>
-									<option>Senegal</option>
-									<option>Serbia</option>
-									<option>Seychelles</option>
-									<option>Sierra Leone</option>
-									<option>Singapore</option>
-									<option>Slovakia</option>
-									<option>Slovenia</option>
-									<option>Solomon Islands</option>
-									<option>Somalia</option>
-									<option>South Africa</option>
-									<option>South Sudan</option>
-									<option>Spain</option>
-									<option>Sri Lanka</option>
-									<option>Sudan</option>
-									<option>Suriname</option>
-									<option>Swaziland</option>
-									<option>Sweden</option>
-									<option>Switzerland</option>
-									<option>Syria</option>
-									<option>Tajikistan</option>
-									<option>Tanzania</option>
-									<option>Thailand</option>
-									<option>Togo</option>
-									<option>Tonga</option>
-									<option>Trinidad and Tobago</option>
-									<option>Tunisia</option>
-									<option>Turkey</option>
-									<option>Turkmenistan</option>
-									<option>Tuvalu</option>
-									<option>Uganda</option>
-									<option>Ukraine</option>
-									<option>United Arab Emirates</option>
-									<option>United Kingdom</option>
-									<option>Akrotiri and Dhekelia</option>
-									<option>Anguilla</option>
-									<option>Bermuda</option>
-									<option>British Indian Ocean Territory</option>
-									<option>British Virgin Islands</option>
-									<option>Cayman Islands</option>
-									<option>Falkland Islands</option>
-									<option>Gibraltar</option>
-									<option>Montserrat</option>
-									<option>Pitcairn Islands</option>
-									<option>Saint Helena, Ascension and Tristan da Cunha</option>
-									<option>South Georgia and the South Sandwich Islands</option>
-									<option>Turks and Caicos Islands</option>
-									<option>British Antarctic Territory</option>
-									<option>Guernsey</option>
-									<option>Alderney</option>
-									<option>Herm</option>
-									<option>Sark</option>
-									<option>Isle of Man</option>
-									<option>Jersey</option>
-									<option>United States</option>
-									<option>American Samoa</option>
-									<option>Guam</option>
-									<option>Northern Mariana Islands</option>
-									<option>Puerto Rico</option>
-									<option>U.S. Virgin Islands</option>
-									<option>Uruguay</option>
-									<option>Uzbekistan</option>
-									<option>Vanuatu</option>
-									<option>Vatican City</option>
-									<option>Venezuela</option>
-									<option>Vietnam</option>
-									<option>Yemen</option>
-									<option>Zambia</option>
-									<option>Zimbabwe</option>
-									<option>Abkhazia</option>
-									<option>Kosovo</option>
-									<option>Nagorno-Karabakh</option>
-									<option>Northern Cyprus</option>
-									<option>Palestine</option>
-									<option>Sahrawi Arab Democratic Republic</option>
-									<option>Somaliland</option>
-									<option>South Ossetia</option>
-									<option>Taiwan</option>
-									<option>Transnistria</option>
-								</select>
-							</li>
-						</ol>
-					</fieldset>
-				</li>
-
-				<!-- issue #22: problem with markup pattern -->
-				<li>
-					<label for="consultationResponse:group:0:question:3:answerTL:value">
-						<small class="instructions relevance">Please answer this question if you answered ‘<samp>No</samp>’ to ‘<var>Q1 Do you own a pet?</var>’</small>
-						<span class="label">Q3 Why don't you own a pet?</span>
-						<abbr title="(required)">*</abbr>
-					</label>
-					<textarea id="consultationResponse:group:0:question:3:answerTL:value" name="consultationResponse:group:0:question:3:answerTL:value" cols="100" rows="5" required="required"></textarea>
-					<small class="hint">Maximum 500 characters</small>
-				</li>
-
-				<li class="footer">
-					<ol class="submit">
+					</legend>
+					<ul class="choices">
 						<li>
-							<strong>
-								<input type="submit" value="Submit" />
-							</strong>
+							<input type="radio" name="radioFoo" value="foo" id="radio-foo-foo" required="required" />
+							<label for="radio-foo-foo">Foo</label>
+						</li>
+						<li>
+							<input type="radio" name="radioFoo" value="bar" id="radio-foo-bar" />
+							<label for="radio-foo-bar">Bar</label>
+						</li>
+						<li>
+							<input type="radio" name="radioFoo" value="" id="radio-foo-BLANK" />
+							<label for="radio-foo-BLANK">BLANK</label>
+						</li>
+						<li>
+							<input type="radio" name="radioFoo" value="undefined" id="radio-foo-undefined" />
+							<label for="radio-foo-undefined">undefined</label>
+						</li>
+						<li>
+							<input type="radio" name="radioFoo" value="null" id="radio-foo-null" />
+							<label for="radio-foo-null">null</label>
+						</li>
+					</ul>
+				</fieldset>
+			</li>
+
+			<li>
+				<label for="email">
+					<span class="label">Email</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="email" name="email" id="email" value="" required="required" />
+			</li>
+
+			<li>
+				<label for="question">
+					<span class="label">What is your answer?</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="question" id="question" value="" required="required" />
+			</li>
+
+			<li class="group">
+				<fieldset>
+					<legend>
+						<span class="label">Your name?</span>
+					</legend>
+					<ol class="questions compact">
+						<li>
+							<label for="name-title">
+								<span class="label">Title</span>
+							</label>
+							<input type="text" id="name-title" name="nameTitle" size="3" />
+						</li>
+						<li>
+							<label for="name-given">
+								<span class="label">Given names</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input type="text" id="name-given" name="nameGiven" size="20" required="required" />
+						</li>
+						<li>
+							<label for="name-family">
+								<span class="label">Family name</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input type="text" id="name-family" name="nameFamily" size="20"  required="required" />
+						</li>
+						<li>
+							<label for="name">
+								<span class="label">Preferred name</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input type="text" id="name" name="name" size="20" required="required" />
 						</li>
 					</ol>
-				</li>
-			</ol>
-		</form>
+				</fieldset>
+			</li>
 
-	</div>
+			<!-- issue #23: summarising messages at 'atomic group' level -->
+			<li class="atomic group">
+				<fieldset>
+					<legend>
+						<span class="label">Address</span>
+					</legend>
+					<ol class="questions">
+						<li>
+							<label for="address-line1">
+								<span class="label">Address line 1</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input id="address-line1" name="address.line1" size="20" required="required" />
+						</li>
+						<li>
+							<label for="address-line2">
+								<span class="label">Address line 2</span>
+							</label>
+							<input id="address-line2" name="address.line2" size="20" />
+						</li>
+						<li>
+							<label for="address-line3">
+								<span class="label">Address line 3</span>
+							</label>
+							<input id="address-line3" name="address.line3" size="20" />
+						</li>
+						<li class="compact">
+							<ol class="questions">
+								<li>
+									<label for="address-city">
+										<span class="label">Town, city or suburb</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="address-city" name="address.city" size="20" required="required" />
+								</li>
+								<li>
+									<label for="address-state">
+										<span class="label">State</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="address-state" name="address.state" size="5" required="required" />
+								</li>
+								<li>
+									<label for="address-postcode">
+										<span class="label">Postcode</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="address-postcode" name="address.postcode" size="5" required="required" />
+								</li>
+							</ol>
+						</li>
+						<li>
+							<label for="address-country">
+								<span class="label">Country</span>
+							</label>
+							<select id="address-country" required="required">
+								<option value=""></option>
+								<!-- 2011-11-12 http://en.wikipedia.org/wiki/List_of_sovereign_states -->
+								<option>Afghanistan</option>
+								<option>Albania</option>
+								<option>Algeria</option>
+								<option>Andorra</option>
+								<option>Angola</option>
+								<option>Antigua and Barbuda</option>
+								<option>Argentina</option>
+								<option>Armenia</option>
+								<option>Australia</option>
+								<option>Ashmore and Cartier Islands</option>
+								<option>Australian Antarctic Territory</option>
+								<option>Christmas Island</option>
+								<option>Cocos (Keeling) Islands</option>
+								<option>Coral Sea Islands Territory</option>
+								<option>Heard Island and McDonald Islands</option>
+								<option>Norfolk Island</option>
+								<option>Austria</option>
+								<option>Azerbaijan</option>
+								<option>Bahamas</option>
+								<option>Bahrain</option>
+								<option>Bangladesh</option>
+								<option>Barbados</option>
+								<option>Belarus</option>
+								<option>Belgium</option>
+								<option>Belize</option>
+								<option>Benin</option>
+								<option>Bhutan</option>
+								<option>Bolivia</option>
+								<option>Bosnia and Herzegovina</option>
+								<option>Botswana</option>
+								<option>Brazil</option>
+								<option>Brunei</option>
+								<option>Bulgaria</option>
+								<option>Burkina Faso</option>
+								<option>Burma</option>
+								<option>Burundi</option>
+								<option>Cambodia</option>
+								<option>Cameroon</option>
+								<option>Canada</option>
+								<option>Cape Verde</option>
+								<option>Central African Republic</option>
+								<option>Chad</option>
+								<option>Chile</option>
+								<option>China</option>
+								<option>Hong Kong</option>
+								<option>Macau</option>
+								<option>Colombia</option>
+								<option>Comoros</option>
+								<option>Congo, Democratic Republic of the</option>
+								<option>Congo, Republic of the</option>
+								<option>Costa Rica</option>
+								<option>Côte d'Ivoire</option>
+								<option>Croatia</option>
+								<option>Cuba</option>
+								<option>Cyprus</option>
+								<option>Czech Republic</option>
+								<option>Denmark</option>
+								<option>Faroe Islands</option>
+								<option>Greenland</option>
+								<option>Djibouti</option>
+								<option>Dominica</option>
+								<option>Dominican Republic</option>
+								<option>East Timor</option>
+								<option>Ecuador</option>
+								<option>Egypt</option>
+								<option>El Salvador</option>
+								<option>Equatorial Guinea</option>
+								<option>Eritrea</option>
+								<option>Estonia</option>
+								<option>Ethiopia</option>
+								<option>Fiji</option>
+								<option>Finland</option>
+								<option>Åland</option>
+								<option>France</option>
+								<option>Clipperton Island</option>
+								<option>French Polynesia</option>
+								<option>New Caledonia</option>
+								<option>Saint-Barthélemy</option>
+								<option>Saint Martin</option>
+								<option>Saint Pierre and Miquelon</option>
+								<option>Wallis and Futuna</option>
+								<option>French Southern and Antarctic Lands</option>
+								<option>Gabon</option>
+								<option>The Gambia</option>
+								<option>Georgia</option>
+								<option>Germany</option>
+								<option>Ghana</option>
+								<option>Greece</option>
+								<option>Grenada</option>
+								<option>Guatemala</option>
+								<option>Guinea</option>
+								<option>Guinea-Bissau</option>
+								<option>Guyana</option>
+								<option>Haiti</option>
+								<option>Honduras</option>
+								<option>Hungary</option>
+								<option>Iceland</option>
+								<option>India</option>
+								<option>Indonesia</option>
+								<option>Iran</option>
+								<option>Iraq</option>
+								<option>Ireland</option>
+								<option>Israel</option>
+								<option>Italy</option>
+								<option>Jamaica</option>
+								<option>Japan</option>
+								<option>Jordan</option>
+								<option>Kazakhstan</option>
+								<option>Kenya</option>
+								<option>Kiribati</option>
+								<option>Korea, North</option>
+								<option>Korea, South</option>
+								<option>Kuwait</option>
+								<option>Kyrgyzstan</option>
+								<option>Laos</option>
+								<option>Latvia</option>
+								<option>Lebanon</option>
+								<option>Lesotho</option>
+								<option>Liberia</option>
+								<option>Libya</option>
+								<option>Liechtenstein</option>
+								<option>Lithuania</option>
+								<option>Luxembourg</option>
+								<option>Macedonia</option>
+								<option>Madagascar</option>
+								<option>Malawi</option>
+								<option>Malaysia</option>
+								<option>Maldives</option>
+								<option>Mali</option>
+								<option>Malta</option>
+								<option>Marshall Islands</option>
+								<option>Mauritania</option>
+								<option>Mauritius</option>
+								<option>Mexico</option>
+								<option>Micronesia, Federated States of</option>
+								<option>Moldova</option>
+								<option>Monaco</option>
+								<option>Mongolia</option>
+								<option>Montenegro</option>
+								<option>Morocco</option>
+								<option>Mozambique</option>
+								<option>Namibia</option>
+								<option>Nauru</option>
+								<option>Nepal</option>
+								<option>Netherlands</option>
+								<option>Netherlands</option>
+								<option>Aruba</option>
+								<option>Curaçao</option>
+								<option>Sint Maarten</option>
+								<option>New Zealand</option>
+								<option>Cook Islands</option>
+								<option>Niue</option>
+								<option>Ross Dependency</option>
+								<option>Tokelau</option>
+								<option>Nicaragua</option>
+								<option>Niger</option>
+								<option>Nigeria</option>
+								<option>Norway</option>
+								<option>Oman</option>
+								<option>Pakistan</option>
+								<option>Azad Kashmir</option>
+								<option>Gilgit-Baltistan</option>
+								<option>Palau</option>
+								<option>Panama</option>
+								<option>Papua New Guinea</option>
+								<option>Paraguay</option>
+								<option>Peru</option>
+								<option>Philippines</option>
+								<option>Poland</option>
+								<option>Portugal</option>
+								<option>Qatar</option>
+								<option>Romania</option>
+								<option>Russia</option>
+								<option>Rwanda</option>
+								<option>Saint Kitts and Nevis</option>
+								<option>Saint Lucia</option>
+								<option>Saint Vincent and the Grenadines</option>
+								<option>Samoa</option>
+								<option>San Marino</option>
+								<option>São Tomé and Príncipe</option>
+								<option>Saudi Arabia</option>
+								<option>Senegal</option>
+								<option>Serbia</option>
+								<option>Seychelles</option>
+								<option>Sierra Leone</option>
+								<option>Singapore</option>
+								<option>Slovakia</option>
+								<option>Slovenia</option>
+								<option>Solomon Islands</option>
+								<option>Somalia</option>
+								<option>South Africa</option>
+								<option>South Sudan</option>
+								<option>Spain</option>
+								<option>Sri Lanka</option>
+								<option>Sudan</option>
+								<option>Suriname</option>
+								<option>Swaziland</option>
+								<option>Sweden</option>
+								<option>Switzerland</option>
+								<option>Syria</option>
+								<option>Tajikistan</option>
+								<option>Tanzania</option>
+								<option>Thailand</option>
+								<option>Togo</option>
+								<option>Tonga</option>
+								<option>Trinidad and Tobago</option>
+								<option>Tunisia</option>
+								<option>Turkey</option>
+								<option>Turkmenistan</option>
+								<option>Tuvalu</option>
+								<option>Uganda</option>
+								<option>Ukraine</option>
+								<option>United Arab Emirates</option>
+								<option>United Kingdom</option>
+								<option>Akrotiri and Dhekelia</option>
+								<option>Anguilla</option>
+								<option>Bermuda</option>
+								<option>British Indian Ocean Territory</option>
+								<option>British Virgin Islands</option>
+								<option>Cayman Islands</option>
+								<option>Falkland Islands</option>
+								<option>Gibraltar</option>
+								<option>Montserrat</option>
+								<option>Pitcairn Islands</option>
+								<option>Saint Helena, Ascension and Tristan da Cunha</option>
+								<option>South Georgia and the South Sandwich Islands</option>
+								<option>Turks and Caicos Islands</option>
+								<option>British Antarctic Territory</option>
+								<option>Guernsey</option>
+								<option>Alderney</option>
+								<option>Herm</option>
+								<option>Sark</option>
+								<option>Isle of Man</option>
+								<option>Jersey</option>
+								<option>United States</option>
+								<option>American Samoa</option>
+								<option>Guam</option>
+								<option>Northern Mariana Islands</option>
+								<option>Puerto Rico</option>
+								<option>U.S. Virgin Islands</option>
+								<option>Uruguay</option>
+								<option>Uzbekistan</option>
+								<option>Vanuatu</option>
+								<option>Vatican City</option>
+								<option>Venezuela</option>
+								<option>Vietnam</option>
+								<option>Yemen</option>
+								<option>Zambia</option>
+								<option>Zimbabwe</option>
+								<option>Abkhazia</option>
+								<option>Kosovo</option>
+								<option>Nagorno-Karabakh</option>
+								<option>Northern Cyprus</option>
+								<option>Palestine</option>
+								<option>Sahrawi Arab Democratic Republic</option>
+								<option>Somaliland</option>
+								<option>South Ossetia</option>
+								<option>Taiwan</option>
+								<option>Transnistria</option>
+							</select>
+						</li>
+					</ol>
+				</fieldset>
+			</li>
+
+			<!-- issue #22: problem with markup pattern -->
+			<li>
+				<label for="consultationResponse:group:0:question:3:answerTL:value">
+					<small class="instructions relevance">Please answer this question if you answered ‘<samp>No</samp>’ to ‘<var>Q1 Do you own a pet?</var>’</small>
+					<span class="label">Q3 Why don't you own a pet?</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<textarea id="consultationResponse:group:0:question:3:answerTL:value" name="consultationResponse:group:0:question:3:answerTL:value" cols="100" rows="5" required="required"></textarea>
+				<small class="hint">Maximum 500 characters</small>
+			</li>
+
+			<li class="footer">
+				<ol class="submit">
+					<li>
+						<strong>
+							<input type="submit" value="Submit" />
+						</strong>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</form>
+
+</div>
 
 
 <script src="qunit-helpers.js"></script>
@@ -531,15 +532,15 @@
 	test( 'test fields are in test form', function() {
 
 		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
-		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
-		strictEqual( $( 'form#test select#select-foo' ).length, 1, 'form#test contains select#select-foo' );
-		strictEqual( $( 'form#test textarea#textarea-foo' ).length, 1, 'form#test contains textarea#textarea-foo' );
-		strictEqual( $( 'form#test :radio[name="radioFoo"]' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
-		strictEqual( $( 'form#test input#email' ).length, 1, 'form#test contains input#email' );
-		strictEqual( $( 'form#test input#question' ).length, 1, 'form#test contains input#question' );
-		strictEqual( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
-		strictEqual( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
-		strictEqual( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
+		strictEqual( $( 'input#foo', '#test' ).length, 1, 'form#test contains input#foo' );
+		strictEqual( $( 'select#select-foo', '#test' ).length, 1, 'form#test contains select#select-foo' );
+		strictEqual( $( 'textarea#textarea-foo', '#test' ).length, 1, 'form#test contains textarea#textarea-foo' );
+		strictEqual( $( ':radio[name="radioFoo"]', '#test' ).length, 5, 'form#test contains 5 radio buttons in radioFoo group' );
+		strictEqual( $( 'input#email', '#test' ).length, 1, 'form#test contains input#email' );
+		strictEqual( $( 'input#question', '#test' ).length, 1, 'form#test contains input#question' );
+		strictEqual( $( '.group input#name-title', '#test' ).length, 1, 'form#test contains .group input#name-title' );
+		strictEqual( $( '.group input#name-given', '#test' ).length, 1, 'form#test contains .group input#name-given' );
+		strictEqual( $( '.group input#name-family', '#test' ).length, 1, 'form#test contains .group input#name-family' );
 
 	});
 
@@ -580,6 +581,7 @@
 		$( 'form' ).trigger( 'submit' );
 
 		var status = $( '.status' );
+		console.log( status );
 
 		strictEqual( status.length, 1, '.status element is shown' );
 		strictEqual( status.find( 'h2' ).length, 1, '.status element contains 1 h2 element' );
@@ -637,7 +639,7 @@
 		strictEqual( status.find( 'li' ).eq( 4 ).text(), 'Email: Must be an email address', 'type mismatch message is displayed for email field' );
 		strictEqual( status.find( 'li' ).eq( 5 ).text(), 'What is your answer: Must be completed', 'question mark is removed from label in status message' );
 		strictEqual( status.find( 'li' ).eq( 6 ).text(), 'Your name: Must be completed', 'group message is displayed for 3 group controls' );
-		strictEqual( status.find( 'li' ).eq( 7 ).text(), 'Address: Must be completed', 'group message is displayed for major group' );
+		strictEqual( status.find( 'li' ).eq( 7 ).text(), 'Address: Must be completed', 'group message is displayed for atomic group' );
 		strictEqual( status.find( 'li' ).eq( 8 ).text(), 'Q3 Why don\'t you own a pet: Must be completed', 'message is displayed for textarea with complex @id' );
 
 	});

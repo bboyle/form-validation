@@ -3,7 +3,7 @@
 
 	Forms validation helper
 
-	requires jquery (tested with 1.4.4)
+	requires jquery (tested with 1.4.4 and 1.7.2)
 	requires jquery.scrollTo plugin
 	requires generateId plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
@@ -59,7 +59,7 @@
 				foundElement = null;
 
 			if ( typeof options === 'object' && options.level === 'group' ) {
-				foundElement = $element.closest( '.group' ).find( component )[ 0 ];
+				foundElement = $element.forcesForms( 'group' ).find( component )[ 0 ];
 
 			} else if ( $element.is( ':radio, :checkbox' )) {
 				foundElement = $element.closest( 'fieldset' ).find( component )[ 0 ];
@@ -172,7 +172,7 @@
 				// get field
 				var $this = $( this ),
 					// get group (if exists)
-					group = $this.parentsUntil( 'form', '.group' ),
+					group = $this.forcesForms( 'group' ),
 					// get label or group label
 					label = $this.forcesForms( 'label', {
 						level : group.length > 0 ? 'group' : null
@@ -306,8 +306,8 @@
 
 				} else {
 					// atomic groups
-					group = $element.parentsUntil( 'form', '.group' );
-					if ( group.length > 0 && group.hasClass( 'atomic' )) {
+					group = $element.forcesForms( 'group' ).filter( '.atomic' );
+					if ( group.length > 0 ) {
 						return group.find( 'legend > .alert' )[ 0 ];
 						
 					} else {
@@ -354,7 +354,10 @@
 		// return group element for item
 		group : function() {
 			return this.map(function( index, domElement ) {
-				return $( domElement ).parentsUntil( 'form', '.group' )[ 0 ];
+				return $( domElement ).parentsUntil( 'form', '.group' ).filter(function() {
+					// ignore groups that do not contain fieldsets
+					return $( this ).children( 'fieldset' ).length > 0;
+				})[ 0 ];
 			});
 		},
 
