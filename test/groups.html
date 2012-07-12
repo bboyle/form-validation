@@ -174,13 +174,13 @@
 	test( 'test fields are in test form', function() {
 
 		equal( $( 'form#test' ).length, 1, 'form#test is present' );
-		equal( $( 'form#test .group input#name-title' ).length, 1, 'form#test contains .group input#name-title' );
-		equal( $( 'form#test .group input#name-given' ).length, 1, 'form#test contains .group input#name-given' );
-		equal( $( 'form#test .group input#name-family' ).length, 1, 'form#test contains .group input#name-family' );
-		equal( $( 'form#test .group input#foo' ).length, 1, 'form#test contains .group input#foo' );
-		equal( $( 'form#test .group input#bar' ).length, 1, 'form#test contains .group input#bar' );
-		equal( $( 'form#test input#nogroup' ).length, 1, 'form#test contains input#nogroup' );
-		equal( $( 'form#test .group input#nogroup' ).length, 0, 'form#test does not contain .group input#nogroup' );
+		equal( $( '.group input#name-title', '#test' ).length, 1, 'form#test contains .group input#name-title' );
+		equal( $( '.group input#name-given', '#test' ).length, 1, 'form#test contains .group input#name-given' );
+		equal( $( '.group input#name-family', '#test' ).length, 1, 'form#test contains .group input#name-family' );
+		equal( $( '.group input#foo', '#test' ).length, 1, 'form#test contains .group input#foo' );
+		equal( $( '.group input#bar', '#test' ).length, 1, 'form#test contains .group input#bar' );
+		equal( $( 'input#nogroup', '#test' ).length, 1, 'form#test contains input#nogroup' );
+		equal( $( '.group input#nogroup', '#test' ).length, 0, 'form#test does not contain .group input#nogroup' );
 
 	});
 
