@@ -100,6 +100,55 @@
 				<input type="text" name="nogroup" id="nogroup" />
 			</li>
 
+			<li class="atomic group">
+				<fieldset>
+					<legend>
+						<span class="label">Postal address</span>
+					</legend>
+					<ol class="questions">
+						<li>
+							<label for="street-address">
+								<span class="label">Street address</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<textarea id="street-address" name="streetAddress" rows="2" cols="30" required="required"></textarea>
+						</li>
+						<li class="group">
+							<ol class="questions compact">
+								<li>
+									<label for="city">
+										<span class="label">Town or suburb</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="city" name="city" size="15" required="required" />
+								</li>
+								<li>
+									<label for="state">
+										<span class="label">State</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="state" name="state" size="15" required="required" />
+								</li>
+								<li>
+									<label for="postcode">
+										<span class="label">Postcode</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="postcode" name="postcode" size="5" required="required" />
+								</li>
+							</ol>
+						</li>
+						<li>
+							<label for="country">
+								<span class="label">Country</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input id="country" name="country" size="30" required="required" />
+						</li>
+					</ol>
+				</fieldset>
+			</li>
+
 			<li class="footer">
 				<ol class="submit">
 					<li>
