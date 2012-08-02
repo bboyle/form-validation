@@ -85,13 +85,26 @@
 
 		var $this = $( this ),
 			alertElement = $this.forcesForms( 'alert' ),
-			alertLevel
+			alertLevel,
+			invalidContainers
 		;
 
 		// is this control valid?
 		if ( this.validity.valid ) {
 
-			alertElement.remove();
+			// is it part of a group that contain other invalid controls?
+			if ( $this.forcesForms( 'question' ).find( '.alert' ).filter( alertElement ).length > 0 ) {
+				alertElement.remove();
+			} else {
+				// update message from first invalid field in group
+				invalidContainers = $this.forcesForms( 'group' ).find( candidateForValidation ).filter( invalidFilter );
+				if ( invalidContainers.length > 0 ) {
+					alertElement.text( invalidContainers.forcesForms( 'getValidationMessage' ));
+				} else {
+					// all fields valid
+					alertElement.remove();
+				}
+			}
 
 			// remove invalid class from ancestors that do not contain invalid fields
 			$this.parentsUntil( 'form', '.invalid' ).filter(function() {
@@ -111,7 +124,7 @@
 			}
 
 			// show message
-			alertElement.text( $this.forcesForms( 'getValidationMessage' ) );
+			alertElement.text( $this.forcesForms( 'getValidationMessage' ));
 			// append to form
 			if ( $this.forcesForms( 'group' ).hasClass( 'atomic' )) {
 				alertLevel = { 'level' : 'group' };

@@ -1,3 +1,4 @@
+// constraint validation API (html5)
 lifecycleCVAPI = {
 		setup: function() {
 			// initialise validation (for fixture)
