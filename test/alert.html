@@ -159,6 +159,55 @@
 				</fieldset>
 			</li>
 
+			<li class="atomic group">
+				<fieldset id="postal-address">
+					<legend>
+						<span class="label">Postal address</span>
+					</legend>
+					<ol class="questions">
+						<li>
+							<label for="street-address">
+								<span class="label">Street address</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<textarea id="street-address" name="streetAddress" rows="2" cols="30" required="required"></textarea>
+						</li>
+						<li class="group">
+							<ol class="questions compact">
+								<li>
+									<label for="city">
+										<span class="label">Town or suburb</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="city" name="city" size="15" required="required" />
+								</li>
+								<li>
+									<label for="state">
+										<span class="label">State</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="state" name="state" size="15" required="required" />
+								</li>
+								<li>
+									<label for="postcode">
+										<span class="label">Postcode</span>
+										<abbr title="(required)">*</abbr>
+									</label>
+									<input id="postcode" name="postcode" size="5" required="required" />
+								</li>
+							</ol>
+						</li>
+						<li>
+							<label for="country">
+								<span class="label">Country</span>
+								<abbr title="(required)">*</abbr>
+							</label>
+							<input id="country" name="country" size="30" required="required" />
+						</li>
+					</ol>
+				</fieldset>
+			</li>
+
 			<li class="footer">
 				<ol class="submit">
 					<li>
@@ -183,7 +232,7 @@
 
 	module( 'environment' );
 
-	test( 'test fields are in test form', function() {
+	test( 'test fields are in test form', 25, function() {
 
 		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
 		strictEqual( $( 'form#test input#foo' ).length, 1, 'form#test contains input#foo' );
@@ -207,12 +256,18 @@
 		ok( $( '#dob' ).parent().hasClass( 'group' ), '#dob is a group' );
 		ok( $( '#dob' ).parent().hasClass( 'atomic' ), '#dob is an atomic group' );
 
+		strictEqual( $( 'input#country', '#postal-address' ).length, 1, '#postal-address contains .group input#country' );
+		ok( $( '#postal-address' ).parent().hasClass( 'group' ), '#postal-address is a group' );
+		ok( $( '#postal-address' ).parent().hasClass( 'atomic' ), '#postal-address is an atomic group' );
+		strictEqual( $( '.group', '#postal-address' ).length, 1, '#postal-address contains one nested .group' );
+		strictEqual( $( '.atomic', '#postal-address' ).length, 0, '#postal-address contains no nested atomic groups' );
+		strictEqual( $( '.group input#city', '#postal-address' ).length, 1, '#postal-address contains nested .group input#city' );
 	});
 
 
 	module( 'inline validation messages (alerts)' );
 
-	test( 'can get alert value', function() {
+	test( 'can get alert value', 6, function() {
 
 		strictEqual( $( '#foo' ).forcesForms( 'alert' )[ 0 ], $( 'label[for=foo] > .alert' )[ 0 ], 'found alert' );
 		strictEqual( $( '#foo' ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
@@ -224,7 +279,7 @@
 
 	});
 
-	test( 'can get group alert for atomic group', function() {
+	test( 'can get group alert for atomic group', 3, function() {
 		
 		strictEqual( $( '#name-given' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
 		strictEqual( $( '#name-family' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
@@ -235,9 +290,9 @@
 
 	module( 'inline validation messages (alerts)', lifecycleCVAPI );
 
-	test( 'alert managed for atomic groups onchange', function() {
+	test( 'alert managed for atomic groups onchange', 7, function() {
 		
-		// set different custom errors
+		// set custom error
 		$( '#dob-date' ).val( '56' ).each(function() { this.setCustomValidity( 'Date must be a number (1–31)' ); }).trigger( 'change' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#dob contains 1 alert' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).text(), 'Date must be a number (1–31)', '#dob alert text is correct' );
@@ -256,6 +311,41 @@
 		$( '#dob-month' ).each(function() { this.selectedIndex = 8; }).trigger( 'change' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 0, '#dob contains no alerts' );
 
+	});
+
+	test( 'alert managed for mixed groups onchange', 11, function() {
+		
+		// make state and country valid for this test
+		$( '#state, #country' ).val( 'foo' ).trigger( 'change' );
+
+		// set different custom error in nested group
+		$( '#city' ).val( 'foo' ).each(function() { this.setCustomValidity( 'Foo is not a city' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#postal-address contains 1 alert' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).text(), 'Foo is not a city', '#postal-address alert text is correct' );
+
+		// set different custom error in nested group
+		$( '#postcode' ).val( 'foo' ).each(function() { this.setCustomValidity( 'Must be a number' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#postal-address still contains 1 alert' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).text(), 'Must be a number', '#postal-address alert text is updated' );
+
+		// set different custom outside nested group
+		$( '#street-address' ).val( 'foo' ).each(function() { this.setCustomValidity( 'Must be a street or post office box' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#postal-address still contains 1 alert' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).text(), 'Must be a street or post office box', '#postal-address alert text is updated' );
+
+		// fix error inside nested group
+		$( '#postcode' ).val( '4000' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#postal-address still contains 1 alert' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).text(), 'Must be a street or post office box', '#postal-address alert text has not changed' );
+
+		// fix error outside nested group
+		$( '#street-address' ).val( '1 Roma Street' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#postal-address still contains 1 alert' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).text(), 'Foo is not a city', '#postal-address alert text changed to last error remaining' );
+
+		// fix remaining error inside nested group
+		$( '#city' ).val( 'Brisbane' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
+		strictEqual( $( '#postal-address' ).closest( '.atomic' ).find( '.alert' ).length, 0, '#postal-address contains no alerts' );
 	});
 
 
