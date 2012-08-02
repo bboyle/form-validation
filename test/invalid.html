@@ -756,7 +756,7 @@
 	test( '.invalid class managed for groups', function() {
 		
 		$( 'form' ).trigger( 'submit' );
-		strictEqual( $( '#name-group input' ).filter(function() {
+		strictEqual( $( 'input', '#name-group' ).filter(function() {
 			return ! this.validity.valid;
 		}).length, 2, '2 invalid fields in group' )
 		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), true, '#name-group is .invalid after submit' );

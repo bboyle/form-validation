@@ -233,26 +233,27 @@
 	});
 
 
-	module( 'inline validation messages (alerts) after submit', lifecycleCVAPI );
+	module( 'inline validation messages (alerts)', lifecycleCVAPI );
 
-	test( 'alert managed for atomic groups onchange after submit', function() {
+	test( 'alert managed for atomic groups onchange', function() {
 		
 		// set different custom errors
 		$( '#dob-date' ).val( '56' ).each(function() { this.setCustomValidity( 'Date must be a number (1–31)' ); }).trigger( 'change' );
-		$( '#dob-year' ).val( 'YYYY' ).each(function() { this.setCustomValidity( 'Year must be a 4-digit number' ); }).trigger( 'change' );
-
-		$( 'form' ).trigger( 'submit' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#dob contains 1 alert' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).text(), 'Date must be a number (1–31)', '#dob alert text is correct' );
 
-		// correct 1 of the errors
-		$( '#dob-date' ).val( '11' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
+		$( '#dob-year' ).val( 'YYYY' ).each(function() { this.setCustomValidity( 'Year must be a 4-digit number' ); }).trigger( 'change' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#dob contains 1 alert' );
-		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).text(), 'Year must be a 4-digit number', '#dob alert text is updated' );
+		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).text(), 'Year must be a 4-digit number', '#dob alert text updated to most recent error' );
+
+		// correct 1 of the errors
+		$( '#dob-year' ).val( '1976' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
+		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 1, '#dob contains 1 alert' );
+		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).text(), 'Date must be a number (1–31)', '#dob alert text is updated to first error within group' );
 
 		// correct all errors
+		$( '#dob-date' ).val( '11' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
 		$( '#dob-month' ).each(function() { this.selectedIndex = 8; }).trigger( 'change' );
-		$( '#dob-year' ).val( '1976' ).each(function() { this.setCustomValidity( '' ); }).trigger( 'change' );
 		strictEqual( $( '#dob' ).closest( '.atomic' ).find( '.alert' ).length, 0, '#dob contains no alerts' );
 
 	});
