@@ -91,7 +91,10 @@
 		// is this control valid?
 		if ( this.validity.valid ) {
 
-			alertElement.remove();
+			// is it part of a group that contain other invalid controls?
+			if ( $this.forcesForms( 'question' ).find( alertElement ).length > 0 ) {
+				alertElement.remove();
+			}
 
 			// remove invalid class from ancestors that do not contain invalid fields
 			$this.parentsUntil( 'form', '.invalid' ).filter(function() {

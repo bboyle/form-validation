@@ -235,7 +235,7 @@
 
 	module( 'inline validation messages (alerts) after submit', lifecycleCVAPI );
 
-	test( '.invalid class managed for atomic groups onchange after submit', function() {
+	test( 'alert managed for atomic groups onchange after submit', function() {
 		
 		// set different custom errors
 		$( '#dob-date' ).val( '56' ).each(function() { this.setCustomValidity( 'Must be a number (1–31)' ); }).trigger( 'change' );
