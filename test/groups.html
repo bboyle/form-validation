@@ -2,10 +2,25 @@
 <html lang="en-AU">
 <head>
 	<meta charset="UTF-8" />
-	<title>group tests · forces validation UI tests</title>
+	<title>group tests · form validation tests</title>
 
-	<link rel="stylesheet" href="../lib/qunit-git.css" />
-	<script src="../lib/qunit-git.js"></script>
+	<!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
+	<script src="../libs/jquery-loader.js"></script>
+	<!-- Load local QUnit. -->
+	<link rel="stylesheet" href="../libs/qunit/qunit.css" media="screen">
+	<script src="../libs/qunit/qunit.js"></script>
+	<!-- Load local lib and tests. -->
+	<script src="../libs/html5.constraintValidationAPI.min.js"></script>
+	<script src="../libs/generate-id.min.js"></script>
+	<script src="../libs/jquery.scrollto.js"></script>
+	<script src="../src/form-validation.js"></script>
+	<script src="qunit-lifecycle.js"></script>
+	<script src="groups.js"></script>
+	<!-- Removing access to jQuery and $. But it'll still be available as _$, if
+		you REALLY want to mess around with jQuery in the console. REMEMBER WE
+		ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
+	<script>window._$ = jQuery.noConflict(true);</script>
+
 	<style>
 		body {
 			padding: 2em;
@@ -163,64 +178,6 @@
 
 	</form>
 </div>
-
-
-<script src="qunit-helpers.js"></script>
-
-<script><!-- //
-
-	module( 'environment' );
-
-	test( 'test fields are in test form', function() {
-
-		strictEqual( $( 'form#test' ).length, 1, 'form#test is present' );
-		strictEqual( $( '.group input#name-title', '#test' ).length, 1, 'form#test contains .group input#name-title' );
-		strictEqual( $( '.group input#name-given', '#test' ).length, 1, 'form#test contains .group input#name-given' );
-		strictEqual( $( '.group input#name-family', '#test' ).length, 1, 'form#test contains .group input#name-family' );
-		strictEqual( $( '.group input#foo', '#test' ).length, 1, 'form#test contains .group input#foo' );
-		strictEqual( $( '.group input#bar', '#test' ).length, 1, 'form#test contains .group input#bar' );
-		strictEqual( $( 'input#nogroup', '#test' ).length, 1, 'form#test contains input#nogroup' );
-		strictEqual( $( '.group input#nogroup', '#test' ).length, 0, 'form#test does not contain .group input#nogroup' );
-		strictEqual( $( '.group input#country', '#test' ).length, 1, 'form#test contains .group input#country' );
-		strictEqual( $( '.group .group input#city', '#test' ).length, 1, 'form#test contains nested .group input#city' );
-
-	});
-
-
-	module( 'form traversal' );
-
-	test( 'can get groups for form fields', function() {
-
-		strictEqual( $( '#name-title' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for title' );
-		strictEqual( $( '#name-given' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for given name' );
-		strictEqual( $( '#name-family' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for family name' );
-
-	});
-
-	test( 'non-grouped fields return undefined', function() {
-
-		strictEqual( $( '#nogroup' ).forcesForms( 'group' )[ 0 ], undefined, 'nogroup has no group' );
-
-	});
-
-	test( 'verify .forcesForm( \'group\' ) supports jquery chaining', function() {
-		// test jquery object
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 0 ], $( '.group' )[ 0 ], 'found group for name (title)' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 1 ], $( '.group' )[ 0 ], 'found group for name (given)' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 2 ], $( '.group' )[ 0 ], 'found group for name (family)' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 3 ], $( '.group' )[ 1 ], 'found fubar group for foo' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 4 ], $( '.group' )[ 1 ], 'found fubar group for bar' );
-		// .nogroup will be removed from jquery object after .forcesForms( 'group' )
-		// strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 5 ], undefined, 'found undefined for ungrouped input' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 5 ], $( '.group' )[ 2 ], 'found address group for city' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 6 ], $( '.group' )[ 2 ], 'found address group for state' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 7 ], $( '.group' )[ 2 ], 'found address group for postcode' );
-		strictEqual( $( 'input', '#test' ).forcesForms( 'group' )[ 8 ], $( '.group' )[ 2 ], 'found address group for country' );
-
-	});
-
-
-// --></script>
 
 
 </body>
