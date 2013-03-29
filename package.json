@@ -1,5 +1,5 @@
 {
-	"name": "form-validaton",
+	"name": "form-validation",
 	"title": "Form validation",
 	"description": "Validation UI for web forms using the HTML5 constraint validation API",
 	"version": "1.0.1",

@@ -33,6 +33,7 @@ You may also want to check out @jzaefferer's [jquery-validation](https://github.
 
 * documentation!!
 * separate highlight script to a separate repo
+* separate submit suppression into a separate repo?
 * html5 validation for test pages
 * cucumber acceptance tests
 * test against different versions of jquery

@@ -21,8 +21,10 @@ module.exports = function( grunt ) {
 				banner: '<%= banner %>'
 			},
 			dist: {
-				src: 'src/<%= pkg.name %>.js',
-				dest: 'dist/<%= pkg.name %>.min.js'
+				files: {
+					'dist/<%= pkg.name %>.min.js': [ 'src/<%= pkg.name %>.js' ],
+					'dist/jquery.forms.highlight.min.js': [ 'src/jquery.forms.highlight.js' ]
+				}
 			},
 		},
 		// code quality tasks
