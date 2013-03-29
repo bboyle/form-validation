@@ -163,7 +163,7 @@
 		$( 'form' ).trigger( 'submit' );
 		strictEqual( $( 'input', '#name-group' ).filter(function() {
 			return ! this.validity.valid;
-		}).length, 2, '2 invalid fields in group' )
+		}).length, 2, '2 invalid fields in group' );
 		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), true, '#name-group is .invalid after submit' );
 
 		// make some of the fields valid, but NOT all
@@ -171,7 +171,7 @@
 
 		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
-		}).length, 1, '1 invalid field in group' )
+		}).length, 1, '1 invalid field in group' );
 		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), true, '#name-group remains .invalid if only some invalid fields are corrected' );
 
 		// make all fields valid
@@ -180,7 +180,7 @@
 		// test .invalid class removed
 		strictEqual( $( '#name-group input' ).filter(function() {
 			return ! this.validity.valid;
-		}).length, 0, 'no invalid fields in group' )
+		}).length, 0, 'no invalid fields in group' );
 		strictEqual( $( '#name-group' ).parent().is( '.invalid' ), false, '#name-group is not .invalid after correcting all invalid fields' );
 
 	});

@@ -4,14 +4,6 @@
 
 	var userInitiatedSubmit = function() {
 			$( '#test :submit' )[ 0 ].click();
-		},
-
-		makeFormValid = function() {
-			$( '#foo, #select-foo, #textarea-foo, #question' ).val( 'foo' );
-			$( '#radio-foo-foo' )[ 0 ].checked = true;
-			$( '#email' ).val( 'foo@example.com' );
-			$( '#name-given' ).val( 'John' );
-			$( '#name-family' ).val( 'Smith' );
 		}
 	;
 
@@ -70,7 +62,6 @@
 		$( 'form' ).trigger( 'submit' );
 
 		var status = $( '.status' );
-		console.log( status );
 
 		strictEqual( status.length, 1, '.status element is shown' );
 		strictEqual( status.find( 'h2' ).length, 1, '.status element contains 1 h2 element' );
