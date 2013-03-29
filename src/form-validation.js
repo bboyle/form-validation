@@ -79,7 +79,7 @@
 
 		});
 	},
-	
+
 
 	changeValidityCheck = function() {
 
@@ -137,7 +137,7 @@
 		}
 	},
 
-	
+
 	// checks for invalid elements
 	// returns number of invalid elements
 	submitValidityCheck = function() {
@@ -197,7 +197,7 @@
 				;
 
 				if ( group.length === 0 || group[ 0 ] !== lastGroupSeen ) {
-					
+
 					// update last group seen
 					lastGroupSeen = group[ 0 ];
 
@@ -307,8 +307,8 @@
 	methods = {
 
 		// $( x ).forcesForms( 'alert' ) -- get
-		// get or set alert text (html not supported)
-		alert : function( alertMessage ) {
+		// get alert text
+		alert : function() {
 			return this.map(function( index, domElement ) {
 
 				var $element = $( domElement ),
@@ -322,7 +322,7 @@
 					group = $element.forcesForms( 'group' ).filter( '.atomic' );
 					if ( group.length > 0 ) {
 						return group.find( 'legend > .alert' )[ 0 ];
-						
+
 					} else {
 						return $( 'label[for="' + domElement.id + '"] > .alert' )[ 0 ];
 					}

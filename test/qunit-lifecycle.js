@@ -1,5 +1,7 @@
 // constraint validation API (html5)
-lifecycleCVAPI = {
+/*globals initConstraintValidationAPI*/
+lifecycleCVAPI = (function( $ ) {
+	return {
 		setup: function() {
 			// initialise validation (for fixture)
 			initConstraintValidationAPI();
@@ -10,5 +12,5 @@ lifecycleCVAPI = {
 			// scroll to top
 			$( window ).scrollTo( 0 );
 		}
-	}
-;
+	};
+}( jQuery ));
