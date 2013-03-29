@@ -27,6 +27,9 @@ module.exports = function( grunt ) {
 		},
 		// code quality tasks
 		qunit: {
+			options: {
+				timeout: 12000
+			},
 			files: [ 'test/**/*.html' ]
 		},
 		jshint: {
