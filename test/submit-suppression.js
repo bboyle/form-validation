@@ -26,15 +26,15 @@
 		$( '#foo' )[ 0 ].setCustomValidity( 'invalid' );
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
 		userInitiatedSubmit(); // should submit (1)
-		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+		strictEqual( typeof $( '#test' ).data( 'formValidation' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
 		userInitiatedSubmit(); // should submit (2)
-		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+		strictEqual( typeof $( '#test' ).data( 'formValidation' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
 		
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
 		userInitiatedSubmit(); // should submit (3)
-		strictEqual( typeof $( '#test' ).data( 'forcesForms' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
+		strictEqual( typeof $( '#test' ).data( 'formValidation' ).lastSubmitTimeStamp, 'undefined', 'lastSubmitTimeStamp is undefined' );
 		
 	});
 
@@ -42,7 +42,7 @@
 
 		// setup
 		submitted = 0;
-		$( '#test' ).removeData( 'forcesForms' );
+		$( '#test' ).removeData( 'formValidation' );
 
 		userInitiatedSubmit(); // should submit (1)
 		userInitiatedSubmit(); // should be suppressed -
