@@ -41,22 +41,25 @@
 
 	test( 'can get alert value', 6, function() {
 
-		strictEqual( $( '#foo' ).forcesForms( 'alert' )[ 0 ], $( 'label[for=foo] > .alert' )[ 0 ], 'found alert' );
-		strictEqual( $( '#foo' ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
+		strictEqual( $( '#foo' ).formValidation( 'alert' )[ 0 ], $( 'label[for=foo] > .alert' )[ 0 ], 'found alert' );
+		strictEqual( $( '#foo' ).formValidation( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
 
-		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for radio group' );
-		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text for radio group' );
-		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).forcesForms( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for 2nd radio button' );
-		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).forcesForms( 'alert' )[ 0 ], $( ':radio[name=radioFoo]' ).eq( 0 ).forcesForms( 'alert' )[ 0 ], 'Must be completed', 'same alert used for both radio buttons' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).formValidation( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for radio group' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 0 ).formValidation( 'alert' ).text(), 'Must be completed', 'found expected alert text for radio group' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).formValidation( 'alert' )[ 0 ], $( 'legend > .alert' )[ 0 ], 'found alert for 2nd radio button' );
+		strictEqual( $( ':radio[name=radioFoo]' ).eq( 1 ).formValidation( 'alert' )[ 0 ], $( ':radio[name=radioFoo]' ).eq( 0 ).formValidation( 'alert' )[ 0 ], 'Must be completed', 'same alert used for both radio buttons' );
 
 	});
 
-	test( 'can get group alert for atomic group', 3, function() {
+	test( 'can get group alert for atomic group', 5, function() {
 		
-		strictEqual( $( '#name-given' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
-		strictEqual( $( '#name-family' ).forcesForms( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert' );
-		strictEqual( $( '#name-given' ).forcesForms( 'alert' ).text(), 'Must be completed', 'found expected alert text' );
+		strictEqual( $( '#name-given' ).formValidation( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert for given name' );
+		strictEqual( $( '#name-family' ).formValidation( 'alert' )[ 0 ], $( '#name-group > legend > .alert' )[ 0 ], 'found alert for family name' );
+		strictEqual( $( '#name-given' ).formValidation( 'alert' ).text(), 'Must be completed', 'found expected alert text for given name' );
 
+		$( '#test :submit' )[ 0 ].click();
+		strictEqual( $( '#postcode' ).formValidation( 'alert' )[ 0 ], $( '#postal-address > legend > .alert' )[ 0 ], 'found alert for postcode' );
+		strictEqual( $( '#street-address' ).formValidation( 'alert' )[ 0 ], $( '#postal-address > legend > .alert' )[ 0 ], 'found alert for street address' );
 	});
 
 

@@ -128,7 +128,7 @@
 				alertLevel = { 'level' : 'group' };
 			}
 
-			$this.formValidation( 'label', alertLevel ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
+			$this.formValidation( 'label', alertLevel ).parent().find( '.label, abbr[title="(required)"]' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
