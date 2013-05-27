@@ -1,11 +1,9 @@
 /*
-	jquery forces forms plugin
-
-	Forms validation helper
+	Form validation helper
 
 	requires jquery (tested with 1.4.4 and 1.7.2)
 	requires jquery.scrollTo plugin
-	requires generateId plugin
+	requires generate-id plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
 	tested with polyfill forces.html5.constraintValidationAPI
 
@@ -31,7 +29,7 @@
 
 	// follow plugin conventions for storing plugin data
 	// http://docs.jquery.com/Plugins/Authoring#Data
-	pluginDataKey = 'forcesForms',
+	pluginDataKey = 'formValidation',
 	pluginData = function( key, value ) {
 		var dataHash = this.data( pluginDataKey ) || this.data( pluginDataKey, {}).data( pluginDataKey );
 
@@ -59,7 +57,7 @@
 				foundElement = null;
 
 			if ( typeof options === 'object' && options.level === 'group' ) {
-				foundElement = $element.forcesForms( 'group' ).find( component )[ 0 ];
+				foundElement = $element.formValidation( 'group' ).find( component )[ 0 ];
 
 			} else if ( $element.is( ':radio, :checkbox' )) {
 				foundElement = $element.closest( 'fieldset' ).find( component )[ 0 ];
@@ -84,7 +82,7 @@
 	changeValidityCheck = function() {
 
 		var $this = $( this ),
-			alertElement = $this.forcesForms( 'alert' ),
+			alertElement = $this.formValidation( 'alert' ),
 			alertLevel,
 			invalidContainers
 		;
@@ -93,13 +91,13 @@
 		if ( this.validity.valid ) {
 
 			// is it part of a group that contain other invalid controls?
-			if ( $this.forcesForms( 'question' ).find( '.alert' ).filter( alertElement ).length > 0 ) {
+			if ( $this.formValidation( 'question' ).find( '.alert' ).filter( alertElement ).length > 0 ) {
 				alertElement.remove();
 			} else {
 				// update message from first invalid field in group
-				invalidContainers = $this.forcesForms( 'group' ).find( candidateForValidation ).filter( invalidFilter );
+				invalidContainers = $this.formValidation( 'group' ).find( candidateForValidation ).filter( invalidFilter );
 				if ( invalidContainers.length > 0 ) {
-					alertElement.text( invalidContainers.forcesForms( 'getValidationMessage' ));
+					alertElement.text( invalidContainers.formValidation( 'getValidationMessage' ));
 				} else {
 					// all fields valid
 					alertElement.remove();
@@ -124,13 +122,13 @@
 			}
 
 			// show message
-			alertElement.text( $this.forcesForms( 'getValidationMessage' ));
+			alertElement.text( $this.formValidation( 'getValidationMessage' ));
 			// append to form
-			if ( $this.forcesForms( 'group' ).hasClass( 'atomic' )) {
+			if ( $this.formValidation( 'group' ).hasClass( 'atomic' )) {
 				alertLevel = { 'level' : 'group' };
 			}
 
-			$this.forcesForms( 'label', alertLevel ).parent().find( '.label, .required' ).eq( -1 ).after( alertElement );
+			$this.formValidation( 'label', alertLevel ).parent().find( '.label, abbr[title="(required)"]' ).eq( -1 ).after( alertElement );
 
 			// NOTE we don't flag the question as .invalid now
 			// .invalid only happens on submit, to soften inline validation errors
@@ -185,9 +183,9 @@
 				// get field
 				var $this = $( this ),
 					// get group (if exists)
-					group = $this.forcesForms( 'group' ),
+					group = $this.formValidation( 'group' ),
 					// get label or group label
-					label = $this.forcesForms( 'label', {
+					label = $this.formValidation( 'label', {
 						level : group.length > 0 ? 'group' : null
 					}),
 					// get the label id
@@ -204,7 +202,7 @@
 					// create error message with link to label
 					item
 						.find( 'a' )
-							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.forcesForms( 'getValidationMessage' ) )
+							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.formValidation( 'getValidationMessage' ) )
 							.end()
 						.appendTo( messages )
 					;
@@ -306,7 +304,7 @@
 	// plugin methods
 	methods = {
 
-		// $( x ).forcesForms( 'alert' ) -- get
+		// $( x ).formValidation( 'alert' ) -- get
 		// get alert text
 		alert : function() {
 			return this.map(function( index, domElement ) {
@@ -319,7 +317,7 @@
 
 				} else {
 					// atomic groups
-					group = $element.forcesForms( 'group' ).filter( '.atomic' );
+					group = $element.formValidation( 'group' ).filter( '.atomic' );
 					if ( group.length > 0 ) {
 						return group.find( 'legend > .alert' )[ 0 ];
 
@@ -331,29 +329,29 @@
 		},
 
 
-		// $( x ).forcesForms( 'label' )
-		// $( x ).forcesForms( 'label', { level : group })
+		// $( x ).formValidation( 'label' )
+		// $( x ).formValidation( 'label', { level : group })
 		// return .label associated with element or containing group
 		label : function( options ) {
 			return getLabelComponent.call( this, '.label', options );
 		},
 
 
-		// $( x ).forcesForms( 'hint' )
-		// $( x ).forcesForms( 'hint', { level : group })
+		// $( x ).formValidation( 'hint' )
+		// $( x ).formValidation( 'hint', { level : group })
 		// return .hint associated with element or containing group
 		hint : function( options ) {
 			return getLabelComponent.call( this, '.hint', options );
 		},
 
 
-		// $( x ).forcesForms( 'question' )
+		// $( x ).formValidation( 'question' )
 		// return question element for item
 		question : function( options ) {
 			// looking for group?
 			if ( typeof options === 'object' && options.level === 'group' ) {
 				// return the group
-				return this.forcesForms( 'group' );
+				return this.formValidation( 'group' );
 			}
 
 			// not looking for group
@@ -363,7 +361,7 @@
 		},
 
 
-		// $( x ).forcesForms( 'group' )
+		// $( x ).formValidation( 'group' )
 		// return group element for item
 		group : function() {
 			return this.map(function( index, domElement ) {
@@ -375,7 +373,7 @@
 		},
 
 
-		// $( x ).forcesForms( 'validate' )
+		// $( x ).formValidation( 'validate' )
 		// binds validation handler functions
 		// sets @novalidate on form to disable built-in validation
 		// TODO allow this to be called multiple times without binding additional handlers!
@@ -400,7 +398,7 @@
 		},
 
 
-		// $( x ).forcesForms( 'getValidationMessage' )
+		// $( x ).formValidation( 'getValidationMessage' )
 		// return String validation message, e.g. "Must be completed"
 		getValidationMessage : function() {
 
@@ -429,7 +427,7 @@
 	};
 
 
-	$.fn.forcesForms = function( method ) {
+	$.fn.formValidation = function( method ) {
 
 		// Method calling logic
 		// http://docs.jquery.com/Plugins/Authoring#Plugin_Methods
@@ -438,10 +436,14 @@
 		} else if ( typeof method === 'object' || ! method ) {
 			return methods.init.apply( this, arguments );
 		} else {
-			$.error( 'Method ' +  method + ' does not exist on jQuery.forcesForms' );
+			$.error( 'Method ' +  method + ' does not exist on jQuery.formValidation' );
 		}
 
 	};
+
+
+	// legacy API
+	$.fn.forcesForms = $.fn.formValidation;
 
 
 }( jQuery ));
