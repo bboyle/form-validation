@@ -265,6 +265,9 @@
 				.addClass( 'invalid' )
 			;
 
+			// trigger x-invalid
+			form.trigger( 'x-invalid' );
+
 			// cancel submit
 			return false;
 		}
