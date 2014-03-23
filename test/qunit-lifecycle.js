@@ -1,5 +1,5 @@
 // constraint validation API (html5)
-/*globals initConstraintValidationAPI*/
+/*global initConstraintValidationAPI*/
 lifecycleCVAPI = (function( $ ) {
 	return {
 		setup: function() {
