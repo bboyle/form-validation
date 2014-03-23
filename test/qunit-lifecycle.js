@@ -10,7 +10,7 @@ lifecycleCVAPI = (function( $ ) {
 
 		teardown: function() {
 			// scroll to top
-			$( window ).scrollTo( 0 );
+			$( window ).scrollTop( 0 );
 		}
 	};
 }( jQuery ));

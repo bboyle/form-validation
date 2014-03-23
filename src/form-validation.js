@@ -2,7 +2,6 @@
 	Form validation helper
 
 	requires jquery (tested with 1.4.4 and 1.7.2)
-	requires jquery.scrollTo plugin
 	requires generate-id plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
 	tested with polyfill html5.constraintValidationAPI
@@ -247,10 +246,8 @@
 				form.prev( '.status' ).not( summary ).remove();
 				// show the new summary
 				form.before( summary.fadeIn() );
-				// focus/scrollTo summary element
-				// required jquery.scrollTo plugin
-				// http://flesler.blogspot.com/2007/10/jqueryscrollto.html
-				$( window ).scrollTo( summary );
+				// focus/scroll summary element
+				$( window ).scrollTop( summary.offset().top );
 			}( form ));
 
 			// find all the invalid fields
