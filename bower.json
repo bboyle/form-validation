@@ -29,6 +29,7 @@
   ],
   "dependencies": {
     "jquery": "1.7.2",
-    "generate-id": "https://github.com/bboyle/Generate-ID.git#~0.1.0"
+    "generate-id": "https://github.com/bboyle/Generate-ID.git#~0.1.0",
+    "html5-constraint-validation-API": "https://github.com/bboyle/html5-constraint-validation-API.git"
   }
 }
