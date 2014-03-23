@@ -225,7 +225,7 @@
 		userInitiatedSubmit();
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
-		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), true, '#foo question is .invalid' );
+		strictEqual( $( '#foo' ).formValidation( 'question' ).is( '.invalid' ), true, '#foo question is .invalid' );
 		strictEqual( $( '#name-title' )[ 0 ].validity.valid, true, '#name-title is valid' );
 		strictEqual( $( '#name-given' )[ 0 ].validity.valid, false, '#name-given is invalid' );
 		strictEqual( $( '#name-family' )[ 0 ].validity.valid, false, '#name-given is invalid' );
@@ -237,7 +237,7 @@
 		userInitiatedSubmit();
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, true, '#foo is valid' );
-		strictEqual( $( '#foo' ).forcesForms( 'question' ).is( '.invalid' ), false, '#foo question is not .invalid' );
+		strictEqual( $( '#foo' ).formValidation( 'question' ).is( '.invalid' ), false, '#foo question is not .invalid' );
 		strictEqual( $( '#name-title' )[ 0 ].validity.valid, true, '#name-title is valid' );
 		strictEqual( $( '#name-given' )[ 0 ].validity.valid, true, '#name-given is valid' );
 		strictEqual( $( '#name-family' )[ 0 ].validity.valid, true, '#name-family is valid' );
@@ -251,11 +251,11 @@
 
 		strictEqual( $( '#foo' )[ 0 ].validity.valid, false, '#foo is invalid' );
 
-		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#foo has 1 alert displayed' );
-		strictEqual( $( '#foo' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be completed', '#foo alert has correct text' );
+		strictEqual( $( '#foo' ).formValidation( 'question' ).find( '.alert' ).length, 1, '#foo has 1 alert displayed' );
+		strictEqual( $( '#foo' ).formValidation( 'question' ).find( '.alert' ).text(), 'Must be completed', '#foo alert has correct text' );
 
-		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#radio-foo-foo has 1 alert displayed' );
-		strictEqual( $( '#radio-foo-foo' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be completed', '#radio-foo-foo alert has correct text' );
+		strictEqual( $( '#radio-foo-foo' ).formValidation( 'question' ).find( '.alert' ).length, 1, '#radio-foo-foo has 1 alert displayed' );
+		strictEqual( $( '#radio-foo-foo' ).formValidation( 'question' ).find( '.alert' ).text(), 'Must be completed', '#radio-foo-foo alert has correct text' );
 
 	});
 
@@ -265,13 +265,13 @@
 		// simulate autofill email
 		$( '#email' ).val( 'foo' ); // do not fire focus, change or blur events!
 
-		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+		strictEqual( $( '#email' ).formValidation( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
 
 		userInitiatedSubmit();
 
 		strictEqual( $( '#email' )[ 0 ].validity.valid, false, '#email is invalid' );
-		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 1, '#email has 1 alert displayed' );
-		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).text(), 'Must be an email address', '#email alert has correct text' );
+		strictEqual( $( '#email' ).formValidation( 'question' ).find( '.alert' ).length, 1, '#email has 1 alert displayed' );
+		strictEqual( $( '#email' ).formValidation( 'question' ).find( '.alert' ).text(), 'Must be an email address', '#email alert has correct text' );
 
 	});
 
@@ -281,12 +281,12 @@
 		// simulate autofill email
 		$( '#email' ).val( 'foo@example.com' ); // do not fire focus, change or blur events!
 
-		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+		strictEqual( $( '#email' ).formValidation( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
 
 		userInitiatedSubmit();
 
 		strictEqual( $( '#email' )[ 0 ].validity.valid, true, '#email is valid' );
-		strictEqual( $( '#email' ).forcesForms( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
+		strictEqual( $( '#email' ).formValidation( 'question' ).find( '.alert' ).length, 0, '#email has no alert displayed' );
 
 	});
 

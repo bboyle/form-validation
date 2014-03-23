@@ -5,7 +5,7 @@
 	requires jquery.scrollTo plugin
 	requires generate-id plugin
 	requires HTML5 constraint validation API (native browser or polyfill)
-	tested with polyfill forces.html5.constraintValidationAPI
+	tested with polyfill html5.constraintValidationAPI
 
 */
 

@@ -5,7 +5,7 @@ lifecycleCVAPI = (function( $ ) {
 		setup: function() {
 			// initialise validation (for fixture)
 			initConstraintValidationAPI();
-			$( 'form' ).forcesForms( 'validate' );
+			$( 'form' ).formValidation( 'validate' );
 		},
 
 		teardown: function() {
