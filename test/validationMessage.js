@@ -29,8 +29,8 @@
 		$( '#foo, #bar' ).each(function() {
 			this.checkValidity();
 		});
-		strictEqual( $( '#foo' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #foo' );
-		strictEqual( $( '#bar' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #bar' );
+		strictEqual( $( '#foo' ).formValidation( 'getValidationMessage' ), 'Must be completed', 'found message for #foo' );
+		strictEqual( $( '#bar' ).formValidation( 'getValidationMessage' ), 'Must be completed', 'found message for #bar' );
 	});
 
 	test( 'email type', function() {
@@ -38,7 +38,7 @@
 		// invalid email
 		$( '#email' ).val( 'foo' )[ 0 ].checkValidity();
 
-		strictEqual( $( '#email' ).forcesForms( 'getValidationMessage' ), 'Must be an email address', 'found message for #email' );
+		strictEqual( $( '#email' ).formValidation( 'getValidationMessage' ), 'Must be an email address', 'found message for #email' );
 	});
 
 	test( 'pattern mismatch', function() {
@@ -46,15 +46,15 @@
 		// invalid value
 		$( '#part' ).val( 'foo' )[ 0 ].checkValidity();
 
-		strictEqual( $( '#part' ).forcesForms( 'getValidationMessage' ), 'Must use the format shown', 'found message for #part' );
+		strictEqual( $( '#part' ).formValidation( 'getValidationMessage' ), 'Must use the format shown', 'found message for #part' );
 	});
 
-	test( 'verify .forcesForm( "validationMessage" ) returns first value only', function() {
+	test( 'verify .formValidation( "validationMessage" ) returns first value only', function() {
 
 		$( '#foo, #bar' ).each(function() {
 			this.checkValidity();
 		});
-		strictEqual( $( '#foo, #bar' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found expected message' );
+		strictEqual( $( '#foo, #bar' ).formValidation( 'getValidationMessage' ), 'Must be completed', 'found expected message' );
 		
 	});
 
@@ -63,8 +63,8 @@
 		$( '#city, #country' ).each(function() {
 			this.checkValidity();
 		});
-		strictEqual( $( '#city' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #city' );
-		strictEqual( $( '#country' ).forcesForms( 'getValidationMessage' ), 'Must be completed', 'found message for #country' );
+		strictEqual( $( '#city' ).formValidation( 'getValidationMessage' ), 'Must be completed', 'found message for #city' );
+		strictEqual( $( '#country' ).formValidation( 'getValidationMessage' ), 'Must be completed', 'found message for #country' );
 	});
 
 
@@ -77,15 +77,15 @@
 		$( '#foo' )[ 0 ].checkValidity();
 
 		strictEqual( $( '#foo' )[ 0 ].validationMessage, 'foo is invalid', 'found .validationMessage for #foo' );
-		strictEqual( $( '#foo' ).forcesForms( 'getValidationMessage' ), 'foo is invalid', 'found .forcesForms( "getValidationMessage" ) for #foo' );
-		strictEqual( $( '#foo' ).forcesForms( 'getValidationMessage' ), $( '#foo' )[ 0 ].validationMessage, 'getValidationMessage === validationMessage' );
+		strictEqual( $( '#foo' ).formValidation( 'getValidationMessage' ), 'foo is invalid', 'found .formValidation( "getValidationMessage" ) for #foo' );
+		strictEqual( $( '#foo' ).formValidation( 'getValidationMessage' ), $( '#foo' )[ 0 ].validationMessage, 'getValidationMessage === validationMessage' );
 
 		$( '#foo' )[ 0 ].setCustomValidity( '' );
 		$( '#foo' )[ 0 ].checkValidity();
 
 		strictEqual( $( '#foo' )[ 0 ].validationMessage, '', 'found .validationMessage for #foo' );
-		strictEqual( $( '#foo' ).forcesForms( 'getValidationMessage' ), '', 'found .forcesForms( "getValidationMessage" ) for #foo' );
-		strictEqual( $( '#foo' ).forcesForms( 'getValidationMessage' ), $( '#foo' )[ 0 ].validationMessage, 'getValidationMessage === validationMessage' );
+		strictEqual( $( '#foo' ).formValidation( 'getValidationMessage' ), '', 'found .formValidation( "getValidationMessage" ) for #foo' );
+		strictEqual( $( '#foo' ).formValidation( 'getValidationMessage' ), $( '#foo' )[ 0 ].validationMessage, 'getValidationMessage === validationMessage' );
 	});
 
 

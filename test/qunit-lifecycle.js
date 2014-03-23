@@ -1,11 +1,11 @@
 // constraint validation API (html5)
-/*globals initConstraintValidationAPI*/
+/*global initConstraintValidationAPI*/
 lifecycleCVAPI = (function( $ ) {
 	return {
 		setup: function() {
 			// initialise validation (for fixture)
 			initConstraintValidationAPI();
-			$( 'form' ).forcesForms( 'validate' );
+			$( 'form' ).formValidation( 'validate' );
 		},
 
 		teardown: function() {
