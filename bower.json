@@ -1,0 +1,33 @@
+{
+  "name": "form-validation",
+  "version": "1.0.1",
+  "homepage": "https://github.com/bboyle/form-validation",
+  "authors": [
+    "Ben Boyle <benjamins.boyle@gmail.com>"
+  ],
+  "description": "Validation UI for web forms using the HTML5 constraint validation API",
+  "main": "src/form-validation.js",
+  "keywords": [
+    "HTML5",
+    "form",
+    "validation",
+    "UX",
+    "constraint",
+    "validation",
+    "API"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "dist",
+    "libs",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.7.2"
+  }
+}
