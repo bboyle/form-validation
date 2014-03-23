@@ -28,6 +28,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "1.7.2"
+    "jquery": "1.7.2",
+    "generate-id": "https://github.com/bboyle/Generate-ID.git#~0.1.0"
   }
 }
