@@ -255,7 +255,7 @@
 	test( 'x-invalid event triggered onsubmit', 1, function() {
 
 		var xInvalidEvents = 0;
-		$( 'form#test' ).on( 'x-invalid', function() {
+		$( 'form#test' ).bind( 'x-invalid', function() {
 			xInvalidEvents++;
 			strictEqual( xInvalidEvents, 1, 'saw x-invalid event' );
 		});
