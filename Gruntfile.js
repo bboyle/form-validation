@@ -11,10 +11,24 @@ module.exports = function( grunt ) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' +
 			' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */\n',
+
+
 		// Task configuration.
 		clean: {
 			files: [ 'dist' ]
 		},
+
+
+		connect: {
+			server: {
+				options: {
+					port: 8000,
+					base: '.'
+				}
+			}
+		},
+
+
 		// production pipeline tasks
 		uglify: {
 			options: {
@@ -26,13 +40,37 @@ module.exports = function( grunt ) {
 				}
 			},
 		},
+
+
 		// code quality tasks
 		qunit: {
 			options: {
 				timeout: 12000
 			},
-			files: [ 'test/**/*.html' ]
+
+			// test via file:///
+			unit: [ 'test/**/*.html' ],
+
+			// test other jquery versions
+			"jQuery 1.4.4": {
+				options: {
+					timeout: 12000,
+					urls: [
+						'http://localhost:8000/test/alert.html?jquery=1.4.4',
+						'http://localhost:8000/test/groups.html?jquery=1.4.4',
+						'http://localhost:8000/test/hints.html?jquery=1.4.4',
+						'http://localhost:8000/test/invalid.html?jquery=1.4.4',
+						'http://localhost:8000/test/labels.html?jquery=1.4.4',
+						'http://localhost:8000/test/questions.html?jquery=1.4.4',
+						'http://localhost:8000/test/submit-suppression.html?jquery=1.4.4',
+						'http://localhost:8000/test/submit.html?jquery=1.4.4',
+						'http://localhost:8000/test/validationMessage.html?jquery=1.4.4'
+					]
+				}
+			}
 		},
+
+
 		jshint: {
 			gruntfile: {
 				options: { jshintrc: '.jshintrc' },
@@ -47,6 +85,8 @@ module.exports = function( grunt ) {
 				src: [ 'test/*.js' ]
 			},
 		},
+
+
 		watch: {
 			gruntfile: {
 				files: '<%= jshint.gruntfile.src %>',
@@ -54,11 +94,11 @@ module.exports = function( grunt ) {
 			},
 			src: {
 				files: '<%= jshint.src.src %>',
-				tasks: [ 'jshint:src', 'qunit' ]
+				tasks: [ 'jshint:src', 'qunit:unit' ]
 			},
 			test: {
 				files: '<%= jshint.test.src %>',
-				tasks: [ 'jshint:test', 'qunit' ]
+				tasks: [ 'jshint:test', 'qunit:unit' ]
 			},
 		}
 	});
@@ -66,12 +106,13 @@ module.exports = function( grunt ) {
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
+	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
 	grunt.loadNpmTasks( 'grunt-contrib-jshint' );
 	grunt.loadNpmTasks( 'grunt-contrib-watch' );
 
 	// Default task.
-	grunt.registerTask( 'test', [ 'jshint', 'qunit' ]);
+	grunt.registerTask( 'test', [ 'jshint', 'connect', 'qunit' ]);
 	grunt.registerTask( 'produce', [ 'clean', 'uglify' ]);
 	grunt.registerTask( 'default', [ 'test', 'produce' ]);
 
