@@ -2,7 +2,7 @@
   "name": "form-validation",
   "title": "Form validation",
   "description": "Validation UI for web forms using the HTML5 constraint validation API",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "homepage": "https://github.com/bboyle/form-validation",
   "author": {
     "name": "Ben Boyle",
