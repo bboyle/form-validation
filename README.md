@@ -1,5 +1,4 @@
 [![Travis build status](https://travis-ci.org/bboyle/form-validation.png?branch=master)](https://travis-ci.org/bboyle/form-validation)
-[![dependencies](https://david-dm.org/bboyle/form-validation.png)](https://david-dm.org/bboyle/form-validation)
 [![devDependencies](https://david-dm.org/bboyle/form-validation/dev-status.png)](https://david-dm.org/bboyle/form-validation#info=devDependencies)
 
 This is a form validation package I have developed to deliver the UX I want in web forms
