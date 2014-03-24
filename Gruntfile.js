@@ -61,6 +61,7 @@ module.exports = function( grunt ) {
 						'http://localhost:8000/test/hints.html?jquery=1.4.4',
 						'http://localhost:8000/test/invalid.html?jquery=1.4.4',
 						'http://localhost:8000/test/labels.html?jquery=1.4.4',
+						'http://localhost:8000/test/markup.html?jquery=1.4.4',
 						'http://localhost:8000/test/questions.html?jquery=1.4.4',
 						'http://localhost:8000/test/submit-suppression.html?jquery=1.4.4',
 						'http://localhost:8000/test/submit.html?jquery=1.4.4',

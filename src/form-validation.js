@@ -187,11 +187,19 @@
 					label = $this.formValidation( 'label', {
 						level : group.length > 0 ? 'group' : null
 					}),
-					// get the label id
-					labelId = label[ 0 ].id || label.generateId( 'label-' + this.id )[ 0 ].id,
-					// get alert item
-					item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ))
+					labelId,
+					item
 				;
+
+				// get the label id
+				if ( label.length > 0 ) {
+					labelId = label[ 0 ].id || label.generateId( 'label-' + this.id )[ 0 ].id;
+				} else {
+					labelId = this.name;
+				}
+
+				// get alert item
+				item = pluginData.call( $this, 'summaryElement' ) || pluginData.call( $this, 'summaryElement', $( '<li><a href="#' + labelId + '"></a></li>' ));
 
 				if ( group.length === 0 || group[ 0 ] !== lastGroupSeen ) {
 
@@ -201,7 +209,7 @@
 					// create error message with link to label
 					item
 						.find( 'a' )
-							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.formValidation( 'getValidationMessage' ) )
+							.text( label.text().replace( /\?$/, '' ) + ': ' + $this.formValidation( 'getValidationMessage' ))
 							.end()
 						.appendTo( messages )
 					;
