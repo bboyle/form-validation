@@ -10,7 +10,7 @@
 
 
 	// bind submit counter
-	$( 'form' ).live( 'submit', function() {
+	$( document ).delegate( 'form', 'submit', function() {
 		submitted++;
 		ok( submitted <= 3, 'submit event detected' );
 	});

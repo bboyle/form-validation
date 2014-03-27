@@ -4,8 +4,6 @@
 This is a form validation package I have developed to deliver the UX I want in web forms
 that use the HTML5 constraint validation API.
 
-This plugin *does not work* with jQuery 1.9+ due to the removal of [`.live()`](http://api.jquery.com/live/)
-
 You're welcome to reuse, fork, modify etc. and chances are you will need to
 (unless you like my markup and don't need any language other than English).
 
@@ -38,5 +36,3 @@ You may want to check out @jzaefferer's [jquery-validation](https://github.com/j
 * separate submit suppression into a separate repo?
 * html5 validation for test pages
 * acceptance tests in multiple browsers
-* test against different versions of jquery
-* support jQuery 1.9+ (and continue backwards compatibility for jQuery 1.4.4+)
