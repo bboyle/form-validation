@@ -20,12 +20,11 @@
   "private": true,
   "ignore": [
     "**/.*",
-    "dist",
     "libs",
     "node_modules",
     "bower_components",
-    "test",
-    "tests"
+    "src",
+    "test"
   ],
   "dependencies": {
     "jquery": "1.7.2",
