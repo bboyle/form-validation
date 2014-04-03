@@ -76,6 +76,17 @@ module.exports = function( grunt ) {
 						'http://localhost:8000/test/submit-suppression.html?jquery=1.4.4',
 						'http://localhost:8000/test/submit.html?jquery=1.4.4',
 						'http://localhost:8000/test/validationMessage.html?jquery=1.4.4',
+						// 1.7.2
+						'http://localhost:8000/test/alert.html?jquery=1.7.2',
+						'http://localhost:8000/test/groups.html?jquery=1.7.2',
+						'http://localhost:8000/test/hints.html?jquery=1.7.2',
+						'http://localhost:8000/test/invalid.html?jquery=1.7.2',
+						'http://localhost:8000/test/labels.html?jquery=1.7.2',
+						'http://localhost:8000/test/markup.html?jquery=1.7.2',
+						'http://localhost:8000/test/questions.html?jquery=1.7.2',
+						'http://localhost:8000/test/submit-suppression.html?jquery=1.7.2',
+						'http://localhost:8000/test/submit.html?jquery=1.7.2',
+						'http://localhost:8000/test/validationMessage.html?jquery=1.7.2',
 						// 2.1.0
 						'http://localhost:8000/test/alert.html?jquery=2.1.0',
 						'http://localhost:8000/test/groups.html?jquery=2.1.0',

@@ -1,4 +1,4 @@
-/*! Form validation - v1.0.2 - 2014-04-03
+/*! Form validation - v1.0.4 - 2014-04-03
 * https://github.com/bboyle/form-validation
 * Copyright (c) 2014 Ben Boyle; Licensed MIT */
 (function( $ ) {

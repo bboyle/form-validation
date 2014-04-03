@@ -1,6 +1,6 @@
 {
   "name": "form-validation",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "homepage": "https://github.com/bboyle/form-validation",
   "authors": [
     "Ben Boyle <benjamins.boyle@gmail.com>"
@@ -20,19 +20,18 @@
   "private": true,
   "ignore": [
     "**/.*",
-    "bower.json",
+    "*.json",
     "CONTRIBUTING.md",
     "Gruntfile.js",
-    "package.json",
+    "bower_components",
     "libs",
     "node_modules",
-    "bower_components",
     "src",
     "test"
   ],
   "dependencies": {
-    "jquery": "1.7.2",
-    "generate-id": "https://github.com/bboyle/Generate-ID.git#~0.1.1",
+    "jquery": "*",
+    "generate-id": "https://github.com/bboyle/Generate-ID.git",
     "html5-constraint-validation-API": "https://github.com/bboyle/html5-constraint-validation-API.git"
   }
 }
