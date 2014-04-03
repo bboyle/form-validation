@@ -30,13 +30,23 @@ module.exports = function( grunt ) {
 
 
 		// production pipeline tasks
+		concat: {
+			options: {
+				banner: '<%= banner %>',
+				stripBanners: true
+			},
+			dist: {
+				src: [ 'src/<%= pkg.name %>.js' ],
+				dest: 'dist/<%= pkg.name %>.js'
+			}
+		},
 		uglify: {
 			options: {
 				banner: '<%= banner %>'
 			},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>.min.js': [ 'src/<%= pkg.name %>.js' ]
+					'dist/<%= pkg.name %>.min.js': [ 'dist/<%= pkg.name %>.js' ]
 				}
 			},
 		},
@@ -117,6 +127,7 @@ module.exports = function( grunt ) {
 
 	// These plugins provide necessary tasks.
 	grunt.loadNpmTasks( 'grunt-contrib-clean' );
+	grunt.loadNpmTasks( 'grunt-contrib-concat' );
 	grunt.loadNpmTasks( 'grunt-contrib-uglify' );
 	grunt.loadNpmTasks( 'grunt-contrib-connect' );
 	grunt.loadNpmTasks( 'grunt-contrib-qunit' );
@@ -125,7 +136,7 @@ module.exports = function( grunt ) {
 
 	// Default task.
 	grunt.registerTask( 'test', [ 'jshint', 'connect', 'qunit' ]);
-	grunt.registerTask( 'produce', [ 'clean', 'uglify' ]);
+	grunt.registerTask( 'produce', [ 'clean', 'concat', 'uglify' ]);
 	grunt.registerTask( 'default', [ 'test', 'produce' ]);
 
 };
