@@ -1,6 +1,6 @@
 {
   "name": "form-validation",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "homepage": "https://github.com/bboyle/form-validation",
   "authors": [
     "Ben Boyle <benjamins.boyle@gmail.com>"
@@ -20,6 +20,10 @@
   "private": true,
   "ignore": [
     "**/.*",
+    "bower.json",
+    "CONTRIBUTING.md",
+    "Gruntfile.js",
+    "package.json",
     "libs",
     "node_modules",
     "bower_components",
