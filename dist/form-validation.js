@@ -1,4 +1,4 @@
-/*! Form validation - v1.1.0 - 2014-04-09
+/*! Form validation - v1.1.1 - 2014-04-09
 * https://github.com/bboyle/form-validation
 * Copyright (c) 2014 Ben Boyle; Licensed MIT */
 (function( $ ) {
@@ -143,11 +143,12 @@
 					return false;
 				}
 
-				if ( ! invalidFields.cache ) {
-					invalidFields.cache = {};
+				// only check radio button groups once (skip individual radio button)
+				if ( this.type === 'radio' ) {
+					if ( ! invalidFields.cache ) {
+						invalidFields.cache = {};
 
-				} else if ( this.type === 'radio' ) {
-					if ( invalidFields.cache[ this.name ] === true ) {
+					} else if ( invalidFields.cache[ this.name ] === true ) {
 						return false;
 					}
 					invalidFields.cache[ this.name ] = true;
