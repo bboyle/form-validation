@@ -150,11 +150,12 @@
 					return false;
 				}
 
-				if ( ! invalidFields.cache ) {
-					invalidFields.cache = {};
+				// only check radio button groups once (skip individual radio button)
+				if ( this.type === 'radio' ) {
+					if ( ! invalidFields.cache ) {
+						invalidFields.cache = {};
 
-				} else if ( this.type === 'radio' ) {
-					if ( invalidFields.cache[ this.name ] === true ) {
+					} else if ( invalidFields.cache[ this.name ] === true ) {
 						return false;
 					}
 					invalidFields.cache[ this.name ] = true;
