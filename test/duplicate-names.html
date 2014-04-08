@@ -90,6 +90,37 @@
 				<textarea name="foo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
 			</li>
 
+			<li>
+				<fieldset>
+					<legend>
+						<span class="label">Radio foo</span>
+						<abbr title="(required)">*</abbr>
+					</legend>
+					<ul class="choices">
+						<li>
+							<input type="radio" name="foo" value="foo" id="radio-foo-foo" required="required" />
+							<label for="radio-foo-foo">Foo</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="bar" id="radio-foo-bar" />
+							<label for="radio-foo-bar">Bar</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="" id="radio-foo-BLANK" />
+							<label for="radio-foo-BLANK">BLANK</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="undefined" id="radio-foo-undefined" />
+							<label for="radio-foo-undefined">undefined</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="null" id="radio-foo-null" />
+							<label for="radio-foo-null">null</label>
+						</li>
+					</ul>
+				</fieldset>
+			</li>
+
 			<li class="footer">
 				<ol class="submit">
 					<li>
