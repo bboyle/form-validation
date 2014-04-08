@@ -153,10 +153,12 @@
 				if ( ! invalidFields.cache ) {
 					invalidFields.cache = {};
 
-				} else if ( invalidFields.cache[ this.name ] === true ) {
-					return false;
+				} else if ( this.type === 'radio' ) {
+					if ( invalidFields.cache[ this.name ] === true ) {
+						return false;
+					}
+					invalidFields.cache[ this.name ] = true;
 				}
-				invalidFields.cache[ this.name ] = true;
 
 				return this.validity && ! this.validity.valid;
 			}),
