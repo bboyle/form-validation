@@ -75,6 +75,7 @@ module.exports = function( grunt ) {
 						'http://localhost:8000/test/questions.html?jquery=1.4.4',
 						'http://localhost:8000/test/submit-suppression.html?jquery=1.4.4',
 						'http://localhost:8000/test/submit.html?jquery=1.4.4',
+						'http://localhost:8000/test/duplicate-names.html?jquery=1.4.4',
 						'http://localhost:8000/test/validationMessage.html?jquery=1.4.4',
 						// 1.7.2
 						'http://localhost:8000/test/alert.html?jquery=1.7.2',
@@ -86,6 +87,7 @@ module.exports = function( grunt ) {
 						'http://localhost:8000/test/questions.html?jquery=1.7.2',
 						'http://localhost:8000/test/submit-suppression.html?jquery=1.7.2',
 						'http://localhost:8000/test/submit.html?jquery=1.7.2',
+						'http://localhost:8000/test/duplicate-names.html?jquery=1.7.2',
 						'http://localhost:8000/test/validationMessage.html?jquery=1.7.2',
 						// 2.1.0
 						'http://localhost:8000/test/alert.html?jquery=2.1.0',
@@ -97,6 +99,7 @@ module.exports = function( grunt ) {
 						'http://localhost:8000/test/questions.html?jquery=2.1.0',
 						'http://localhost:8000/test/submit-suppression.html?jquery=2.1.0',
 						'http://localhost:8000/test/submit.html?jquery=2.1.0',
+						'http://localhost:8000/test/duplicate-names.html?jquery=2.1.0',
 						'http://localhost:8000/test/validationMessage.html?jquery=2.1.0'
 					]
 				}
@@ -107,7 +110,10 @@ module.exports = function( grunt ) {
 		jshint: {
 			gruntfile: {
 				options: { jshintrc: '.jshintrc' },
-				src: 'Gruntfile.js'
+				src: [
+					'Gruntfile.js',
+					'*.json'
+				]
 			},
 			src: {
 				options: { jshintrc: 'src/.jshintrc' },

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+	<meta charset="UTF-8" />
+	<title>duplicate names in form fields · form validation tests</title>
+
+	<!-- Load local jQuery. This can be overridden with a ?jquery=___ param. -->
+	<script src="../libs/jquery-loader.js"></script>
+	<!-- Load local QUnit. -->
+	<link rel="stylesheet" href="../node_modules/qunitjs/qunit/qunit.css" media="screen">
+	<script src="../node_modules/qunitjs/qunit/qunit.js"></script>
+	<!-- Load local lib and tests. -->
+	<script src="../bower_components/html5-constraint-validation-API/dist/html5.constraintValidationAPI.min.js"></script>
+	<script src="../bower_components/generate-id/dist/generate-id.min.js"></script>
+	<script src="../src/form-validation.js"></script>
+	<script src="qunit-lifecycle.js"></script>
+	<script src="duplicate-names.js"></script>
+	<!-- Removing access to jQuery and $. But it'll still be available as _$, if
+		you REALLY want to mess around with jQuery in the console. REMEMBER WE
+		ARE TESTING A PLUGIN HERE, THIS HELPS ENSURE BEST PRACTICES. REALLY. -->
+	<script>window._$ = jQuery.noConflict(true);</script>
+
+	<style>
+		body {
+			padding: 2em;
+			font-family: sans-serif;
+			background: #faf7f3;
+			color: #111;
+		}
+
+		#qunit-fixture {
+			position: static;
+		}
+
+
+		.status {
+			border: 2px solid #fc3;
+			background: #ffe;
+			padding: 1em;
+		}
+
+		.invalid {
+			border: 1px solid red;
+		}
+		.alert {
+			color: red;
+		}
+
+	</style>
+
+</head>
+
+<body>
+
+
+<div id="qunit"></div>
+<div id="qunit-fixture">
+
+	<form id="test" action="javascript:">
+
+		<ol class="questions">
+
+			<li>
+				<label for="foo">
+					<span class="label">Foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<input type="text" name="foo" id="foo" value="" required="required" />
+			</li>
+
+			<li>
+				<label for="select-foo">
+					<span class="label">Select foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<select id="select-foo" name="foo" required="required">
+					<option value=""></option>
+					<option value="foo">foo</option>
+					<option value="0">0</option>
+					<option value="null">null</option>
+					<option value="undefined">undefined</option>
+				</select>
+			</li>
+
+			<li>
+				<label for="textarea-foo">
+					<span class="label">Textarea foo</span>
+					<abbr title="(required)">*</abbr>
+				</label>
+				<textarea name="foo" id="textarea-foo" rows="5" cols="50" required="required"></textarea>
+			</li>
+
+			<li>
+				<fieldset>
+					<legend>
+						<span class="label">Radio foo</span>
+						<abbr title="(required)">*</abbr>
+					</legend>
+					<ul class="choices">
+						<li>
+							<input type="radio" name="foo" value="foo" id="radio-foo-foo" required="required" />
+							<label for="radio-foo-foo">Foo</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="bar" id="radio-foo-bar" />
+							<label for="radio-foo-bar">Bar</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="" id="radio-foo-BLANK" />
+							<label for="radio-foo-BLANK">BLANK</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="undefined" id="radio-foo-undefined" />
+							<label for="radio-foo-undefined">undefined</label>
+						</li>
+						<li>
+							<input type="radio" name="foo" value="null" id="radio-foo-null" />
+							<label for="radio-foo-null">null</label>
+						</li>
+					</ul>
+				</fieldset>
+			</li>
+
+			<li class="footer">
+				<ol class="submit">
+					<li>
+						<strong>
+							<input type="submit" value="Submit" />
+						</strong>
+					</li>
+				</ol>
+			</li>
+		</ol>
+	</form>
+
+</div>
+
+
+</body>
+</html>
